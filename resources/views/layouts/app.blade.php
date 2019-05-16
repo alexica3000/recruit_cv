@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="E0nMLAbx7nG8r7t0GRvmvyk5WCuHUT4nWWLungPl">
 
     <!-- Styles -->
-    <link href="{{url('css/app.css')}}" rel="stylesheet">
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
 </head>
 <body>
 <!--
@@ -34,17 +34,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav ml-auto navbar-caliber">
-                        <li class="nav-item active">
+                        <li class="{{Request::is('recruitment') ? 'nav-item active' : 'nav-item' }}">
                             <a class="nav-link" href="{{ route('recruitment.index') }}">Recruitment</a>
-
                         </li>
-                        <li class="nav-item">
+                        <li class="{{Request::is('accounts') ? 'nav-item active' : 'nav-item'}}">
                             <a class="nav-link" href="{{ route('accounts.index') }}">Accounts</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="{{Request::is('departments') ? 'nav-item active' : 'nav-item'}}">
                             <a class="nav-link" href="{{route('departments.index')}}">Departments</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="{{Request::is('clients') ? 'nav-item active' : 'nav-item'}}">
                             <a class="nav-link" href="{{route('clients.index')}}">Clients</a>
                         </li>
                     </ul>
