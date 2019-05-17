@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::resource('recruitment', 'RecruitController');
+Route::resource('recruitment', 'RecruitsController');
 
 Route::resource('accounts', 'AccountsController');
 

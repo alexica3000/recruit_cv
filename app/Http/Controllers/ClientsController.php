@@ -13,7 +13,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        return view('layouts.clientsview');
+        return view('clients.view');
     }
 
     /**
@@ -23,7 +23,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        return view('layouts.clientscreate');
+        return view('clients.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        return view('layouts.clientsedit');
+        return view('clients.edit');
     }
 
     /**
@@ -79,6 +79,6 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        return view('layouts.clientsdelete');
+        return view('clients.delete');
     }
 }

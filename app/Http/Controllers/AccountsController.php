@@ -13,7 +13,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        return view('layouts.accountsview');
+        return view('accounts.view');
     }
 
     /**
@@ -23,7 +23,7 @@ class AccountsController extends Controller
      */
     public function create()
     {
-        return view('layouts.accountscreate');
+        return view('accounts.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        return view('layouts.accountsedit');
+        return view('accounts.edit');
     }
 
     /**
@@ -79,6 +79,6 @@ class AccountsController extends Controller
      */
     public function destroy($id)
     {
-        return view('layouts.accountsdelete');
+        return view('accounts.delete');
     }
 }

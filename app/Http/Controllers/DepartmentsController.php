@@ -13,7 +13,7 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        return view('layouts.departmentsview');
+        return view('departments.view');
     }
 
     /**
@@ -23,7 +23,7 @@ class DepartmentsController extends Controller
      */
     public function create()
     {
-        return view('layouts.departmentscreate');
+        return view('departments.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class DepartmentsController extends Controller
      */
     public function edit($id)
     {
-        return view('layouts.departmentsedit');
+        return view('departments.edit');
     }
 
     /**
@@ -79,6 +79,6 @@ class DepartmentsController extends Controller
      */
     public function destroy($id)
     {
-        return view('layouts.departmentsdelete');
+        return view('departments.delete');
     }
 }

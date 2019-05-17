@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class RecruitController extends Controller
+class RecruitsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class RecruitController extends Controller
      */
     public function index()
     {
-        return view('layouts.recruitview');
+        return view('recruits.view');
     }
 
     /**
@@ -23,7 +23,7 @@ class RecruitController extends Controller
      */
     public function create()
     {
-        return view('layouts.recruitcreate');
+        return view('recruits.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class RecruitController extends Controller
      */
     public function edit($id)
     {
-        return view('layouts.recruitedit');
+        return view('recruits.edit');
     }
 
     /**
@@ -79,6 +79,6 @@ class RecruitController extends Controller
      */
     public function destroy($id)
     {
-         return view('layouts.recruitdelete');
+         return view('recruits.delete');
     }
 }
