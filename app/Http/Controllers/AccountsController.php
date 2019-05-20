@@ -79,6 +79,6 @@ class AccountsController extends Controller
      */
     public function destroy($id)
     {
-        return view('accounts.delete');
+        return 'Accounts deleted';
     }
 }

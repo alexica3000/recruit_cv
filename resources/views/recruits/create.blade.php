@@ -1,21 +1,15 @@
 @extends('layouts.app')
 
+@section('title', 'Recruitment')
+
+@section('buttons')
+    <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
+@endsection
+
+
 @section('content')
-    <main class="main">
-        <div class="container">
-            <div class="page-head">
-                <div class="d-md-flex justify-content-md-between">
-                    <div class="item">
-                        <h3>Recruitment</h3>
-                    </div>
-                    <div class="item">
-                        <div class="d-flex justify-content-md-end">
-                            <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+
+    <div class="row">
                 <div class="col-12 col-lg-6">
                     <h3>Person</h3>
                     <div class="row">
@@ -126,12 +120,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-
-
-
         </div>
-    </main>
+
 @endsection

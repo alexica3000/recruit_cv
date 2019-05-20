@@ -1,22 +1,15 @@
 @extends('layouts.app')
 
+@section('title', 'Accounts')
+
+@section('buttons')
+    <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
+@endsection
+
+
 @section('content')
-    <main class="main">
-        <div class="container">
-            <div class="page-head">
-                <div class="d-md-flex justify-content-md-between">
-                    <div class="item">
-                        <h3>Accounts</h3>
-                    </div>
-                    <div class="item">
-                        <div class="d-flex justify-content-md-end">
-                            {{--<div><a href="#" class="btn btn-outline-danger">Delete</a></div>--}}
-                            <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+
+        <div class="row">
                 <div class="col-12 col-xl-6">
                     <h3>Account</h3>
                     <div class="row">
@@ -63,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-    </main>
+
 @endsection

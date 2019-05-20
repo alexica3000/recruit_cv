@@ -1,18 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Accounts')
+
+@section('buttons')
+    <a href="{{ route('accounts.create') }}" class="btn btn-primary">New account</a>
+@endsection
+
+
 @section('content')
-    <main class="main">
-        <div class="container">
-            <div class="page-head">
-                <div class="d-flex justify-content-between flex-wrap">
-                    <div class="item">
-                        <h3>Accounts</h3>
-                    </div>
-                    <div class="item">
-                        <a href="{{route('accounts.create')}}" class="btn btn-primary">New account</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="table-responsive">
                 <table class="table table-brand">
                     <thead>
@@ -105,6 +101,5 @@
                     </nav>
                 </div>
             </div>
-        </div>
-    </main>
+
 @endsection

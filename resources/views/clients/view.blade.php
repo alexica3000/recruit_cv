@@ -1,18 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Clients')
+
+@section('buttons')
+    <a href="{{ route('clients.create') }}" class="btn btn-primary">New client</a>
+@endsection
+
+
 @section('content')
-    <main class="main">
-        <div class="container">
-            <div class="page-head">
-                <div class="d-flex justify-content-between flex-wrap">
-                    <div class="item">
-                        <h3>Clients</h3>
-                    </div>
-                    <div class="item">
-                        <a href="{{route('clients.create')}}" class="btn btn-primary">New client</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="table-responsive">
                 <table class="table table-brand">
                     <thead>
@@ -76,6 +72,5 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </main>
+
 @endsection

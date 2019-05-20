@@ -79,6 +79,6 @@ class RecruitsController extends Controller
      */
     public function destroy($id)
     {
-         return view('recruits.delete');
+         return 'Recruit deleted';
     }
 }

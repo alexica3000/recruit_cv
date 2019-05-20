@@ -1,0 +1,107 @@
+select ~ .select2 {
+    &.select2-container {
+        &.select2-container {
+            &--brand {
+                outline: none;
+                width: 100%!important;
+                &.select2-container {
+                    &--open {
+                        .select2-selection {
+                            border-color: $orange;
+                            box-shadow: 0 0 0 0.2rem rgba(231, 74, 13, 0.18);
+                            &__arrow {
+                                b {
+                                    border-top-color: $form-border;
+                                }
+                            }
+                        }
+                    }
+                    &--disabled {
+                        .select2-selection {
+                            background: $odd;
+                        }
+                    }
+                    &--focus {
+                        .select2-selection {
+                            border-color: $form-border;
+                            box-shadow: 0 0 0 0.2rem rgba(231, 74, 13, 0.18);
+                            &__arrow {
+                                b {
+                                    border-top-color: $form-border;
+                                }
+                            }
+                        }
+                    }
+                }
+                .select2-selection {
+                    height: $field-height;
+                    border: 1px solid $form-border;
+                    border-radius: $button-radius;
+                    outline: none;
+                    &__rendered {
+                        padding: 13px 1rem;
+                        outline: none;
+                        line-height: 20px;
+                    }
+                    &__placeholder {
+                        line-height: 20px;
+                        color: $placeholder-color;
+                    }
+                    &__arrow {
+                        @include position(right, 0, top, 0);
+                        width: $field-height;
+                        height: $field-height;
+                        b {
+                            @include position(center, 0, center, 0);
+                            display: block;
+                            width: 0;
+                            height: 0;
+                            border-right: 6px solid transparent;
+                            border-left: 6px solid transparent;
+                            border-top: 6px solid $form-border;
+                            border-radius: 3px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+select.is-invalid ~ .select2 {
+    &.select2-container {
+        &.select2-container {
+            &--brand {
+                .select2-selection {
+                    border-color: $red;
+                    &__arrow {
+                        b {
+                            border-top-color: $red;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+span.select2-container--brand {
+    .select2-dropdown {
+        border-color: $form-border;
+    }
+    .select2-search__field {
+        border: 1px solid $form-border;
+        outline: none;
+        &:focus {
+            border-color: $form-border;
+            box-shadow: 0 0 0 0.2rem rgba(231, 74, 13, 0.18);
+        }
+    }
+    .select2-results__option {
+        &.select2-results__option--highlighted {
+            background: $form-border;
+        }
+        &[aria-disabled=true] {
+            background: $odd;
+            color: $placeholder;
+        }
+    }
+}

@@ -1,28 +1,24 @@
 @extends('layouts.app')
 
+@section('title', 'Departments')
+
+@section('buttons')
+    <div class="d-flex justify-content-md-end">
+
+        <form action="{{ route('departments.destroy', ['id'=>2]) }}" method="POST">
+            @method('DELETE')
+            @csrf
+            <button class="btn btn-outline-danger">Delete</button>
+        </form>
+
+        {{--<div><a href="#" class="btn btn-outline-danger">Delete</a></div>--}}
+        <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
+    </div>
+@endsection
+
+
 @section('content')
-    <main class="main">
-        <div class="container">
-            <div class="page-head">
-                <div class="d-md-flex justify-content-md-between">
-                    <div class="item">
-                        <h3>Departments</h3>
-                    </div>
-                    <div class="item">
-                        <div class="d-flex justify-content-md-end">
 
-                            <form action="{{ route('departments.destroy', ['id'=>2]) }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-outline-danger">Delete</button>
-                            </form>
-
-                            {{--<div><a href="#" class="btn btn-outline-danger">Delete</a></div>--}}
-                            <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-12">
                     <h3>Department</h3>
@@ -46,6 +42,5 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+
 @endsection

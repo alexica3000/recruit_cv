@@ -1,0 +1,51 @@
+.pagination-bar {
+    margin-bottom: 1.5rem;
+    .pagination {
+        margin: 0;
+    }
+    .page-item {
+        padding: .25rem;
+        line-height: 2rem;
+        &:last-child {
+            padding-right: 0;
+        }
+        &.active {
+            .page-link {
+                background: $orange;
+                border-color: $orange;
+                color: $white;
+            }
+        }
+    }
+    .page-link {
+        display: block;
+        min-width: 2rem;
+        padding: calc(.25rem - 1px);
+        line-height: 1.5rem;
+        text-align: center;
+        color: $text;
+        border: 1px solid $border;
+        border-radius: 4px;
+    }
+}
+.per-page {
+    padding: .25rem 0;
+    white-space: nowrap;
+    .item {
+        line-height: 2rem;
+        padding: 0 1rem;
+        color: $text;
+        &:first-child {
+            padding-left: 0;
+        }
+        a {
+            color: $text;
+        }
+        @include media-breakpoint-down(LG) {
+            padding: 0 .5rem;
+        }
+        &.result {
+            border-left: 1px solid $border;
+        }
+    }
+}

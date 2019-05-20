@@ -1,3 +1,4 @@
+
 window._ = require('lodash');
 
 /**
@@ -11,6 +12,12 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('select2');
+    window.moment = require('moment/moment');
+    require('moment/locale/nl');
+    require('tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min');
+    require('bootstrap-fileinput/js/fileinput.min');
+    require('jquery-bar-rating/dist/jquery.barrating.min.js');
 } catch (e) {}
 
 /**

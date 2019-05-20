@@ -1,0 +1,14 @@
+.box {
+    &-table {
+        display: table;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+    }
+    &-cell {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+    }
+}

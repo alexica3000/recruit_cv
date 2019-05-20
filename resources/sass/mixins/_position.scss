@@ -1,0 +1,22 @@
+@mixin position($horizontal, $hPosition, $vertical, $vPosition) {
+    @if ($horizontal == left) {
+        left: $hPosition;
+    } @else if ($horizontal == right) {
+        right: $hPosition;
+    } @else {
+        right: 0;
+        left: 0;
+    }
+
+    @if ($vertical == top) {
+        top: $vPosition;
+    } @else if ($vertical == bottom) {
+        bottom: $vPosition;
+    } @else {
+        top: 0;
+        bottom: 0;
+    }
+
+    position: absolute;
+    margin: auto;
+}

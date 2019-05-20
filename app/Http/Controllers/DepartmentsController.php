@@ -79,6 +79,6 @@ class DepartmentsController extends Controller
      */
     public function destroy($id)
     {
-        return view('departments.delete');
+        return 'Department deleted';
     }
 }

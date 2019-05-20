@@ -79,6 +79,6 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        return view('clients.delete');
+        return 'Client deleted';
     }
 }

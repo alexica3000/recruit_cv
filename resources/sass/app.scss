@@ -1,8 +1,41 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
 
-// Bootstrap
+// Fonts
+@import "fonts";
+
+// Extension
+@import '../icons/style';
 @import '~bootstrap/scss/bootstrap';
+@import '~select2/dist/css/select2.min.css';
+@import '~tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css';
+@import "~jquery-bar-rating/dist/themes/bootstrap-stars.css";
+@import "~bootstrap-fileinput/css/fileinput.min.css";
+
+
+// Mixins
+@import "mixins/position";
+@import "mixins/placeholder";
+
+// Modules
+@import "modules/reset";
+@import "modules/grid";
+@import "modules/buttons";
+@import "modules/card";
+@import "modules/typography";
+@import "modules/select2";
+@import "modules/form";
+@import "modules/box";
+@import "modules/loader";
+@import "modules/tables";
+@import "modules/pagination";
+@import "modules/inputfile";
+@import "modules/dynamic";
+@import "modules/datepicker";
+
+// Elements
+@import "elements/login";
+@import "elements/header";
+@import "elements/main";
+@import "elements/front";
+

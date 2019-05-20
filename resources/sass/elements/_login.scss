@@ -1,0 +1,30 @@
+.auth-body {
+    background: $login-bg;
+    height: 100vh;
+}
+.auth-body {
+    .btn-primary {
+        min-width: 125px;
+    }
+}
+.login-container {
+    padding: 30px 0;
+    max-width: 580px;
+    margin: 0 auto;
+    .form-group {
+        margin-bottom: 1.5rem;
+        > label {
+            font-size: 1rem;
+        }
+    }
+    .btn-link {
+        padding: 24px 30px;
+    }
+}
+.login-logo {
+    width: 270px;
+    margin: 0 auto 47px;
+    img {
+        width: 100%;
+    }
+}

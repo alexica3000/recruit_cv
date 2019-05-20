@@ -1,0 +1,103 @@
+.file-preview-thumbnails {
+    .file-default-preview {
+        text-align: center;
+        font-size: 60px;
+        padding: 5px 0;
+        > .glyphicon {
+            @include position(center, 0, center, 0);
+            display: block;
+            width: 60px;
+            height: 60px;
+        }
+        p {
+            font-size: 12px;
+            line-height: 48px;
+            color: $text;
+            margin: 0;
+        }
+    }
+}
+.btn-kv {
+    padding: 0;
+}
+
+.file-preview {
+    border: 1px dashed $border;
+    background: $odd;
+    min-height: 144px;
+    > .close {
+        display: none;
+    }
+    .file-drop-zone {
+        border: 1px solid transparent;
+        margin: 0;
+    }
+}
+
+.file-input {
+    .form-control {
+        height: 40px;
+    }
+    .btn-default {
+        border: 1px solid #ccd0d2;
+    }
+    &.file-input-ajax-new {
+        .btn-file {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 42px;
+            margin: auto;
+            width: 100px;
+            height: 36px;
+            padding: 0 5px;
+            line-height: 34px;
+        }
+    }
+}
+
+
+.file-upload-indicator {
+    display: none;
+}
+
+.file-caption {
+    &-name {
+        height: 26px;
+        padding: 3px 0;
+    }
+    &-icon {
+        font-size: 20px;
+        top: 7px;
+    }
+}
+
+.file-footer-buttons {
+    .btn-outline-secondary:first-child,
+    .kv-file-zoom {
+        display: none;
+    }
+}
+
+.fileinput-cancel,
+.file-drag-handle {
+    display: none;
+}
+
+.file-small {
+    .krajee-default {
+        .file-size-info,
+        .file-caption-info {
+            width: 60px;
+        }
+        &.file-preview-frame {
+            .kv-file-content {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+}
+.file-caption.form-control.kv-fileinput-caption {
+    padding-top: 5px;
+}

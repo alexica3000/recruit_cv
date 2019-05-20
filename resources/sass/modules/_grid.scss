@@ -1,0 +1,17 @@
+@include media-breakpoint-up(xl) {
+    .container {
+        max-width: 1470px;
+    }
+}
+
+.special {
+    &-row {
+        padding-right: 32px;
+    }
+    &-col {
+        .input-group {
+            max-width: calc(100% + 32px);
+            width: calc(100% + 32px);
+        }
+    }
+}

@@ -1,0 +1,115 @@
+.dynamic {
+    &-header {
+        position: relative;
+        .dynamic-btn {
+            @include position(right, 0, top, 0);
+            background: $orange;
+            color: $white;
+            border-radius: 4px;
+            text-align: center;
+            &::before {
+                @include position(left, 0, top, 0);
+                content: '+';
+                width: 3rem;
+                height: 3rem;
+                display: block;
+                font-weight: 700;
+                font-size: 2rem;
+                line-height: 3rem;
+            }
+            &:hover,
+            &:focus {
+                background: darken($orange, 5%);
+                color: $white;
+            }
+        }
+    }
+    &-body {
+        > label {
+            margin-top: .5rem;
+            &:last-child {
+                display: none;
+            }
+        }
+        .item {
+            position: relative;
+            margin-bottom: 1rem;
+            .dynamic-btn {
+                @include position(right, 0, top, 0);
+            }
+            .form-control {
+                box-shadow: 0 2px 7px -4px rgba(32,43,51,0.30);
+                padding-right: 32px;
+            }
+        }
+    }
+    &-btn {
+        color: $green;
+        text-decoration: none;
+        display: block;
+        width: 3rem;
+        height: 100%;
+        font-size: 1rem;
+        i {
+            @include position(center, 0, right, 0);
+            width: 1rem;
+            height: 1rem;
+            text-align: center;
+            display: block;
+        }
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: $green;
+        }
+        &.danger {
+            color: $red;
+            &:hover {
+                color: $red;
+            }
+        }
+    }
+}
+
+.dynamic-items {
+    &-body .item,
+    &-footer,
+    &-header {
+        padding: 0 42px 0 42px;
+        position: relative;
+        .number {
+            @include position(left, 0, top, 0);
+        }
+    }
+    &-body .item {
+        .number {
+            line-height: 42px;
+        }
+    }
+    .dynamic-btn {
+        @include position(right, 0, center, 0);
+    }
+    &-footer {
+        .fas {
+            font-size: 1.2rem;
+            color: $yellow;
+        }
+        .btn {
+            min-width: 110px;
+        }
+    }
+}
+.field {
+    &-xxsmall {
+        width: 64px;
+    }
+    &-xsmall {
+        width: 70px;
+    }
+    &-small {
+        width: 100px;
+    }
+    &-medium {
+        width: 160px;
+    }
+}

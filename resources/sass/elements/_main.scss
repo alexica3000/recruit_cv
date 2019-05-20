@@ -1,0 +1,37 @@
+.page-head {
+    border-bottom: 1px solid $border;
+    padding: 1.5rem 0 1rem;
+    h3 {
+        font-size: 1.5rem;
+        line-height: 1em;
+        margin: 0;
+        padding: .75rem 0;
+    }
+    .btn {
+        margin-bottom: .5rem;
+        min-width: 140px;
+    }
+}
+.page-filter {
+    padding: 1.5rem 0 .5rem;
+    border-bottom: 1px solid $border;
+    margin-bottom: 1.5rem;
+}
+.copy-field {
+    position: relative;
+    i {
+        @include position(right, 0, top, 0);
+        width: 3rem;
+        height: 100%;
+        display: block;
+        font-size: .875rem;
+        text-align: center;
+        line-height: 1;
+        cursor: pointer;
+        &::before {
+            @include position(center, 0, center, 0);
+            width: .875rem;
+            height: .875rem;
+        }
+    }
+}
