@@ -22,9 +22,9 @@
                             <div class="form-group">
                                 <label for="logo">Logo (*)</label>
                                 <div class="kv-avatar">
-                                    {{--<div class="file-loading">--}}
-                                        {{--<input class="avatar-upload" name="logo" id="logo" type="file">--}}
-                                    {{--</div>--}}
+                                    <div class="file-loading">
+                                        <input class="avatar-upload" name="logo" id="logo" type="file">
+                                    </div>
                                 </div>
                             </div>
                         </div>

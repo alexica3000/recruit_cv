@@ -1,9 +1,9 @@
-.idea/workspace.xml
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
+/.idea/workspace.xml
 .env
 .phpunit.result.cache
 Homestead.json
