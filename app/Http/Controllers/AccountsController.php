@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddAccountRequest;
 use Illuminate\Http\Request;
+use App\Account;
 
 class AccountsController extends Controller
 {
@@ -13,7 +15,9 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        return view('accounts.view');
+        $accounts = Account::paginate(5);
+
+        return view('accounts.view', compact('accounts'));
     }
 
     /**
@@ -32,9 +36,16 @@ class AccountsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(AddAccountRequest $request)
+{
+        Account::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'manage' => $request->manage_department,
+            'password' => $request->password
+        ]);
+
+        return redirect()->route('accounts.index');
     }
 
     /**
@@ -56,7 +67,9 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        return view('accounts.edit');
+        $account = Account::find($id);
+
+        return view('accounts.edit', compact('account'));
     }
 
     /**
@@ -68,7 +81,15 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $account = Account::find($id);
+        $account->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'manage' => $request->manage_department,
+            'password' =>$request->password
+        ]);
+
+        return redirect()->route('accounts.index');
     }
 
     /**
@@ -79,6 +100,8 @@ class AccountsController extends Controller
      */
     public function destroy($id)
     {
-        return 'Accounts deleted';
+        $account = Account::destroy($id);
+
+        return redirect()->route('accounts.index');
     }
 }

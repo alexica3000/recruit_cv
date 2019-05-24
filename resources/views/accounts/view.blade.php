@@ -18,55 +18,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Emmo Elshof</td>
-                        <td class="cell-flex">
-                            <a href="{{route('accounts.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Veronica Covali</td>
-                        <td class="cell-flex">
-                            <a href="{{route('accounts.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mihaela Negru</td>
-                        <td class="cell-flex">
-                            <a href="{{route('accounts.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nicolae Tabaran</td>
-                        <td class="cell-flex">
-                            <a href="{{route('accounts.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Serghei Covali</td>
-                        <td class="cell-flex">
-                            <a href="{{route('accounts.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
+
+                    @foreach($accounts as $account)
+                        <tr>
+                            <td>{{ $account->name}}</td>
+                            <td class="cell-flex">
+                                <a href="{{route('accounts.edit', ['id'=>$account->id])}}" class="table-link">
+                                    <i class="cvd-eye"></i>
+                                    View information
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>
             <div class="pagination-bar">
+
                 <div class="d-lg-flex justify-content-between">
                     <div class="per-page">
                         <div class="d-flex">
@@ -86,17 +55,13 @@
                             <div class="item">
                                 <a href="#">Show all</a>
                             </div>
-                            <div class="item result"><strong>937</strong> Results</div>
+                            <div class="item result"><strong>{{ $accounts->total() }}</strong> Results</div>
                         </div>
                     </div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item"><strong>Page</strong></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            {{ $accounts->links() }}
                         </ul>
                     </nav>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Department;
 
 class DepartmentsController extends Controller
 {
@@ -34,7 +35,17 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('logo');
+//        $destinationPath = 'uploads';
+//        $file->move($destinationPath,$file->getClientOriginalName());
+
+        $request->file('logo')->store('logos');
+
+
+//        Department::create([
+//            'name' => $request->department,
+//            'logo' => 'logo'
+//        ]);
     }
 
     /**

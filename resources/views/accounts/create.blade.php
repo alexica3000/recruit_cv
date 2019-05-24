@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
+@section('openForm')
+    <form action="{{ route('accounts.store') }}" method="post">
+@endsection
+
+
 @section('title', 'Accounts')
 
+
 @section('buttons')
-    <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
+        <div class="pl-2"><button type="submit" class="btn btn-success">Save</button></div>
 @endsection
 
 
 @section('content')
 
+        @csrf
         <div class="row">
                 <div class="col-12 col-xl-6">
                     <h3>Account</h3>
@@ -56,6 +63,8 @@
                         </div>
                     </div>
                 </div>
+
         </div>
+    </form>
 
 @endsection

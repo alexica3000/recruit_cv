@@ -1,3 +1,5 @@
+@yield('openForm')
+
 <div class="page-head">
     <div class="d-md-flex justify-content-md-between">
         <div class="item">
