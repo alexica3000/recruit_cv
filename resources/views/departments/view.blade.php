@@ -17,24 +17,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Best4u</td>
-                        <td class="cell-flex">
-                            <a href="{{route('departments.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>VCI</td>
-                        <td class="cell-flex">
-                            <a href="{{route('departments.edit', ['id'=>2])}}" class="table-link">
-                                <i class="cvd-eye"></i>
-                                View information
-                            </a>
-                        </td>
-                    </tr>
+
+                    @foreach($departments as $department)
+
+                        <tr>
+                            <td>{{ $department->name }}</td>
+                            <td class="cell-flex">
+                                <a href="{{route('departments.edit', $department->id)}}" class="table-link">
+                                    <i class="cvd-eye"></i>
+                                    View information
+                                </a>
+                            </td>
+                        </tr>
+
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>

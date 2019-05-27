@@ -26,7 +26,7 @@ class AddAccountRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|unique:accounts,email|min:5|max:255',
-            'manage_department' => 'required|max:1',
+            'manage_department' => 'required|boolean',
             'password' => 'required'
         ];
     }

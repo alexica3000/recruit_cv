@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Department;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class DepartmentsController extends Controller
 {
     /**
@@ -14,7 +17,9 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        return view('departments.view');
+        $departments = Department::all();
+
+        return view('departments.view', compact('departments'));
     }
 
     /**
@@ -35,17 +40,18 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('logo');
-//        $destinationPath = 'uploads';
-//        $file->move($destinationPath,$file->getClientOriginalName());
+//        $path = $request->file('logo')->store('logos');
 
-        $request->file('logo')->store('logos');
+        $cover = $request->file('logo');
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
 
+        Department::create([
+            'name' => $request->department,
+            'logo' => $cover->getFilename().'.'.$extension
+        ]);
 
-//        Department::create([
-//            'name' => $request->department,
-//            'logo' => 'logo'
-//        ]);
+        return redirect()->route('departments.index')->with('message', 'The department has been successfully added.');
     }
 
     /**
@@ -65,9 +71,9 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Department $department)
     {
-        return view('departments.edit');
+        return view('departments.edit', compact('department'));
     }
 
     /**
@@ -77,9 +83,13 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Department $department)
     {
-        //
+        $department->update([
+            'name' => $request->department
+        ]);
+
+        return redirect()->route('departments.edit', ['id' => $department->id])->with('message', 'The department has been update.');
     }
 
     /**
@@ -88,8 +98,11 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        return 'Department deleted';
+        Department::destroy($department->id);
+        Storage::disk('public')->delete($department->logo);
+
+        return redirect()->route('departments.index')->with('message', 'The department has been successfully deleted.');
     }
 }

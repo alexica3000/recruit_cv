@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use Illuminate\Http\Request;
+use App\Department;
 
 class ClientsController extends Controller
 {
@@ -13,7 +15,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        return view('clients.view');
+        $clients = Client::all();
+
+        return view('clients.view', compact('clients'));
     }
 
     /**
@@ -23,7 +27,9 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        return view('clients.create');
+        $departments = Department::all();
+
+        return view('clients.create', compact('departments'));
     }
 
     /**
@@ -34,7 +40,14 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Client::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'department_id' => $request->department,
+            'password' => $request->password
+        ]);
+
+        return redirect()->route('clients.index')->with('message', 'The client has been added.');
     }
 
     /**
@@ -54,9 +67,11 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
-        return view('clients.edit');
+        $departments = Department::all();
+
+        return view('clients.edit', compact('client', 'departments'));
     }
 
     /**
@@ -66,9 +81,17 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Client $client)
     {
-        //
+
+        $client->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'department_id' => $request->department,
+            'password' => $request->password
+        ]);
+
+        return redirect()->route('clients.edit', $client->id)->with('message', 'The client has been updated.');
     }
 
     /**
@@ -77,8 +100,10 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Client $client)
     {
-        return 'Client deleted';
+        Client::destroy($client->id);
+
+        return redirect()->route('clients.index')->with('message', 'The client has been deleted.');
     }
 }

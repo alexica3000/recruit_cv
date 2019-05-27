@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
+
 </head>
 <body>
 
@@ -31,6 +32,7 @@
         <div class="container">
                 @include('layouts.header')
                 @include('layouts.errors')
+                @include('layouts.message')
                 @yield('content')
         </div>
     </main>

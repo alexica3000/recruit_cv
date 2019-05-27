@@ -37,7 +37,7 @@ class AccountsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(AddAccountRequest $request)
-{
+    {
         Account::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -45,7 +45,7 @@ class AccountsController extends Controller
             'password' => $request->password
         ]);
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.index')->with('message', 'The account has been added.');
     }
 
     /**
@@ -65,10 +65,8 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Account $account)
     {
-        $account = Account::find($id);
-
         return view('accounts.edit', compact('account'));
     }
 
@@ -79,9 +77,8 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Account $account)
     {
-        $account = Account::find($id);
         $account->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -89,7 +86,7 @@ class AccountsController extends Controller
             'password' =>$request->password
         ]);
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.edit', ['id' => $account->id])->with('message', 'The account has been updated.');
     }
 
     /**
@@ -98,10 +95,10 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Account $account)
     {
-        $account = Account::destroy($id);
+        Account::destroy($account->id);
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.index')->with('message', 'The account has been deleted.');
     }
 }
