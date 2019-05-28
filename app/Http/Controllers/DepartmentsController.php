@@ -100,7 +100,7 @@ class DepartmentsController extends Controller
      */
     public function destroy(Department $department)
     {
-        Department::destroy($department->id);
+        $department->destroy($department->id);
         Storage::disk('public')->delete($department->logo);
 
         return redirect()->route('departments.index')->with('message', 'The department has been successfully deleted.');

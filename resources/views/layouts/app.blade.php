@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
 
     <!-- CSRF Token -->
-    {{--<meta name="csrf-token" content="E0nMLAbx7nG8r7t0GRvmvyk5WCuHUT4nWWLungPl">--}}
+    <meta name="csrf-token" content="E0nMLAbx7nG8r7t0GRvmvyk5WCuHUT4nWWLungPl">
 
     <!-- Styles -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">

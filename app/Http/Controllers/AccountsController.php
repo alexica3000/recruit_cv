@@ -97,7 +97,7 @@ class AccountsController extends Controller
      */
     public function destroy(Account $account)
     {
-        Account::destroy($account->id);
+        $account->destroy($account->id);
 
         return redirect()->route('accounts.index')->with('message', 'The account has been deleted.');
     }
