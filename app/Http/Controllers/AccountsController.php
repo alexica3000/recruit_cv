@@ -13,11 +13,17 @@ class AccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = Account::paginate(5);
+        if($request->item == null || !is_numeric($request->item))
+            $item = 3;
+        else
+            $item = $request->item;
 
-        return view('accounts.view', compact('accounts'));
+        $accounts = Account::paginate($item);
+        $accounts->withPath('?item=' . $item);
+
+        return view('accounts.view', compact('accounts', 'item'));
     }
 
     /**

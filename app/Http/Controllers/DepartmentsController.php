@@ -40,15 +40,11 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-//        $path = $request->file('logo')->store('logos');
-
-        $cover = $request->file('logo');
-        $extension = $cover->getClientOriginalExtension();
-        Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+        $path = $request->file('logo')->store('logos', 'public');
 
         Department::create([
             'name' => $request->department,
-            'logo' => $cover->getFilename().'.'.$extension
+            'logo' => $path
         ]);
 
         return redirect()->route('departments.index')->with('message', 'The department has been successfully added.');

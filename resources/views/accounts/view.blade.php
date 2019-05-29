@@ -19,17 +19,17 @@
                     </thead>
                     <tbody>
 
-                    @foreach($accounts as $account)
-                        <tr>
-                            <td>{{ $account->name}}</td>
-                            <td class="cell-flex">
-                                <a href="{{route('accounts.edit', ['id'=>$account->id])}}" class="table-link">
-                                    <i class="cvd-eye"></i>
-                                    View information
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                        @foreach($accounts as $account)
+                            <tr>
+                                <td>{{ $account->name}}</td>
+                                <td class="cell-flex">
+                                    <a href="{{route('accounts.edit', ['id'=>$account->id])}}" class="table-link">
+                                        <i class="cvd-eye"></i>
+                                        View information
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -41,16 +41,17 @@
                         <div class="d-flex">
                             <div class="item">Results per page</div>
                             <div class="item">
-                                <a href="#">5</a>
+                                <a href="?item=5">5</a>
+                            </div>
+
+                            <div class="item">
+                                <a href="?item=10">10</a>
                             </div>
                             <div class="item">
-                                <a href="#">10</a>
+                                <a href="?item=15">15</a>
                             </div>
                             <div class="item">
-                                <a href="#">15</a>
-                            </div>
-                            <div class="item">
-                                <a href="#">20</a>
+                                <a href="?item=20">20</a>
                             </div>
                             <div class="item">
                                 <a href="#">Show all</a>
@@ -58,12 +59,17 @@
                             <div class="item result"><strong>{{ $accounts->total() }}</strong> Results</div>
                         </div>
                     </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><strong>Page</strong></li>
-                            {{ $accounts->links() }}
-                        </ul>
-                    </nav>
+
+                    @if($accounts->total() > $item)
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><strong>Page</strong></li>
+                                {{ $accounts->links() }}
+                            </ul>
+                        </nav>
+
+                    @endif
+
                 </div>
             </div>
 

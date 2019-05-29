@@ -16,7 +16,7 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbodyzz>
 
                     @foreach($departments as $department)
 
@@ -32,7 +32,7 @@
 
                     @endforeach
 
-                    </tbody>
+                    </tbodyzz>
                 </table>
             </div>
 

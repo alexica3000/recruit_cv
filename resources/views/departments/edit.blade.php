@@ -43,7 +43,7 @@
                             <label for="logo">Logo (*)</label>
                             <div class="kv-avatar">
 
-                                <img src="{{ asset('images/uploads/'. $department->logo) }}" id="logo" width="200px" />
+                                <img src="{{ asset('storage/'. $department->logo) }}" id="logo" width="200px" />
 
                                 <div class="file-loading">
                                     <input form="edit" class="avatar-upload" name="logo" id="logo" type="file">
