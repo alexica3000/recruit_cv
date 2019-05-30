@@ -54,7 +54,7 @@
                                 <a href="?item=20">20</a>
                             </div>
                             <div class="item">
-                                <a href="#">Show all</a>
+                                <a href="?item=all">Show all</a>
                             </div>
                             <div class="item result"><strong>{{ $accounts->total() }}</strong> Results</div>
                         </div>

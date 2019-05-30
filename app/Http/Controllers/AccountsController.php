@@ -15,13 +15,13 @@ class AccountsController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->item == null || !is_numeric($request->item))
-            $item = 3;
-        else
-            $item = $request->item;
+        $allowsItem = ['5', '10', '15', '20', 'all'];
 
-        $accounts = Account::paginate($item);
-        $accounts->withPath('?item=' . $item);
+        $item = ($request->item == null || !in_array($request->item, $allowsItem)) ? 3 : $request->item;
+        if($item == 'all')
+            $item = 1000000;
+
+        $accounts = Account::paginate($item)->withPath('?item=' . $item);
 
         return view('accounts.view', compact('accounts', 'item'));
     }

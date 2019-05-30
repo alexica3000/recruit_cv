@@ -10,5 +10,9 @@ class Department extends Model
         'name',
         'logo'
     ];
-}
 
+    public function clients()
+    {
+        return $this->hasMany('App\Client');
+    }
+}

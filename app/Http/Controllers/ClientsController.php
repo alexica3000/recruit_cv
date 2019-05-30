@@ -40,12 +40,24 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        Client::create([
+        $department = Department::findOrFail($request->department);
+
+        $client = new Client([
             'name' => $request->name,
             'email' => $request->email,
-            'department_id' => $request->department,
             'password' => $request->password
         ]);
+
+
+        $department->clients()->save($client);
+
+
+//        Client::create([
+//            'name' => $request->name,
+//            'email' => $request->email,
+//            'department_id' => $request->department,
+//            'password' => $request->password
+//        ]);
 
         return redirect()->route('clients.index')->with('message', 'The client has been added.');
     }
