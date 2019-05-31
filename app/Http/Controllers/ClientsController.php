@@ -15,7 +15,8 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::with('department')->get();
+//        $clients = Client::all();
 
         return view('clients.view', compact('clients'));
     }
@@ -38,26 +39,12 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Client $client)
     {
         $department = Department::findOrFail($request->department);
-
-        $client = new Client([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
-
-
-        $department->clients()->save($client);
-
-
-//        Client::create([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'department_id' => $request->department,
-//            'password' => $request->password
-//        ]);
+        $client->fill($request->all());
+        $client->department()->associate($department);
+        $client->save();
 
         return redirect()->route('clients.index')->with('message', 'The client has been added.');
     }
@@ -95,13 +82,10 @@ class ClientsController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-
-        $client->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'department_id' => $request->department,
-            'password' => $request->password
-        ]);
+        $department = Department::findOrFail($request->department);
+        $client->fill($request->all());
+        $client->department()->associate($department);
+        $client->save();
 
         return redirect()->route('clients.edit', $client->id)->with('message', 'The client has been updated.');
     }
