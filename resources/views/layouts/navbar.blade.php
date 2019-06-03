@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarHeader">
                 <ul class="navbar-nav ml-auto navbar-caliber">
                     <li class="{{Request::is('recruitment') ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="{{ route('recruitment.index') }}">Recruitment</a>
+                        <a class="nav-link" href="{{ route('recruits.index') }}">Recruitment</a>
                     </li>
                     <li class="{{Request::is('accounts') ? 'nav-item active' : 'nav-item'}}">
                         <a class="nav-link" href="{{ route('accounts.index') }}">Accounts</a>

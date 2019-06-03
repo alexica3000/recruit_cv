@@ -3,7 +3,7 @@
 @section('title', 'Recruitment')
 
 @section('buttons')
-    <a href="{{ route('recruitment.create') }}" class="btn btn-primary">New recruit</a>
+    <a href="{{ route('recruits.create') }}" class="btn btn-primary">New recruit</a>
 @endsection
 
 
@@ -57,61 +57,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Ghenadie Utuh</td>
-                <td>Full Stack Java Developer</td>
-                <td>07 / FEB / 2019</td>
-                <td class="cell-flex">
-                    <a href="{{ route('recruitment.edit', ['id' => 2]) }}" class="table-link">
-                        <i class="cvd-eye"></i>
-                        View information
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Matei Donici</td>
-                <td>Graphical Designer</td>
-                <td>05 / FEB / 2019</td>
-                <td class="cell-flex">
-                    <a href="{{ route('recruitment.edit', ['id' => 2]) }}" class="table-link">
-                        <i class="cvd-eye"></i>
-                        View information
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Vera Osoianu</td>
-                <td>Scrum Master</td>
-                <td>30 / JAN / 2019</td>
-                <td class="cell-flex">
-                    <a href="{{ route('recruitment.edit', ['id' => 2]) }}" class="table-link">
-                        <i class="cvd-eye"></i>
-                        View information
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Alecu Russo</td>
-                <td>Automated Tester</td>
-                <td>21 / JAN / 2019</td>
-                <td class="cell-flex">
-                    <a href="{{ route('recruitment.edit', ['id' => 2]) }}" class="table-link">
-                        <i class="cvd-eye"></i>
-                        View information
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Oleg Serebrian</td>
-                <td>System Administrator</td>
-                <td>20 / JAN / 2019</td>
-                <td class="cell-flex">
-                    <a href="{{ route('recruitment.edit', ['id' => 2]) }}" class="table-link">
-                        <i class="cvd-eye"></i>
-                        View information
-                    </a>
-                </td>
-            </tr>
+
+                @foreach($recruits as $recruit)
+                    <tr>
+                        <td>{{ $recruit->name }}</td>
+                        <td>{{ $recruit->job }}</td>
+                        <td>{{ $recruit->created_at->format('d / m / Y') }}</td>
+                        <td class="cell-flex">
+                            <a href="{{ route('recruits.edit', $recruit->id) }}" class="table-link">
+                                <i class="cvd-eye"></i>
+                                View information
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+
             </tbody>
         </table>
     </div>
@@ -135,17 +95,13 @@
                     <div class="item">
                         <a href="#">Show all</a>
                     </div>
-                    <div class="item result"><strong>937</strong> Results</div>
+                    <div class="item result"><strong>{{ $recruits->total() }}</strong> Results</div>
                 </div>
             </div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item"><strong>Page</strong></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        {{ $recruits->links() }}
                 </ul>
             </nav>
         </div>

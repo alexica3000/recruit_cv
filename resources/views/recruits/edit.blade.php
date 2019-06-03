@@ -5,137 +5,380 @@
 @section('buttons')
     <div class="d-flex justify-content-md-end">
 
-        <form action="{{ route('recruitment.destroy', ['id'=>2]) }}" method="POST">
+        <form action="{{ route('recruits.destroy', $recruit->id) }}" method="post">
             @method('DELETE')
             @csrf
             <button class="btn btn-outline-danger">Delete</button>
         </form>
 
-        {{--<div><a href="#" class="btn btn-outline-danger">Delete</a></div>--}}
-        <div class="pl-2"><a href="#" class="btn btn-success">Save</a></div>
+        <form action="{{ route('recruits.update', $recruit->id) }}" id="edit" method="post">
+            @csrf
+            @method('PATCH')
+            <div class="pl-2">
+                <button class="btn btn-success" type="submit">Save</button>
+            </div>
+        </form>
     </div>
 @endsection
 
 
 @section('content')
 
+
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <h3>Person</h3>
             <div class="row">
-                <div class="col-12 col-lg-6">
-                    <h3>Person</h3>
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="name">Name (*)</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="date_of_birth">Date of birth</label>
-                                <div class="input-group datetimepicker-default" id="date_of_birth" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" name="date_of_birth" placeholder="Select date" data-target="#date_of_birth">
-                                    <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
-                                        <div class="input-group-text">
-                                            <i class="cvd-calendar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" class="form-control" name="city" id="city" placeholder="City">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="job">Job</label>
-                                <input type="text" class="form-control" name="job" id="job" placeholder="Job">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-7">
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="form-group">
-                                <label for="city">Photo</label>
-                                <div class="kv-avatar">
-                                    <div class="{{url('file-loading')}}">
-                                        <input class="avatar-upload" name="logo" type="file">
-                                    </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="name">Name (*)</label>
+                        <input form="edit" type="text" class="form-control" name="name" id="name" value="{{ $recruit->name }}">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="date_of_birth">Date of birth</label>
+                        <div class="input-group datetimepicker-default" id="date_of_birth" data-target-input="nearest">
+                            <input form="edit" type="text" class="form-control datetimepicker-input" name="date_of_birth" placeholder="Select date" value="{{ $recruit->date_of_birth->format('d/m/Y')  }}" data-target="#date_of_birth">
+                            <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
+                                <div class="input-group-text">
+                                    <i class="cvd-calendar"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <h3>Department share</h3>
-                            <div class="form-group">
-                                <label for="department_link_1">Department Best4u link</label>
-                                <div class="copy-field">
-                                    <input type="text" class="form-control disabled" disabled="" name="department_links[]" id="department_link_1" value="https://google.com">
-                                    <i class="cvd-link copyToClipboard" data-url="https://google.com"></i>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="department_link_2">Department VCI link</label>
-                                <div class="copy-field">
-                                    <input type="text" class="form-control disabled" disabled="" name="department_links[]" id="department_link_2" value="https://apple.com">
-                                    <i class="cvd-link copyToClipboard" data-url="https://apple.com"></i>
-                                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input form="edit" type="text" class="form-control" name="city" id="city" value="{{ $recruit->city }}">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="job">Job</label>
+                        <input form="edit" type="text" class="form-control" name="job" id="job" value="{{ $recruit->job }}">
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea form="edit" name="description" id="description" cols="30" rows="10" class="form-control">{{ $recruit->description }}</textarea>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div class="form-group">
+                        <label for="city">Photo</label>
+                        <div class="kv-avatar">
+                            <div class="file-loading">
+                                <input form="edit" class="avatar-upload" name="logo" type="file">
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
-                            <h3>Client share</h3>
-                            <div class="form-group">
-                                <label for="add_client">Add client</label>
-                                <div class="dynamic-group">
-                                    <div class="dynamic-header">
-                                        <select name="add_client" id="add_client" class="form-control select2-init" data-dynamic-name="clients[]" data-placeholder="Add client">
-                                            <option></option>
-                                            <option value="1">Client A</option>
-                                            <option value="2">Client B</option>
-                                            <option value="3">Client C</option>
-                                            <option value="4">Client D</option>
-                                            <option value="5">Client E</option>
-                                            <option value="6">Client F</option>
-                                        </select>
-                                        <a href="#" class="dynamic-btn d-none" data-dynamic-add=""></a>
-                                    </div>
-                                    <div class="dynamic-body">
-                                        <label>Selected clients</label>
-                                        <div class="item">
-                                            <div class="form-control disabled">Client A</div>
-                                            <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
-                                                <i class="cvd-close"></i>
-                                            </a>
-                                            <input type="hidden" name="clients[]" value="1">
-                                        </div>
-                                        <div class="item">
-                                            <div class="form-control disabled">Client B</div>
-                                            <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
-                                                <i class="cvd-close"></i>
-                                            </a>
-                                            <input type="hidden" name="clients[]" value="2">
-                                        </div>
-                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <h3>Department share</h3>
+                    <div class="form-group">
+                        <label for="department_link_1">Department Best4u link</label>
+                        <div class="copy-field">
+                            <input type="text" class="form-control disabled" disabled="" name="department_links[]" id="department_link_1" value="https://google.com">
+                            <i class="cvd-link copyToClipboard" data-url="https://google.com"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="department_link_2">Department VCI link</label>
+                        <div class="copy-field">
+                            <input type="text" class="form-control disabled" disabled="" name="department_links[]" id="department_link_2" value="https://apple.com">
+                            <i class="cvd-link copyToClipboard" data-url="https://apple.com"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h3>Client share</h3>
+                    <div class="form-group">
+                        <label for="add_client">Add client</label>
+                        <div class="dynamic-group">
+                            <div class="dynamic-header">
+                                <select name="add_client" id="add_client" class="form-control select2-init" data-dynamic-name="clients[]" data-placeholder="Add client">
+                                    <option></option>
+                                    <option value="1">Client A</option>
+                                    <option value="2">Client B</option>
+                                    <option value="3">Client C</option>
+                                    <option value="4">Client D</option>
+                                    <option value="5">Client E</option>
+                                    <option value="6">Client F</option>
+                                </select>
+                                <a href="#" class="dynamic-btn d-none" data-dynamic-add=""></a>
+                            </div>
+                            <div class="dynamic-body">
+                                <label>Selected clients</label>
+                                <div class="item">
+                                    <div class="form-control disabled">Client A</div>
+                                    <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
+                                        <i class="cvd-close"></i>
+                                    </a>
+                                    <input type="hidden" name="clients[]" value="1">
+                                </div>
+                                <div class="item">
+                                    <div class="form-control disabled">Client B</div>
+                                    <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
+                                        <i class="cvd-close"></i>
+                                    </a>
+                                    <input type="hidden" name="clients[]" value="2">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="card card-primary">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div class="item">
+                    <h3>Work Experience</h3>
+                </div>
+                <div class="item">
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Add new</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-brand">
+                    <thead>
+                    <tr>
+                        <th width="360">Employer</th>
+                        <th>Job</th>
+                        <th>Start</th>
+                        <th>End On</th>
+                        <th>Finished</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Feel IT Services</td>
+                        <td>Full Stack Developer</td>
+                        <td>2018</td>
+                        <td>2022</td>
+                        <td>Yes</td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                                <i class="cvd-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#experianceRow1">
+                                <i class="cvd-arrow-right"></i>
+                                Open information
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="row-hide" id="experianceRow1">
+                        <td colspan="6" class="cell-description">
+                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
+                            <br>
+                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
+                            <br>
+                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Inther Software Group</td>
+                        <td>Java Developer</td>
+                        <td>2018</td>
+                        <td>2022</td>
+                        <td>Yes</td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                                <i class="cvd-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#experianceRow2">
+                                <i class="cvd-arrow-right"></i>
+                                Open information
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="row-hide" id="experianceRow2">
+                        <td colspan="6" class="cell-description">
+                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
+                            <br>
+                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
+                            <br>
+                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card card-primary">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div class="item">
+                    <h3>Education</h3>
+                </div>
+                <div class="item">
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-brand">
+                    <thead>
+                    <tr>
+                        <th width="360">Institute</th>
+                        <th>Education</th>
+                        <th>Start</th>
+                        <th>End On</th>
+                        <th>Finished</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Moldova State University</td>
+                        <td>PHD in bioinformatics</td>
+                        <td>2018</td>
+                        <td>2022</td>
+                        <td>Yes</td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                                <i class="cvd-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#educationRow1">
+                                <i class="cvd-arrow-right"></i>
+                                Open information
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="row-hide" id="educationRow1">
+                        <td colspan="6" class="cell-description">
+                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
+                            <br>
+                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
+                            <br>
+                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Moldova State University</td>
+                        <td>PHD in bioinformatics</td>
+                        <td>2018</td>
+                        <td>2022</td>
+                        <td>Yes</td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                                <i class="cvd-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#educationRow2">
+                                <i class="cvd-arrow-right"></i>
+                                Open information
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="row-hide" id="educationRow2">
+                        <td colspan="6" class="cell-description">
+                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
+                            <br>
+                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
+                            <br>
+                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card card-primary">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div class="item">
+                    <h3>Course or Training</h3>
+                </div>
+                <div class="item">
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-brand">
+                    <thead>
+                    <tr>
+                        <th width="360">Institute</th>
+                        <th>Course or Training</th>
+                        <th>Start</th>
+                        <th>End On</th>
+                        <th>Finished</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Moldova State University</td>
+                        <td>Scrum Master</td>
+                        <td>2018</td>
+                        <td>2022</td>
+                        <td>Yes</td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                                <i class="cvd-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#courseRow1">
+                                <i class="cvd-arrow-right"></i>
+                                Open information
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="row-hide" id="courseRow1">
+                        <td colspan="6" class="cell-description">
+                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
+                            <br>
+                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
+                            <br>
+                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
             <div class="card card-primary">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div class="item">
-                            <h3>Work Experience</h3>
+                            <h3>Skills</h3>
                         </div>
                         <div class="item">
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
@@ -147,71 +390,46 @@
                         <table class="table table-brand">
                             <thead>
                             <tr>
-                                <th width="360">Employer</th>
-                                <th>Job</th>
-                                <th>Start</th>
-                                <th>End On</th>
-                                <th>Finished</th>
+                                <th width="240">Skills</th>
+                                <th>Level</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Feel IT Services</td>
-                                <td>Full Stack Developer</td>
-                                <td>2018</td>
-                                <td>2022</td>
-                                <td>Yes</td>
+                                <td>PHP</td>
+                                <td>Professional</td>
                                 <td class="cell-flex">
-                                    <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                        <i class="cvd-edit"></i>
-                                        Edit
-                                    </a>
-                                    <a href="#" class="table-link" data-table-collapse="#experianceRow1">
-                                        <i class="cvd-arrow-right"></i>
-                                        Open information
-                                    </a>
                                     <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
                                         <i class="cvd-trash"></i>
                                     </a>
-                                </td>
-                            </tr>
-                            <tr class="row-hide" id="experianceRow1">
-                                <td colspan="6" class="cell-description">
-                                    Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                                    <br>
-                                    Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                                    <br>
-                                    Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
                                 </td>
                             </tr>
                             <tr>
-                                <td>Inther Software Group</td>
-                                <td>Java Developer</td>
-                                <td>2018</td>
-                                <td>2022</td>
-                                <td>Yes</td>
+                                <td>Java</td>
+                                <td>Beginner</td>
                                 <td class="cell-flex">
-                                    <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                        <i class="cvd-edit"></i>
-                                        Edit
-                                    </a>
-                                    <a href="#" class="table-link" data-table-collapse="#experianceRow2">
-                                        <i class="cvd-arrow-right"></i>
-                                        Open information
-                                    </a>
                                     <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
                                         <i class="cvd-trash"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <tr class="row-hide" id="experianceRow2">
-                                <td colspan="6" class="cell-description">
-                                    Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                                    <br>
-                                    Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                                    <br>
-                                    Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                            <tr>
+                                <td>SQL</td>
+                                <td>Intermediate</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HTML &amp; CSS</td>
+                                <td>Expert</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -219,11 +437,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-12 col-lg-6">
             <div class="card card-primary">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div class="item">
-                            <h3>Education</h3>
+                            <h3>Characteristics</h3>
                         </div>
                         <div class="item">
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
@@ -235,71 +455,28 @@
                         <table class="table table-brand">
                             <thead>
                             <tr>
-                                <th width="360">Institute</th>
-                                <th>Education</th>
-                                <th>Start</th>
-                                <th>End On</th>
-                                <th>Finished</th>
+                                <th width="240">Characteristic</th>
+                                <th>Description</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Moldova State University</td>
-                                <td>PHD in bioinformatics</td>
-                                <td>2018</td>
-                                <td>2022</td>
-                                <td>Yes</td>
+                                <td>Spontaneous</td>
+                                <td>-</td>
                                 <td class="cell-flex">
-                                    <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                        <i class="cvd-edit"></i>
-                                        Edit
-                                    </a>
-                                    <a href="#" class="table-link" data-table-collapse="#educationRow1">
-                                        <i class="cvd-arrow-right"></i>
-                                        Open information
-                                    </a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
                                         <i class="cvd-trash"></i>
                                     </a>
-                                </td>
-                            </tr>
-                            <tr class="row-hide" id="educationRow1">
-                                <td colspan="6" class="cell-description">
-                                    Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                                    <br>
-                                    Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                                    <br>
-                                    Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
                                 </td>
                             </tr>
                             <tr>
-                                <td>Moldova State University</td>
-                                <td>PHD in bioinformatics</td>
-                                <td>2018</td>
-                                <td>2022</td>
-                                <td>Yes</td>
+                                <td>Structured</td>
+                                <td>I always work based on a good structure</td>
                                 <td class="cell-flex">
-                                    <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                        <i class="cvd-edit"></i>
-                                        Edit
-                                    </a>
-                                    <a href="#" class="table-link" data-table-collapse="#educationRow2">
-                                        <i class="cvd-arrow-right"></i>
-                                        Open information
-                                    </a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
                                         <i class="cvd-trash"></i>
                                     </a>
-                                </td>
-                            </tr>
-                            <tr class="row-hide" id="educationRow2">
-                                <td colspan="6" class="cell-description">
-                                    Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                                    <br>
-                                    Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                                    <br>
-                                    Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
                                 </td>
                             </tr>
                             </tbody>
@@ -307,11 +484,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
             <div class="card card-primary">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div class="item">
-                            <h3>Course or Training</h3>
+                            <h3>Social Media</h3>
                         </div>
                         <div class="item">
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
@@ -323,42 +504,37 @@
                         <table class="table table-brand">
                             <thead>
                             <tr>
-                                <th width="360">Institute</th>
-                                <th>Course or Training</th>
-                                <th>Start</th>
-                                <th>End On</th>
-                                <th>Finished</th>
+                                <th width="240">Platform</th>
+                                <th>Link</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Moldova State University</td>
-                                <td>Scrum Master</td>
-                                <td>2018</td>
-                                <td>2022</td>
-                                <td>Yes</td>
+                                <td>Facebook</td>
+                                <td>https://www.facebook.com/profile/namehere</td>
                                 <td class="cell-flex">
-                                    <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                        <i class="cvd-edit"></i>
-                                        Edit
-                                    </a>
-                                    <a href="#" class="table-link" data-table-collapse="#courseRow1">
-                                        <i class="cvd-arrow-right"></i>
-                                        Open information
-                                    </a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
                                         <i class="cvd-trash"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <tr class="row-hide" id="courseRow1">
-                                <td colspan="6" class="cell-description">
-                                    Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                                    <br>
-                                    Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                                    <br>
-                                    Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
+                            <tr>
+                                <td>Instagram</td>
+                                <td>https://www.instagram.com/namehere</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Linkedin</td>
+                                <td>https://www.linkedin.com/user/namehere</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -366,224 +542,192 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between">
-                                <div class="item">
-                                    <h3>Skills</h3>
-                                </div>
-                                <div class="item">
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
-                                </div>
-                            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="item">
+                            <h3>Interests</h3>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-brand">
-                                    <thead>
-                                    <tr>
-                                        <th width="240">Skills</th>
-                                        <th>Level</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>PHP</td>
-                                        <td>Professional</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Java</td>
-                                        <td>Beginner</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>SQL</td>
-                                        <td>Intermediate</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>HTML &amp; CSS</td>
-                                        <td>Expert</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="item">
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between">
-                                <div class="item">
-                                    <h3>Characteristics</h3>
-                                </div>
-                                <div class="item">
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-brand">
-                                    <thead>
-                                    <tr>
-                                        <th width="240">Characteristic</th>
-                                        <th>Description</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Spontaneous</td>
-                                        <td>-</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Structured</td>
-                                        <td>I always work based on a good structure</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-brand">
+                            <thead>
+                            <tr>
+                                <th width="240">Interest</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Movies</td>
+                                <td>I really like to watch movies</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mountainbike</td>
+                                <td>I like to go biking whenever possible</td>
+                                <td class="cell-flex">
+                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
+                                        <i class="cvd-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between">
-                                <div class="item">
-                                    <h3>Social Media</h3>
-                                </div>
-                                <div class="item">
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
-                                </div>
-                            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modals -->
+    <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="#" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createNewModalLabel">Create new row</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modal_name">Skill</label>
+                            <input type="text" class="form-control" name="modal_name" id="modal_name">
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-brand">
-                                    <thead>
-                                    <tr>
-                                        <th width="240">Platform</th>
-                                        <th>Link</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Facebook</td>
-                                        <td>https://www.facebook.com/profile/namehere</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Instagram</td>
-                                        <td>https://www.instagram.com/namehere</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Linkedin</td>
-                                        <td>https://www.linkedin.com/user/namehere</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="form-group">
+                            <label for="modal_level">Level</label>
+                            <select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">
+                                <option></option>
+                                <option class="1">Beginner</option>
+                                <option class="2">Intermediate</option>
+                                <option class="3">Professional</option>
+                                <option class="4">Expert</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_description">Skill</label>
+                            <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between">
-                                <div class="item">
-                                    <h3>Interests</h3>
-                                </div>
-                                <div class="item">
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-brand">
-                                    <thead>
-                                    <tr>
-                                        <th width="240">Interest</th>
-                                        <th>Description</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Movies</td>
-                                        <td>I really like to watch movies</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mountainbike</td>
-                                        <td>I like to go biking whenever possible</td>
-                                        <td class="cell-flex">
-                                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                                <i class="cvd-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Save</button>
                     </div>
-                </div>
+                </form>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="#" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit row</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modal_edit_name">Skill</label>
+                            <input type="text" class="form-control" name="modal_edit_name" id="modal_edit_name">
+                        </div>
+                        <label for="start_year">Start date</label>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <select name="start_year" id="start_year" class="form-control select2-init" data-placeholder="Select year">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <select name="start_month" id="start_month" class="form-control select2-init" data-placeholder="Select month">
+                                        <option></option>
+                                        <option class="1">1</option>
+                                        <option class="2">2</option>
+                                        <option class="3">3</option>
+                                        <option class="4">4</option>
+                                        <option class="5">5</option>
+                                        <option class="6">6</option>
+                                        <option class="7">7</option>
+                                        <option class="8">8</option>
+                                        <option class="9">9</option>
+                                        <option class="10">10</option>
+                                        <option class="11">11</option>
+                                        <option class="12">12</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <select name="end_year" id="end_year" class="form-control select2-init" data-placeholder="Select year">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <select name="end_month" id="end_month" class="form-control select2-init" data-placeholder="Select month">
+                                        <option></option>
+                                        <option class="1">1</option>
+                                        <option class="2">2</option>
+                                        <option class="3">3</option>
+                                        <option class="4">4</option>
+                                        <option class="5">5</option>
+                                        <option class="6">6</option>
+                                        <option class="7">7</option>
+                                        <option class="8">8</option>
+                                        <option class="9">9</option>
+                                        <option class="10">10</option>
+                                        <option class="11">11</option>
+                                        <option class="12">12</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_edit_description">Description</label>
+                            <textarea name="modal_edit_description" id="modal_edit_description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

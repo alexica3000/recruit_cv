@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Recruit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RecruitsController extends Controller
@@ -13,7 +15,9 @@ class RecruitsController extends Controller
      */
     public function index()
     {
-        return view('recruits.view');
+        $recruits = Recruit::paginate(2);
+
+        return view('recruits.view', compact('recruits'));
     }
 
     /**
@@ -34,7 +38,15 @@ class RecruitsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Recruit::create([
+            'name' => $request->name,
+            'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
+            'city' => $request->city,
+            'job' => $request->job,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('recruits.index')->with('message', 'The recruit has been added.');
     }
 
     /**
@@ -54,9 +66,9 @@ class RecruitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Recruit $recruit)
     {
-        return view('recruits.edit');
+        return view('recruits.edit', compact('recruit'));
     }
 
     /**
@@ -66,9 +78,17 @@ class RecruitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recruit $recruit)
     {
-        //
+        $recruit->update([
+            'name' => $request->name,
+            'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
+            'city' => $request->city,
+            'job' => $request->job,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
 
     /**
@@ -77,8 +97,10 @@ class RecruitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recruit $recruit)
     {
-         return 'Recruit deleted';
+        $recruit->delete();
+
+        return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
     }
 }
