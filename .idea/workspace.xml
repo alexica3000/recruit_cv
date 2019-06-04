@@ -2,104 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="263df0cd-eb76-4156-9b14-ce40172fa5d4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/favicon.ico" afterPath="$PROJECT_DIR$/blog/public/favicon.ico" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/5900af73-4ca2-4fcb-b42a-732c29b94709.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/5900af73-4ca2-4fcb-b42a-732c29b94709.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/.editorconfig" afterPath="$PROJECT_DIR$/blog/.editorconfig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/.env.example" afterPath="$PROJECT_DIR$/blog/.env.example" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/.gitattributes" afterPath="$PROJECT_DIR$/blog/.gitattributes" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/.gitignore" afterPath="$PROJECT_DIR$/blog/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/.styleci.yml" afterPath="$PROJECT_DIR$/blog/.styleci.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Console/Kernel.php" afterPath="$PROJECT_DIR$/blog/app/Console/Kernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Exceptions/Handler.php" afterPath="$PROJECT_DIR$/blog/app/Exceptions/Handler.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/ForgotPasswordController.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/ForgotPasswordController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/LoginController.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/LoginController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/RegisterController.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/RegisterController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/ResetPasswordController.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/ResetPasswordController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/VerificationController.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Auth/VerificationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Controllers/Controller.php" afterPath="$PROJECT_DIR$/blog/app/Http/Controllers/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Kernel.php" afterPath="$PROJECT_DIR$/blog/app/Http/Kernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/Authenticate.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/Authenticate.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/CheckForMaintenanceMode.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/CheckForMaintenanceMode.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/EncryptCookies.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/EncryptCookies.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/RedirectIfAuthenticated.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/RedirectIfAuthenticated.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/TrimStrings.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/TrimStrings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/TrustProxies.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/TrustProxies.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Http/Middleware/VerifyCsrfToken.php" afterPath="$PROJECT_DIR$/blog/app/Http/Middleware/VerifyCsrfToken.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Providers/AppServiceProvider.php" afterPath="$PROJECT_DIR$/blog/app/Providers/AppServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Providers/AuthServiceProvider.php" afterPath="$PROJECT_DIR$/blog/app/Providers/AuthServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Providers/BroadcastServiceProvider.php" afterPath="$PROJECT_DIR$/blog/app/Providers/BroadcastServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Providers/EventServiceProvider.php" afterPath="$PROJECT_DIR$/blog/app/Providers/EventServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/Providers/RouteServiceProvider.php" afterPath="$PROJECT_DIR$/blog/app/Providers/RouteServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/app/User.php" afterPath="$PROJECT_DIR$/blog/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/artisan" afterPath="$PROJECT_DIR$/blog/artisan" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/bootstrap/app.php" afterPath="$PROJECT_DIR$/blog/bootstrap/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/bootstrap/cache/.gitignore" afterPath="$PROJECT_DIR$/blog/bootstrap/cache/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/composer.json" afterPath="$PROJECT_DIR$/blog/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/composer.lock" afterPath="$PROJECT_DIR$/blog/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/app.php" afterPath="$PROJECT_DIR$/blog/config/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/auth.php" afterPath="$PROJECT_DIR$/blog/config/auth.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/broadcasting.php" afterPath="$PROJECT_DIR$/blog/config/broadcasting.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/cache.php" afterPath="$PROJECT_DIR$/blog/config/cache.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/database.php" afterPath="$PROJECT_DIR$/blog/config/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/filesystems.php" afterPath="$PROJECT_DIR$/blog/config/filesystems.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/hashing.php" afterPath="$PROJECT_DIR$/blog/config/hashing.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/logging.php" afterPath="$PROJECT_DIR$/blog/config/logging.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/mail.php" afterPath="$PROJECT_DIR$/blog/config/mail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/queue.php" afterPath="$PROJECT_DIR$/blog/config/queue.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/services.php" afterPath="$PROJECT_DIR$/blog/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/session.php" afterPath="$PROJECT_DIR$/blog/config/session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/config/view.php" afterPath="$PROJECT_DIR$/blog/config/view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/database/.gitignore" afterPath="$PROJECT_DIR$/blog/database/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/database/factories/UserFactory.php" afterPath="$PROJECT_DIR$/blog/database/factories/UserFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/database/migrations/2014_10_12_000000_create_users_table.php" afterPath="$PROJECT_DIR$/blog/database/migrations/2014_10_12_000000_create_users_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterPath="$PROJECT_DIR$/blog/database/migrations/2014_10_12_100000_create_password_resets_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/database/seeds/DatabaseSeeder.php" afterPath="$PROJECT_DIR$/blog/database/seeds/DatabaseSeeder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/package.json" afterPath="$PROJECT_DIR$/blog/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/phpunit.xml" afterPath="$PROJECT_DIR$/blog/phpunit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/.htaccess" afterPath="$PROJECT_DIR$/blog/public/.htaccess" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/css/app.css" afterPath="$PROJECT_DIR$/blog/public/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/index.php" afterPath="$PROJECT_DIR$/blog/public/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/js/app.js" afterPath="$PROJECT_DIR$/blog/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/robots.txt" afterPath="$PROJECT_DIR$/blog/public/robots.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/public/web.config" afterPath="$PROJECT_DIR$/blog/public/web.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/readme.md" afterPath="$PROJECT_DIR$/blog/readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/js/app.js" afterPath="$PROJECT_DIR$/blog/resources/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/js/bootstrap.js" afterPath="$PROJECT_DIR$/blog/resources/js/bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/js/components/ExampleComponent.vue" afterPath="$PROJECT_DIR$/blog/resources/js/components/ExampleComponent.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/lang/en/auth.php" afterPath="$PROJECT_DIR$/blog/resources/lang/en/auth.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/lang/en/pagination.php" afterPath="$PROJECT_DIR$/blog/resources/lang/en/pagination.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/lang/en/passwords.php" afterPath="$PROJECT_DIR$/blog/resources/lang/en/passwords.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/lang/en/validation.php" afterPath="$PROJECT_DIR$/blog/resources/lang/en/validation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/sass/_variables.scss" afterPath="$PROJECT_DIR$/blog/resources/sass/_variables.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/sass/app.scss" afterPath="$PROJECT_DIR$/blog/resources/sass/app.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/resources/views/welcome.blade.php" afterPath="$PROJECT_DIR$/blog/resources/views/welcome.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/routes/api.php" afterPath="$PROJECT_DIR$/blog/routes/api.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/routes/channels.php" afterPath="$PROJECT_DIR$/blog/routes/channels.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/routes/console.php" afterPath="$PROJECT_DIR$/blog/routes/console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/routes/web.php" afterPath="$PROJECT_DIR$/blog/routes/web.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/server.php" afterPath="$PROJECT_DIR$/blog/server.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/app/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/app/public/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/app/public/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/cache/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/cache/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/cache/data/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/cache/data/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/sessions/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/sessions/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/testing/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/testing/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/framework/views/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/framework/views/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/storage/logs/.gitignore" afterPath="$PROJECT_DIR$/blog/storage/logs/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/tests/CreatesApplication.php" afterPath="$PROJECT_DIR$/blog/tests/CreatesApplication.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/tests/Feature/ExampleTest.php" afterPath="$PROJECT_DIR$/blog/tests/Feature/ExampleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/tests/TestCase.php" afterPath="$PROJECT_DIR$/blog/tests/TestCase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/tests/Unit/ExampleTest.php" afterPath="$PROJECT_DIR$/blog/tests/Unit/ExampleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blog/webpack.mix.js" afterPath="$PROJECT_DIR$/blog/webpack.mix.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/app.css" afterPath="$PROJECT_DIR$/public/css/app.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/view.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/view.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/debugbar/.gitignore" afterPath="$PROJECT_DIR$/storage/debugbar/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -134,22 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>skil</find>
-      <find>Skil</find>
-      <find>added af</find>
-      <find>site-loader</find>
-      <find>form</find>
-      <find>logo</find>
-      <find>file</find>
-      <find>form1</find>
-      <find>accou</find>
-      <find>default</find>
-      <find>deb</find>
-      <find>create</find>
-      <find>people</find>
-      <find>update</find>
-      <find>account</find>
-      <find>picker</find>
       <find>store</find>
       <find>datetimepicker1</find>
       <find>datetimepicker</find>
@@ -164,6 +56,22 @@
       <find>save</find>
       <find>createNewModalLabel</find>
       <find>Work Experience</find>
+      <find>wrappe</find>
+      <find>work</find>
+      <find>experi</find>
+      <find>table-brand</find>
+      <find>experien</find>
+      <find>submit_button_add_row</find>
+      <find>add_new_work_row</find>
+      <find>submit_button</find>
+      <find>work_body</find>
+      <find>form_work</find>
+      <find>add_new_work</find>
+      <find>education_tbody</find>
+      <find>&lt;form</find>
+      <find>close</find>
+      <find>start_year</find>
+      <find>select2-init</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -172,7 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/layouts/clientsedit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MyAccountController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/RecruitController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/myaccount.blade.php" />
@@ -202,7 +109,6 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/message.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/errors.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/departments/view.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/departments/edit.blade.php" />
         <option value="$PROJECT_DIR$/config/filesystems.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/DepartmentsController.php" />
@@ -222,7 +128,9 @@
         <option value="$PROJECT_DIR$/app/Recruit.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
         <option value="$PROJECT_DIR$/resources/views/recruits/view.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/js/main.js" />
       </list>
     </option>
   </component>
@@ -267,7 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -298,13 +205,6 @@
               <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Middleware" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
-              <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Requests" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -315,32 +215,19 @@
             <path>
               <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
               <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="migrations" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
-              <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="seeds" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
               <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
               <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
-              <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="accounts" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
@@ -371,6 +258,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -430,12 +318,13 @@
       <workItem from="1559107915951" duration="15683000" />
       <workItem from="1559194289883" duration="7902000" />
       <workItem from="1559281299448" duration="13690000" />
-      <workItem from="1559540791911" duration="23929000" />
+      <workItem from="1559540791911" duration="24093000" />
+      <workItem from="1559627544428" duration="23921000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182082000" />
+    <option name="totallyTimeSpent" value="206167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
@@ -444,7 +333,6 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.50187665" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1469169" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -456,6 +344,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -475,13 +364,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/departments/view.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/departments/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
@@ -551,7 +433,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2268">
           <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -566,7 +447,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -574,7 +454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -582,7 +461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -590,7 +468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -598,7 +475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -613,7 +489,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -621,7 +496,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="399" column="58" lean-forward="false" selection-start-line="399" selection-start-column="58" selection-end-line="399" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -661,11 +535,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="607">
             <caret line="73" column="64" lean-forward="false" selection-start-line="73" selection-start-column="64" selection-end-line="73" selection-end-column="64" />
-            <folding>
-              <marker date="1557909771407" expanded="false" signature="1661:1752" ph="..." />
-              <marker date="1557909771407" expanded="false" signature="2768:2982" ph="..." />
-              <marker date="1557909771407" expanded="true" signature="3073:3128" ph="..." />
-            </folding>
           </first_editor>
           <second_editor />
         </state>
@@ -711,7 +580,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="43" column="55" lean-forward="true" selection-start-line="43" selection-start-column="55" selection-end-line="43" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +587,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="881">
           <caret line="70" column="51" lean-forward="false" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,7 +594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,7 +601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,7 +664,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="11" column="68" lean-forward="false" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,14 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="43" column="14" lean-forward="true" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -832,7 +688,7 @@
         <state relative-caret-position="396">
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#23#41#0#PHP" expanded="true" />
+            <element signature="e#23#41#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -841,7 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,7 +705,7 @@
         <state relative-caret-position="226">
           <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
           <folding>
-            <element signature="e#40#56#0#PHP" expanded="true" />
+            <element signature="e#40#56#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -862,33 +717,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/recruits/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="732" column="88" lean-forward="false" selection-start-line="732" selection-start-column="88" selection-end-line="732" selection-end-column="88" />
-          <folding>
-            <element signature="e#22368#22373#0#HTML" expanded="true" />
-            <element signature="e#30982#30989#1#HTML" expanded="true" />
-            <element signature="e#33228#33235#1#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="5" column="36" lean-forward="false" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/recruits/view.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="18">
           <caret line="64" column="69" lean-forward="false" selection-start-line="64" selection-start-column="69" selection-end-line="64" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/recruits/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="36" lean-forward="false" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        <state relative-caret-position="792">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="932">
+          <caret line="714" column="0" lean-forward="true" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
           <folding>
-            <element signature="e#21919#21924#0#HTML" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1559651371414" expanded="true" signature="10617:10632" ph="..." />
+            <marker date="1559651371414" expanded="true" signature="15989:16192" ph="..." />
+            <marker date="1559651371414" expanded="true" signature="16327:16410" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="682" column="0" lean-forward="true" selection-start-line="682" selection-start-column="0" selection-end-line="682" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -630,4 +630,101 @@
 
     dynamicFields.init();
 
+
+
+    /*
+        modal
+    */
+    $('.add_new_work').click(function() {
+
+        $('#editModalLabel').html('Add new row');
+        $('#submit_button').html('Add');
+        $('#editModal').modal('show');
+        $('#modal_employer').val('');
+        $('#modal_edit_name').val('');
+        $('#start_year').val('');
+        $('#start_month').val('');
+        $('#end_year').val('');
+        $('#end_month').val('');
+        $('#modal_edit_description').val('');
+
+        var value_field = this.id;
+
+        $('#form_work').append('<input type="hidden" id="type_field" name="type_field" value="' + value_field + '" />');
+    });
+
+
+
+
+
+
+
+    $('#submit_button').click(function(){
+
+        var tbody = '',
+            hideRow = '';
+
+        var modal_employer = $('#modal_employer').val(),
+            skill = $('#modal_edit_name').val(),
+            start_year = $('#start_year').val(),
+            type_field = $('#type_field').val(),
+            start_month = $('#start_month').val(),
+            end_year = $('#end_year').val(),
+            end_month = $('#end_month').val(),
+            description = $('#modal_edit_description').val();
+
+        if(type_field == 'add_new_work') {
+            tbody = '#work_tbody';
+            hideRow = 'experianceRow';
+        }
+        else if(type_field == 'add_new_education') {
+            tbody = '#education_tbody';
+            hideRow = 'educationRow';
+        }
+        else if(type_field == 'add_new_course'){
+            tbody = '#course_tbody';
+            hideRow = 'courseRow';
+        }
+
+        var finished = (end_year == '') ? 'No' : 'Yes';
+
+        var n = $(tbody + " tr.row-hide").length;
+
+        $(tbody).append(
+            '<tr>' +
+                '<td>' + modal_employer + '</td>' +
+                '<td>' + skill + '</td>' +
+                '<td>' + start_year + '</td>' +
+                '<td>' + end_year + '</td>' +
+                '<td>' + finished + '</td>' +
+                '<td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">' +
+                '<i class=\"cvd-edit\"></i>Edit</a>' +
+                '                            <a href=\"#\" class=\"table-link\" ' +
+                'data-table-collapse=\"#' + hideRow + (n+1) + '\">' +
+                '<i class=\"cvd-arrow-right\"></i>Open information</a>' +
+                '                            <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">' +
+                '<i class=\"cvd-trash\"></i></a>' +
+                '</td>' +
+            '</tr>' +
+                '<tr class=\"row-hide\" id=\"' + hideRow + (n+1) + '\">' +
+                '<td colspan=\"6\" class=\"cell-description\">' +  description + '</td>' +
+            '</tr>'
+        );
+    });
+
+
+    $(document).on('click','.btn-outline-danger', function() {
+        $(this).closest('tr').remove();
+    });
+
+
+    $('#editModal').on('hidden.bs.modal', function () {
+        $('#type_field').remove();
+        $('#select2-start_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
+        $('#select2-start_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
+        $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
+        $('#select2-end_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
+    });
+
+
 }(jQuery));

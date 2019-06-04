@@ -137,31 +137,55 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="card card-primary">
+
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <div class="item">
                     <h3>Work Experience</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Add new</a>
+                    <a href="#" id="add_new_work" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
                 </div>
             </div>
         </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-brand">
                     <thead>
-                    <tr>
-                        <th width="360">Employer</th>
-                        <th>Job</th>
-                        <th>Start</th>
-                        <th>End On</th>
-                        <th>Finished</th>
-                        <th>Actions</th>
-                    </tr>
+                        <tr>
+                            <th width="360">Employer</th>
+                            <th>Job</th>
+                            <th>Start</th>
+                            <th>End On</th>
+                            <th>Finished</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="work_tbody">
+
                     <tr>
                         <td>Feel IT Services</td>
                         <td>Full Stack Developer</td>
@@ -191,6 +215,7 @@
                             Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
                         </td>
                     </tr>
+
                     <tr>
                         <td>Inther Software Group</td>
                         <td>Java Developer</td>
@@ -225,6 +250,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <div class="card card-primary">
         <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -232,7 +261,7 @@
                     <h3>Education</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                    <a href="#" id="add_new_education" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
                 </div>
             </div>
         </div>
@@ -249,7 +278,8 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+
+                    <tbody id="education_tbody">
                     <tr>
                         <td>Moldova State University</td>
                         <td>PHD in bioinformatics</td>
@@ -313,6 +343,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <div class="card card-primary">
         <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -320,7 +354,7 @@
                     <h3>Course or Training</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                    <a href="#" id="add_new_course" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
                 </div>
             </div>
         </div>
@@ -337,7 +371,7 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="course_tbody">
                     <tr>
                         <td>Moldova State University</td>
                         <td>Scrum Master</td>
@@ -595,6 +629,13 @@
 
 
 
+
+
+
+
+
+
+
     <!-- Modals -->
     <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -635,10 +676,17 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="form_work">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Edit row</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -646,10 +694,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="modal_edit_name">Employer</label>
+                            <input type="text" class="form-control" name="modal_edit_name" id="modal_employer">
+                        </div>
+
                         <div class="form-group">
                             <label for="modal_edit_name">Skill</label>
                             <input type="text" class="form-control" name="modal_edit_name" id="modal_edit_name">
                         </div>
+
                         <label for="start_year">Start date</label>
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -683,6 +738,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <label for="end_year">End date</label>
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
@@ -722,7 +779,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button id="submit_button" type="button" class="btn btn-primary" data-dismiss="modal">Edit</button>
                     </div>
                 </form>
             </div>
@@ -730,4 +787,3 @@
     </div>
 
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
