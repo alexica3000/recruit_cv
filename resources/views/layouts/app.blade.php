@@ -38,7 +38,6 @@
     </main>
 
 </div>
-<!-- Modals -->
 <!-- JavaScripts -->
 <script src="{{asset('js/app.js')}}"></script>
 </body></html>

@@ -662,7 +662,8 @@
     $('#submit_button').click(function(){
 
         var tbody = '',
-            hideRow = '';
+            hideRow = '',
+            typeArray = '';
 
         var modal_employer = $('#modal_employer').val(),
             skill = $('#modal_edit_name').val(),
@@ -676,45 +677,58 @@
         if(type_field == 'add_new_work') {
             tbody = '#work_tbody';
             hideRow = 'experianceRow';
+            typeArray = 'works';
         }
         else if(type_field == 'add_new_education') {
             tbody = '#education_tbody';
             hideRow = 'educationRow';
+            typeArray = 'educations';
         }
         else if(type_field == 'add_new_course'){
             tbody = '#course_tbody';
             hideRow = 'courseRow';
+            typeArray = 'courses';
         }
 
         var finished = (end_year == '') ? 'No' : 'Yes';
 
         var n = $(tbody + " tr.row-hide").length;
 
-        $(tbody).append(
-            '<tr>' +
-                '<td>' + modal_employer + '</td>' +
-                '<td>' + skill + '</td>' +
-                '<td>' + start_year + '</td>' +
-                '<td>' + end_year + '</td>' +
-                '<td>' + finished + '</td>' +
-                '<td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">' +
-                '<i class=\"cvd-edit\"></i>Edit</a>' +
-                '                            <a href=\"#\" class=\"table-link\" ' +
-                'data-table-collapse=\"#' + hideRow + (n+1) + '\">' +
-                '<i class=\"cvd-arrow-right\"></i>Open information</a>' +
-                '                            <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">' +
-                '<i class=\"cvd-trash\"></i></a>' +
-                '</td>' +
-            '</tr>' +
-                '<tr class=\"row-hide\" id=\"' + hideRow + (n+1) + '\">' +
-                '<td colspan=\"6\" class=\"cell-description\">' +  description + '</td>' +
-            '</tr>'
-        );
+        var newRowWork = `
+            <tr>
+                <td>${modal_employer}</td>
+                    <input form="edit" type="hidden" value="${modal_employer}" name="${typeArray}[${n}][employer]">
+                <td>${skill}</td>
+                    <input form="edit" type="hidden" value="${skill}" name="${typeArray}[${n}][work_job]">
+                <td>${start_year}</td>
+                    <input form="edit" type="hidden" value="${start_year}" name="${typeArray}[${n}][start_year]">
+                    <input form="edit" type="hidden" value="${start_month}" name="${typeArray}[${n}][start_month]">
+                <td>${end_year}</td>
+                    <input form="edit" type="hidden" value="${end_year}" name="${typeArray}[${n}][end_year]">
+                    <input form="edit" type="hidden" value="${end_month}" name="${typeArray}[${n}][end_month]">
+                <td>${finished}</td>
+                
+                <td class="cell-flex"><a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                    <i class="cvd-edit"></i>Edit</a>
+                        <a href="#" class="table-link" data-table-collapse="#${hideRow}${n+1}">
+                    <i class="cvd-arrow-right"></i>Open information</a>
+                        <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                    <i class="cvd-trash"></i></a>
+                </td>
+            </tr>
+            <tr class="row-hide" id="${hideRow}${n+1}">
+                <td style="white-space:normal" colspan="6" class="cell-description">${description}</td>
+                    <input form="edit" type="hidden" value="${description}" name="${typeArray}[${n}][work_description]">
+            </tr>
+        `;
+
+        $(tbody).append(newRowWork);
     });
 
 
     $(document).on('click','.btn-outline-danger', function() {
-        $(this).closest('tr').remove();
+        var closestRow = $(this).closest('tr');
+        closestRow.add(closestRow.next()).remove();
     });
 
 
@@ -725,6 +739,5 @@
         $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
         $('#select2-end_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
     });
-
 
 }(jQuery));

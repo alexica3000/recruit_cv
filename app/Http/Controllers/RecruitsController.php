@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recruit;
+use App\Work;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -68,7 +69,11 @@ class RecruitsController extends Controller
      */
     public function edit(Recruit $recruit)
     {
-        return view('recruits.edit', compact('recruit'));
+        $works = $recruit->works()->where('type', 1)->get();
+        $educations = $recruit->works()->where('type', 2)->get();
+        $course = $recruit->works()->where('type', 3)->get();
+
+        return view('recruits.edit', compact('recruit', 'works', 'educations', 'course'));
     }
 
     /**
@@ -80,6 +85,8 @@ class RecruitsController extends Controller
      */
     public function update(Request $request, Recruit $recruit)
     {
+//        dd($request);
+
         $recruit->update([
             'name' => $request->name,
             'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
@@ -87,6 +94,16 @@ class RecruitsController extends Controller
             'job' => $request->job,
             'description' => $request->description
         ]);
+
+        $work = new Work;
+        $work->where('recruit_id', $recruit->id)->delete();
+
+        if(!empty($request->works))
+            $this->insertData($work, $request->works, $recruit, 1);
+        if(!empty($request->educations))
+            $this->insertData($work, $request->educations, $recruit, 2);
+        if(!empty($request->courses))
+            $this->insertData($work, $request->courses, $recruit, 3);
 
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
@@ -102,5 +119,28 @@ class RecruitsController extends Controller
         $recruit->delete();
 
         return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
+    }
+
+    protected function insertData(Work $work, $fields, Recruit $recruit, $type)
+    {
+        foreach ($fields as $field)
+        {
+            $start_date = $field['start_year'] . '-' . $field['start_month'] . '-01';
+
+            if($field['end_month'] == null)
+                $end_date = null;
+            else
+                $end_date = $field['end_year'] . '-' . $field['end_month'] . '-01';
+
+            $work->create([
+                'employer' => $field['employer'],
+                'job' => $field['work_job'],
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'description' => $field['work_description'],
+                'recruit_id' => $recruit->id,
+                'type' => $type
+            ]);
+        }
     }
 }

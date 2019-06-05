@@ -61103,7 +61103,8 @@ if (token) {
   });
   $('#submit_button').click(function () {
     var tbody = '',
-        hideRow = '';
+        hideRow = '',
+        typeArray = '';
     var modal_employer = $('#modal_employer').val(),
         skill = $('#modal_edit_name').val(),
         start_year = $('#start_year').val(),
@@ -61116,20 +61117,25 @@ if (token) {
     if (type_field == 'add_new_work') {
       tbody = '#work_tbody';
       hideRow = 'experianceRow';
+      typeArray = 'works';
     } else if (type_field == 'add_new_education') {
       tbody = '#education_tbody';
       hideRow = 'educationRow';
+      typeArray = 'educations';
     } else if (type_field == 'add_new_course') {
       tbody = '#course_tbody';
       hideRow = 'courseRow';
+      typeArray = 'courses';
     }
 
     var finished = end_year == '' ? 'No' : 'Yes';
     var n = $(tbody + " tr.row-hide").length;
-    $(tbody).append('<tr>' + '<td>' + modal_employer + '</td>' + '<td>' + skill + '</td>' + '<td>' + start_year + '</td>' + '<td>' + end_year + '</td>' + '<td>' + finished + '</td>' + '<td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">' + '<i class=\"cvd-edit\"></i>Edit</a>' + '                            <a href=\"#\" class=\"table-link\" ' + 'data-table-collapse=\"#' + hideRow + (n + 1) + '\">' + '<i class=\"cvd-arrow-right\"></i>Open information</a>' + '                            <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">' + '<i class=\"cvd-trash\"></i></a>' + '</td>' + '</tr>' + '<tr class=\"row-hide\" id=\"' + hideRow + (n + 1) + '\">' + '<td colspan=\"6\" class=\"cell-description\">' + description + '</td>' + '</tr>');
+    var newRowWork = "\n            <tr>\n                <td>".concat(modal_employer, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(modal_employer, "\" name=\"").concat(typeArray, "[").concat(n, "][employer]\">\n                <td>").concat(skill, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(skill, "\" name=\"").concat(typeArray, "[").concat(n, "][work_job]\">\n                <td>").concat(start_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(start_year, "\" name=\"").concat(typeArray, "[").concat(n, "][start_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(start_month, "\" name=\"").concat(typeArray, "[").concat(n, "][start_month]\">\n                <td>").concat(end_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_year, "\" name=\"").concat(typeArray, "[").concat(n, "][end_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_month, "\" name=\"").concat(typeArray, "[").concat(n, "][end_month]\">\n                <td>").concat(finished, "</td>\n                \n                <td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">\n                    <i class=\"cvd-edit\"></i>Edit</a>\n                        <a href=\"#\" class=\"table-link\" data-table-collapse=\"#").concat(hideRow).concat(n + 1, "\">\n                    <i class=\"cvd-arrow-right\"></i>Open information</a>\n                        <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                    <i class=\"cvd-trash\"></i></a>\n                </td>\n            </tr>\n            <tr class=\"row-hide\" id=\"").concat(hideRow).concat(n + 1, "\">\n                <td style=\"white-space:normal\" colspan=\"6\" class=\"cell-description\">").concat(description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(description, "\" name=\"").concat(typeArray, "[").concat(n, "][work_description]\">\n            </tr>\n        ");
+    $(tbody).append(newRowWork);
   });
   $(document).on('click', '.btn-outline-danger', function () {
-    $(this).closest('tr').remove();
+    var closestRow = $(this).closest('tr');
+    closestRow.add(closestRow.next()).remove();
   });
   $('#editModal').on('hidden.bs.modal', function () {
     $('#type_field').remove();

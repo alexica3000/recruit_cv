@@ -24,7 +24,6 @@
 
 @section('content')
 
-
     <div class="row">
         <div class="col-12 col-lg-6">
             <h3>Person</h3>
@@ -153,10 +152,7 @@
 
 
 
-
-
-
-
+{{-- works table --}}
 
     <div class="card card-primary">
 
@@ -186,65 +182,10 @@
                     </thead>
                     <tbody id="work_tbody">
 
-                    <tr>
-                        <td>Feel IT Services</td>
-                        <td>Full Stack Developer</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                Edit
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#experianceRow1">
-                                <i class="cvd-arrow-right"></i>
-                                Open information
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="experianceRow1">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
+                        @foreach($works as $field)
+                            @include('recruits.row', ['type' => 'works', 'hidden' => 'experience'])
+                        @endforeach
 
-                    <tr>
-                        <td>Inther Software Group</td>
-                        <td>Java Developer</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                Edit
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#experianceRow2">
-                                <i class="cvd-arrow-right"></i>
-                                Open information
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="experianceRow2">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -278,66 +219,12 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-
                     <tbody id="education_tbody">
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>PHD in bioinformatics</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                Edit
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#educationRow1">
-                                <i class="cvd-arrow-right"></i>
-                                Open information
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="educationRow1">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>PHD in bioinformatics</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                Edit
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#educationRow2">
-                                <i class="cvd-arrow-right"></i>
-                                Open information
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="educationRow2">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
+
+                        @foreach($educations as $field)
+                            @include('recruits.row', ['type' => 'educations', 'hidden' => 'education'])
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -372,35 +259,11 @@
                     </tr>
                     </thead>
                     <tbody id="course_tbody">
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>Scrum Master</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                Edit
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#courseRow1">
-                                <i class="cvd-arrow-right"></i>
-                                Open information
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="courseRow1">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
+
+                        @foreach($course as $field)
+                            @include('recruits.row', ['type' => 'courses', 'hidden' => 'course'])
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>
