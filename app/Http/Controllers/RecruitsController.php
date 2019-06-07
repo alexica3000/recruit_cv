@@ -165,6 +165,6 @@ class RecruitsController extends Controller
     protected function getRowFromWorks($id)
     {
         $work = Work::findOrFail($id);
-        return $work;
+        return $work;///
     }
 }
