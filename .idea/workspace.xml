@@ -10,7 +10,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -410,7 +409,7 @@
       <workItem from="1559713168271" duration="29508000" />
       <workItem from="1559799190555" duration="25380000" />
       <workItem from="1559825795313" duration="4000" />
-      <workItem from="1559886118132" duration="19142000" />
+      <workItem from="1559886118132" duration="19214000" />
     </task>
     <task id="LOCAL-00001" summary="change buton for recruit work table">
       <created>1559909472159</created>
@@ -440,11 +439,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559910634408</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="change buton for recruit work table">
+      <created>1559910692879</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1559910692879</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280201000" />
+    <option name="totallyTimeSpent" value="280273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
