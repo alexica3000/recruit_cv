@@ -85,7 +85,11 @@ class RecruitsController extends Controller
      */
     public function update(Request $request, Recruit $recruit)
     {
-//        dd($request);
+        if(isset($request->delete_work_id) && !empty($request->delete_work_id))
+            return $this->deleteRowFromWorks($request->delete_work_id);
+
+        if(isset($request->get_work_id) && !empty($request->get_work_id))
+            return $this->getRowFromWorks($request->get_work_id);
 
         $recruit->update([
             'name' => $request->name,
@@ -95,15 +99,12 @@ class RecruitsController extends Controller
             'description' => $request->description
         ]);
 
-        $work = new Work;
-        $work->where('recruit_id', $recruit->id)->delete();
-
         if(!empty($request->works))
-            $this->insertData($work, $request->works, $recruit, 1);
+            $this->insertData($request->works, $recruit, 1);
         if(!empty($request->educations))
-            $this->insertData($work, $request->educations, $recruit, 2);
+            $this->insertData($request->educations, $recruit, 2);
         if(!empty($request->courses))
-            $this->insertData($work, $request->courses, $recruit, 3);
+            $this->insertData($request->courses, $recruit, 3);
 
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
@@ -121,26 +122,49 @@ class RecruitsController extends Controller
         return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
     }
 
-    protected function insertData(Work $work, $fields, Recruit $recruit, $type)
+    protected function insertData($fields, Recruit $recruit, $type)
     {
         foreach ($fields as $field)
         {
             $start_date = $field['start_year'] . '-' . $field['start_month'] . '-01';
+            $end_date = ($field['end_month'] == null) ? null : $field['end_year'] . '-' . $field['end_month'] . '-01';
 
-            if($field['end_month'] == null)
-                $end_date = null;
+            if($field['work_id'] == 0)
+            {
+                $work = new Work([
+                    'employer' => $field['employer'],
+                    'job' => $field['work_job'],
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'description' => $field['work_description']
+                ]);
+                $work->type = $type;
+                $recruit->works()->save($work);
+            }
+
             else
-                $end_date = $field['end_year'] . '-' . $field['end_month'] . '-01';
-
-            $work->create([
-                'employer' => $field['employer'],
-                'job' => $field['work_job'],
-                'start_date' => $start_date,
-                'end_date' => $end_date,
-                'description' => $field['work_description'],
-                'recruit_id' => $recruit->id,
-                'type' => $type
-            ]);
+            {
+                $work = $recruit->works()->findOrFail($field['work_id']);
+                $work->update([
+                    'employer' => $field['employer'],
+                    'job' => $field['work_job'],
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'description' => $field['work_description']
+                ]);
+            }
         }
+    }
+
+    protected function deleteRowFromWorks($id)
+    {
+        Work::findOrFail($id)->delete();
+        return 'Yes';
+    }
+
+    protected function getRowFromWorks($id)
+    {
+        $work = Work::findOrFail($id);
+        return $work;
     }
 }

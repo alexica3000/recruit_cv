@@ -61083,9 +61083,20 @@ if (token) {
   }();
 
   dynamicFields.init();
+  /* *********************************************************************** */
+
   /*
-      modal
+      row template for work table from recruit
   */
+
+  var newRowWork = function newRowWork(input_array, typeArray, n, finished, hideRow) {
+    var newRowWorkdd = "\n            <tr>\n                <td>".concat(input_array.modal_employer, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.modal_employer, "\" name=\"").concat(typeArray, "[").concat(n, "][employer]\">\n                <td>").concat(input_array.skill, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.skill, "\" name=\"").concat(typeArray, "[").concat(n, "][work_job]\">\n                <td>").concat(input_array.start_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.start_year, "\" name=\"").concat(typeArray, "[").concat(n, "][start_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(start_month, "\" name=\"").concat(typeArray, "[").concat(n, "][start_month]\">\n                <td>").concat(end_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_year, "\" name=\"").concat(typeArray, "[").concat(n, "][end_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_month, "\" name=\"").concat(typeArray, "[").concat(n, "][end_month]\">\n                <td>").concat(finished, "</td>\n                \n                <td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">\n                    <i class=\"cvd-edit\"></i>Edit</a>\n                        <a href=\"#\" class=\"table-link\" data-table-collapse=\"#").concat(hideRow).concat(n + 1, "\">\n                    <i class=\"cvd-arrow-right\"></i>Open information</a>\n                        <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                    <i class=\"cvd-trash\"></i></a>\n                </td>\n            </tr>\n            <tr class=\"row-hide\" id=\"").concat(hideRow).concat(n + 1, "\">\n                <td style=\"white-space:normal\" colspan=\"6\" class=\"cell-description\">").concat(description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(description, "\" name=\"").concat(typeArray, "[").concat(n, "][work_description]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"0\" name=\"").concat(typeArray, "[").concat(n, "][work_id]\">\n            </tr>\n        ");
+    return newRowWorkdd;
+  };
+  /*
+      add new work with modal
+  */
+
 
   $('.add_new_work').click(function () {
     $('#editModalLabel').html('Add new row');
@@ -61101,18 +61112,24 @@ if (token) {
     var value_field = this.id;
     $('#form_work').append('<input type="hidden" id="type_field" name="type_field" value="' + value_field + '" />');
   });
+  /*
+          add new row to work table modal
+  */
+
   $('#submit_button').click(function () {
     var tbody = '',
         hideRow = '',
         typeArray = '';
-    var modal_employer = $('#modal_employer').val(),
-        skill = $('#modal_edit_name').val(),
-        start_year = $('#start_year').val(),
-        type_field = $('#type_field').val(),
-        start_month = $('#start_month').val(),
+    var start_month = $('#start_month').val(),
         end_year = $('#end_year').val(),
         end_month = $('#end_month').val(),
         description = $('#modal_edit_description').val();
+    var input_array = {
+      modal_employer: $('#modal_employer').val(),
+      skill: $('#modal_edit_name').val(),
+      start_year: $('#start_year').val(),
+      type_field: $('#type_field').val()
+    };
 
     if (type_field == 'add_new_work') {
       tbody = '#work_tbody';
@@ -61130,19 +61147,82 @@ if (token) {
 
     var finished = end_year == '' ? 'No' : 'Yes';
     var n = $(tbody + " tr.row-hide").length;
-    var newRowWork = "\n            <tr>\n                <td>".concat(modal_employer, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(modal_employer, "\" name=\"").concat(typeArray, "[").concat(n, "][employer]\">\n                <td>").concat(skill, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(skill, "\" name=\"").concat(typeArray, "[").concat(n, "][work_job]\">\n                <td>").concat(start_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(start_year, "\" name=\"").concat(typeArray, "[").concat(n, "][start_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(start_month, "\" name=\"").concat(typeArray, "[").concat(n, "][start_month]\">\n                <td>").concat(end_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_year, "\" name=\"").concat(typeArray, "[").concat(n, "][end_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(end_month, "\" name=\"").concat(typeArray, "[").concat(n, "][end_month]\">\n                <td>").concat(finished, "</td>\n                \n                <td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">\n                    <i class=\"cvd-edit\"></i>Edit</a>\n                        <a href=\"#\" class=\"table-link\" data-table-collapse=\"#").concat(hideRow).concat(n + 1, "\">\n                    <i class=\"cvd-arrow-right\"></i>Open information</a>\n                        <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                    <i class=\"cvd-trash\"></i></a>\n                </td>\n            </tr>\n            <tr class=\"row-hide\" id=\"").concat(hideRow).concat(n + 1, "\">\n                <td style=\"white-space:normal\" colspan=\"6\" class=\"cell-description\">").concat(description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(description, "\" name=\"").concat(typeArray, "[").concat(n, "][work_description]\">\n            </tr>\n        ");
-    $(tbody).append(newRowWork);
+    var newRowWorkd = newRowWork(input_array, typeArray, n, finished, hideRow);
+    $(tbody).append(newRowWorkd);
   });
-  $(document).on('click', '.btn-outline-danger', function () {
-    var closestRow = $(this).closest('tr');
-    closestRow.add(closestRow.next()).remove();
-  });
+  /*
+          correct inputs year and month for work modal
+  */
+
   $('#editModal').on('hidden.bs.modal', function () {
     $('#type_field').remove();
     $('#select2-start_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
     $('#select2-start_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
     $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
     $('#select2-end_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
+  });
+  /*
+          delete row from works table with jQuery
+  */
+
+  $(document).on('click', '.btn-outline-danger', function () {
+    var closestRow = $(this).closest('tr');
+    var id_row = closestRow.next().children(':nth-child(3)').attr('value');
+    if (id_row == 0) closestRow.add(closestRow.next()).remove();else {
+      var recruit_id = $('#recruit_id').val();
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        type: 'PATCH',
+        url: "/recruits/".concat(recruit_id),
+        data: {
+          delete_work_id: id_row
+        },
+        success: function success(data) {
+          closestRow.add(closestRow.next()).remove(); // alert(data);
+        }
+      });
+    }
+  });
+  /*
+      auto-hide alert-dismissible message
+  */
+
+  $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+    $(".alert-dismissible").alert('close');
+  });
+  /*
+      edit row form works table with jQuery
+  */
+
+  $('.edit_work').click(function () {
+    siteSelect.init('.select2-init');
+    $('#start_year').val('');
+    var currentRow = $(this).closest('tr');
+    var recruit_id = $('#recruit_id').val();
+    var id_row = currentRow.next().children(':nth-child(3)').attr('value');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'PATCH',
+      url: "/recruits/".concat(recruit_id),
+      data: {
+        get_work_id: id_row
+      },
+      success: function success(data) {
+        // $('#modal_employer').val(data.employer);
+        // $('#modal_edit_name').val(data.job);
+        $('#start_year').val('2016'); // $('#modal_edit_description').val(data.description);
+
+        $('#editModal').modal('show'); // alert(data.employer);
+      }
+    });
   });
 })(jQuery);
 

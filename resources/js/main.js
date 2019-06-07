@@ -632,8 +632,54 @@
 
 
 
+
+    /* *********************************************************************** */
+
     /*
-        modal
+        row template for work table from recruit
+    */
+
+    var newRowWork = function(input_array, typeArray, n, finished, hideRow)
+    {
+        let newRowWorkdd = `
+            <tr>
+                <td>${input_array.modal_employer}</td>
+                    <input form="edit" type="hidden" value="${input_array.modal_employer}" name="${typeArray}[${n}][employer]">
+                <td>${input_array.skill}</td>
+                    <input form="edit" type="hidden" value="${input_array.skill}" name="${typeArray}[${n}][work_job]">
+                <td>${input_array.start_year}</td>
+                    <input form="edit" type="hidden" value="${input_array.start_year}" name="${typeArray}[${n}][start_year]">
+                    <input form="edit" type="hidden" value="${start_month}" name="${typeArray}[${n}][start_month]">
+                <td>${end_year}</td>
+                    <input form="edit" type="hidden" value="${end_year}" name="${typeArray}[${n}][end_year]">
+                    <input form="edit" type="hidden" value="${end_month}" name="${typeArray}[${n}][end_month]">
+                <td>${finished}</td>
+                
+                <td class="cell-flex"><a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                    <i class="cvd-edit"></i>Edit</a>
+                        <a href="#" class="table-link" data-table-collapse="#${hideRow}${n+1}">
+                    <i class="cvd-arrow-right"></i>Open information</a>
+                        <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                    <i class="cvd-trash"></i></a>
+                </td>
+            </tr>
+            <tr class="row-hide" id="${hideRow}${n+1}">
+                <td style="white-space:normal" colspan="6" class="cell-description">${description}</td>
+                    <input form="edit" type="hidden" value="${description}" name="${typeArray}[${n}][work_description]">
+                    <input form="edit" type="hidden" value="0" name="${typeArray}[${n}][work_id]">
+            </tr>
+        `;
+        return newRowWorkdd;
+    }
+
+
+
+
+
+
+
+    /*
+        add new work with modal
     */
     $('.add_new_work').click(function() {
 
@@ -657,22 +703,31 @@
 
 
 
-
+    /*
+            add new row to work table modal
+    */
 
     $('#submit_button').click(function(){
 
-        var tbody = '',
+        let tbody = '',
             hideRow = '',
             typeArray = '';
 
-        var modal_employer = $('#modal_employer').val(),
-            skill = $('#modal_edit_name').val(),
-            start_year = $('#start_year').val(),
-            type_field = $('#type_field').val(),
+        var
+
+
+
             start_month = $('#start_month').val(),
             end_year = $('#end_year').val(),
             end_month = $('#end_month').val(),
             description = $('#modal_edit_description').val();
+
+         let input_array = {
+             modal_employer: $('#modal_employer').val(),
+             skill: $('#modal_edit_name').val(),
+             start_year: $('#start_year').val(),
+             type_field: $('#type_field').val(),
+         };
 
         if(type_field == 'add_new_work') {
             tbody = '#work_tbody';
@@ -690,47 +745,19 @@
             typeArray = 'courses';
         }
 
-        var finished = (end_year == '') ? 'No' : 'Yes';
+        let finished = (end_year == '') ? 'No' : 'Yes';
 
-        var n = $(tbody + " tr.row-hide").length;
+        let n = $(tbody + " tr.row-hide").length;
+        let newRowWorkd = newRowWork(input_array, typeArray, n, finished, hideRow);
 
-        var newRowWork = `
-            <tr>
-                <td>${modal_employer}</td>
-                    <input form="edit" type="hidden" value="${modal_employer}" name="${typeArray}[${n}][employer]">
-                <td>${skill}</td>
-                    <input form="edit" type="hidden" value="${skill}" name="${typeArray}[${n}][work_job]">
-                <td>${start_year}</td>
-                    <input form="edit" type="hidden" value="${start_year}" name="${typeArray}[${n}][start_year]">
-                    <input form="edit" type="hidden" value="${start_month}" name="${typeArray}[${n}][start_month]">
-                <td>${end_year}</td>
-                    <input form="edit" type="hidden" value="${end_year}" name="${typeArray}[${n}][end_year]">
-                    <input form="edit" type="hidden" value="${end_month}" name="${typeArray}[${n}][end_month]">
-                <td>${finished}</td>
-                
-                <td class="cell-flex"><a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                    <i class="cvd-edit"></i>Edit</a>
-                        <a href="#" class="table-link" data-table-collapse="#${hideRow}${n+1}">
-                    <i class="cvd-arrow-right"></i>Open information</a>
-                        <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                    <i class="cvd-trash"></i></a>
-                </td>
-            </tr>
-            <tr class="row-hide" id="${hideRow}${n+1}">
-                <td style="white-space:normal" colspan="6" class="cell-description">${description}</td>
-                    <input form="edit" type="hidden" value="${description}" name="${typeArray}[${n}][work_description]">
-            </tr>
-        `;
-
-        $(tbody).append(newRowWork);
+        $(tbody).append(newRowWorkd);
     });
 
 
-    $(document).on('click','.btn-outline-danger', function() {
-        var closestRow = $(this).closest('tr');
-        closestRow.add(closestRow.next()).remove();
-    });
 
+    /*
+            correct inputs year and month for work modal
+    */
 
     $('#editModal').on('hidden.bs.modal', function () {
         $('#type_field').remove();
@@ -739,5 +766,102 @@
         $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
         $('#select2-end_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
     });
+
+
+
+
+    /*
+            delete row from works table with jQuery
+    */
+    $(document).on('click','.btn-outline-danger', function() {
+        var closestRow = $(this).closest('tr');
+        var id_row = closestRow.next().children(':nth-child(3)').attr('value');
+        if (id_row == 0)
+            closestRow.add(closestRow.next()).remove();
+        else
+        {
+            let recruit_id = $('#recruit_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'PATCH',
+                url:`/recruits/${recruit_id}`,
+                data:{delete_work_id:id_row},
+                success:function(data){
+                    closestRow.add(closestRow.next()).remove();
+                    // alert(data);
+                }
+            });
+        }
+    });
+
+
+    /*
+        auto-hide alert-dismissible message
+    */
+
+    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-dismissible").alert('close');
+    });
+
+
+    /*
+        edit row form works table with jQuery
+    */
+
+    $('.edit_work').click(function(){
+        siteSelect.init('.select2-init');
+        $('#start_year').val('');
+
+        let currentRow = $(this).closest('tr');
+        let recruit_id = $('#recruit_id').val();
+        let id_row = currentRow.next().children(':nth-child(3)').attr('value');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type:'PATCH',
+            url:`/recruits/${recruit_id}`,
+            data:{get_work_id:id_row},
+
+            success:function(data){
+
+                // $('#modal_employer').val(data.employer);
+                // $('#modal_edit_name').val(data.job);
+                $('#start_year').val('2016');
+
+                // $('#modal_edit_description').val(data.description);
+                $('#editModal').modal('show');
+
+
+
+
+
+                // alert(data.employer);
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
 
 }(jQuery));

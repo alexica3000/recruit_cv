@@ -32,6 +32,7 @@
                     <div class="form-group">
                         <label for="name">Name (*)</label>
                         <input form="edit" type="text" class="form-control" name="name" id="name" value="{{ $recruit->name }}">
+                        <input type="hidden" class="form-control" name="recruit_id" id="recruit_id" value="{{ $recruit->id }}">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -574,10 +575,10 @@
                                 <div class="form-group">
                                     <select name="start_year" id="start_year" class="form-control select2-init" data-placeholder="Select year">
                                         <option></option>
-                                        <option class="2015">2015</option>
-                                        <option class="2016">2016</option>
-                                        <option class="2017">2017</option>
-                                        <option class="2018">2018</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017" selected>2017</option>
+                                        <option value="2018">2018</option>
                                     </select>
                                 </div>
                             </div>
@@ -608,10 +609,10 @@
                                 <div class="form-group">
                                     <select name="end_year" id="end_year" class="form-control select2-init" data-placeholder="Select year">
                                         <option></option>
-                                        <option class="2015">2015</option>
-                                        <option class="2016">2016</option>
-                                        <option class="2017">2017</option>
-                                        <option class="2018">2018</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
                                     </select>
                                 </div>
                             </div>
