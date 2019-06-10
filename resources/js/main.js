@@ -649,10 +649,10 @@
                     <input form="edit" type="hidden" value="${input_array.skill}" name="${typeArray}[${n}][work_job]">
                 <td>${input_array.start_year}</td>
                     <input form="edit" type="hidden" value="${input_array.start_year}" name="${typeArray}[${n}][start_year]">
-                    <input form="edit" type="hidden" value="${start_month}" name="${typeArray}[${n}][start_month]">
-                <td>${end_year}</td>
-                    <input form="edit" type="hidden" value="${end_year}" name="${typeArray}[${n}][end_year]">
-                    <input form="edit" type="hidden" value="${end_month}" name="${typeArray}[${n}][end_month]">
+                    <input form="edit" type="hidden" value="${input_array.start_month}" name="${typeArray}[${n}][start_month]">
+                <td>${input_array.end_year}</td>
+                    <input form="edit" type="hidden" value="${input_array.end_year}" name="${typeArray}[${n}][end_year]">
+                    <input form="edit" type="hidden" value="${input_array.end_month}" name="${typeArray}[${n}][end_month]">
                 <td>${finished}</td>
                 
                 <td class="cell-flex"><a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
@@ -664,8 +664,8 @@
                 </td>
             </tr>
             <tr class="row-hide" id="${hideRow}${n+1}">
-                <td style="white-space:normal" colspan="6" class="cell-description">${description}</td>
-                    <input form="edit" type="hidden" value="${description}" name="${typeArray}[${n}][work_description]">
+                <td style="white-space:normal" colspan="6" class="cell-description">${input_array.description}</td>
+                    <input form="edit" type="hidden" value="${input_array.description}" name="${typeArray}[${n}][work_description]">
                     <input form="edit" type="hidden" value="0" name="${typeArray}[${n}][work_id]">
             </tr>
         `;
@@ -683,6 +683,7 @@
     */
     $('.add_new_work').click(function() {
 
+        siteSelect.init('.select2-init');
         $('#editModalLabel').html('Add new row');
         $('#submit_button').html('Add');
         $('#editModal').modal('show');
@@ -707,26 +708,22 @@
             add new row to work table modal
     */
 
-    $('#submit_button').click(function(){
+    $('#submit_button').on('click', function(){
 
         let tbody = '',
             hideRow = '',
             typeArray = '';
 
-        var
+        var type_field = $('#type_field').val();
 
-
-
-            start_month = $('#start_month').val(),
-            end_year = $('#end_year').val(),
-            end_month = $('#end_month').val(),
-            description = $('#modal_edit_description').val();
-
-         let input_array = {
+        let input_work_array = {
              modal_employer: $('#modal_employer').val(),
              skill: $('#modal_edit_name').val(),
              start_year: $('#start_year').val(),
-             type_field: $('#type_field').val(),
+             start_month: $('#start_month').val(),
+             end_year: $('#end_year').val(),
+             end_month: $('#end_month').val(),
+             description: $('#modal_edit_description').val()
          };
 
         if(type_field == 'add_new_work') {
@@ -745,13 +742,15 @@
             typeArray = 'courses';
         }
 
-        let finished = (end_year == '') ? 'No' : 'Yes';
+        let finished = (input_work_array.end_year == '') ? 'No' : 'Yes';
 
         let n = $(tbody + " tr.row-hide").length;
-        let newRowWorkd = newRowWork(input_array, typeArray, n, finished, hideRow);
+        let newRowWorkd = newRowWork(input_work_array, typeArray, n, finished, hideRow);
 
         $(tbody).append(newRowWorkd);
     });
+
+
 
 
 
@@ -761,6 +760,7 @@
 
     $('#editModal').on('hidden.bs.modal', function () {
         $('#type_field').remove();
+        siteSelect.init('.select2-init');
         $('#select2-start_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
         $('#select2-start_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
         $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
@@ -793,7 +793,8 @@
                 url:`/recruits/${recruit_id}`,
                 data:{delete_work_id:id_row},
                 success:function(data){
-                    closestRow.add(closestRow.next()).remove();
+                    // closestRow.add(closestRow.next()).remove();
+                    location.reload();
                     // alert(data);
                 }
             });
@@ -811,16 +812,19 @@
 
 
     /*
-        edit row form works table with jQuery
+        show form works table with jQuery (for edit)
     */
 
+    var work = {
+        id: 0
+    };
+
     $('.edit_work').click(function(){
-        siteSelect.init('.select2-init');
-        $('#start_year').val('');
 
         let currentRow = $(this).closest('tr');
         let recruit_id = $('#recruit_id').val();
         let id_row = currentRow.next().children(':nth-child(3)').attr('value');
+        work.id = id_row;
 
         $.ajaxSetup({
             headers: {
@@ -834,26 +838,90 @@
             data:{get_work_id:id_row},
 
             success:function(data){
+                $('#submit_button').attr('id', 'update_work');
+                siteSelect.init('.select2-init');
 
-                // $('#modal_employer').val(data.employer);
-                // $('#modal_edit_name').val(data.job);
-                $('#start_year').val('2016');
+                var start_date = new Date(data.start_date);
+                var end_date = new Date(data.end_date);
 
-                // $('#modal_edit_description').val(data.description);
+                if (data.end_date == null)
+                {
+                    $('#end_year').val('');
+                    $('#end_month').val('');
+                }
+                else
+                {
+                    $('#end_year').val(end_date.getFullYear());
+                    $('#end_month').val(end_date.getMonth()+1);
+                }
+
+                $('#modal_employer').val(data.employer);
+                $('#modal_edit_name').val(data.job);
+                $('#start_year').val(start_date.getFullYear());
+                $('#start_month').val(start_date.getMonth()+1);
+                $('#modal_edit_description').val(data.description);
                 $('#editModal').modal('show');
+            }
+        });
+    });
 
 
+    /*
+        update row from work table
+     */
 
+    $(document).on('click', '#update_work', function(){
+        $('#update_work').attr('id', 'submit_button');
+        let recruit_id = $('#recruit_id').val();
 
+        // let row = $(`input[value=${work.id}]`);
 
-                // alert(data.employer);
+        let input_work_array = {
+            modal_employer: $('#modal_employer').val(),
+            skill: $('#modal_edit_name').val(),
+            start_year: $('#start_year').val(),
+            start_month: $('#start_month').val(),
+            end_year: $('#end_year').val(),
+            end_month: $('#end_month').val(),
+            description: $('#modal_edit_description').val()
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
+        $.ajax({
+            type:'PATCH',
+            url:`/recruits/${recruit_id}`,
+            data:{
+                update_work_id: work.id,
+                modal_employer: input_work_array.modal_employer,
+                skill: input_work_array.skill,
+                start_year: input_work_array.start_year,
+                start_month: input_work_array.start_month,
+                end_year: input_work_array.end_year,
+                end_month: input_work_array.end_month,
+                description: input_work_array.description
+            },
 
-
-
+            success:function(data){
+                // let newRow = newRowWork(input_work_array);
+                // row.parent().prev().replaceWith(newRow);
+                location.reload();
+                // alert('yes!');
+            }
+        });
     });
+
+
+
+
+
+
+
+
 
 
 

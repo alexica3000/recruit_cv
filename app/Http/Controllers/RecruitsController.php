@@ -91,6 +91,9 @@ class RecruitsController extends Controller
         if(isset($request->get_work_id) && !empty($request->get_work_id))
             return $this->getRowFromWorks($request->get_work_id);
 
+        if(isset($request->update_work_id) && !empty($request->update_work_id))
+            return $this->updateRowFromWorks($recruit, $request);
+
         $recruit->update([
             'name' => $request->name,
             'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
@@ -165,6 +168,21 @@ class RecruitsController extends Controller
     protected function getRowFromWorks($id)
     {
         $work = Work::findOrFail($id);
-        return $work;///
+        return $work;
+    }
+
+    protected function updateRowFromWorks(Recruit $recruit, Request $request)
+    {
+        $start_date = $request->start_year . '-' . $request->start_month . '-01';
+        $end_date = ($request->end_year == null) ? null : $request->end_year . '-' . $request->end_month . '-01';
+
+        $work = $recruit->works()->findOrFail($request->update_work_id);
+        $work->update([
+            'employer' => $request->modal_employer,
+            'job' => $request->skill,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'description' => $request->description
+        ]);
     }
 }
