@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recruit;
+use App\Skill;
 use App\Work;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,11 +70,14 @@ class RecruitsController extends Controller
      */
     public function edit(Recruit $recruit)
     {
-        $works = $recruit->works()->where('type', 1)->get();
-        $educations = $recruit->works()->where('type', 2)->get();
-        $course = $recruit->works()->where('type', 3)->get();
+//        $works = $recruit->works()->where('type', 1)->get();
+//        $educations = $recruit->works()->where('type', 2)->get();
+//        $course = $recruit->works()->where('type', 3)->get();
 
-        return view('recruits.edit', compact('recruit', 'works', 'educations', 'course'));
+
+//        $recruit->load('skills')->get();
+
+        return view('recruits.edit', compact('recruit'));
     }
 
     /**
@@ -85,14 +89,12 @@ class RecruitsController extends Controller
      */
     public function update(Request $request, Recruit $recruit)
     {
-        if(isset($request->delete_work_id) && !empty($request->delete_work_id))
-            return $this->deleteRowFromWorks($request->delete_work_id);
-
         if(isset($request->get_work_id) && !empty($request->get_work_id))
-            return $this->getRowFromWorks($request->get_work_id);
+            return $this->getRowFromWorks($recruit, $request->get_work_id);
 
         if(isset($request->update_work_id) && !empty($request->update_work_id))
             return $this->updateRowFromWorks($recruit, $request);
+
 
         $recruit->update([
             'name' => $request->name,
@@ -102,12 +104,23 @@ class RecruitsController extends Controller
             'description' => $request->description
         ]);
 
+        // insert data to skills table
+        if(!empty($request->skills))
+            $this->insertDataToSkill($request->skills, $recruit, Skill::SKILLS_TYPE);
+        if(!empty($request->charac))
+            $this->insertDataToSkill($request->charac, $recruit, Skill::CHARACTERISTICS_TYPE);
+        if(!empty($request->social))
+            $this->insertDataToSkill($request->social, $recruit, Skill::SOCIAL_TYPE);
+        if(!empty($request->interest))
+            $this->insertDataToSkill($request->interest, $recruit, Skill::INTERESTS_TYPE);
+
+        // insert data to works table
         if(!empty($request->works))
-            $this->insertData($request->works, $recruit, 1);
+            $this->insertDataToWork($request->works, $recruit, Work::WORK_TYPE);
         if(!empty($request->educations))
-            $this->insertData($request->educations, $recruit, 2);
+            $this->insertDataToWork($request->educations, $recruit, Work::EDUCATION_TYPE);
         if(!empty($request->courses))
-            $this->insertData($request->courses, $recruit, 3);
+            $this->insertDataToWork($request->courses, $recruit, Work::COURSE_TYPE);
 
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
@@ -125,7 +138,40 @@ class RecruitsController extends Controller
         return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
     }
 
-    protected function insertData($fields, Recruit $recruit, $type)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroySkill(Recruit $recruit, Skill $skill)
+    {
+        $recruit->skills()->where('id', $skill->id)->delete();
+
+        return response()->json(['status' => true]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyWork(Recruit $recruit, Work $work)
+    {
+        $recruit->works()->where('id', $work->id)->delete();
+
+        return response()->json(['status' => true]);
+    }
+
+
+
+
+
+
+
+
+    protected function insertDataToWork($fields, Recruit $recruit, $type)
     {
         foreach ($fields as $field)
         {
@@ -159,15 +205,9 @@ class RecruitsController extends Controller
         }
     }
 
-    protected function deleteRowFromWorks($id)
+    protected function getRowFromWorks(Recruit $recruit, $id)
     {
-        Work::findOrFail($id)->delete();
-        return 'Yes';
-    }
-
-    protected function getRowFromWorks($id)
-    {
-        $work = Work::findOrFail($id);
+        $work = $recruit->works()->where('id', $id)->get()->first();
         return $work;
     }
 
@@ -185,4 +225,25 @@ class RecruitsController extends Controller
             'description' => $request->description
         ]);
     }
+
+    protected function insertDataToSkill($fields, Recruit $recruit, $type)
+    {
+        $containers = [];
+
+        foreach ($fields as $field)
+        {
+            if($field['skill_id'] == 0)
+            {
+                $skill = new Skill([
+                    'char' => $field['char'],
+                    'description' => $field['description']
+                ]);
+                $skill->type = $type;
+                $containers[] = $skill;
+            }
+        }
+        $recruit->skills()->saveMany($containers);
+    }
+
+
 }

@@ -637,6 +637,7 @@
 
     /*
         row template for work table from recruit
+        Tables: Work Experience / Education / Course or Training
     */
 
     var newRowWork = function(input_array, typeArray, n, finished, hideRow)
@@ -773,9 +774,10 @@
     /*
             delete row from works table with jQuery
     */
-    $(document).on('click','.btn-outline-danger', function() {
+    $(document).on('click','.delete_work', function() {
         var closestRow = $(this).closest('tr');
         var id_row = closestRow.next().children(':nth-child(3)').attr('value');
+
         if (id_row == 0)
             closestRow.add(closestRow.next()).remove();
         else
@@ -789,12 +791,11 @@
             });
 
             $.ajax({
-                type:'PATCH',
-                url:`/recruits/${recruit_id}`,
-                data:{delete_work_id:id_row},
-                success:function(data){
-                    // closestRow.add(closestRow.next()).remove();
-                    location.reload();
+                type:'DELETE',
+                url:`/recruits/${recruit_id}/w/${id_row}`,
+                success:function(){
+                    closestRow.add(closestRow.next()).remove();
+                    // location.reload();
                     // alert(data);
                 }
             });
@@ -812,7 +813,7 @@
 
 
     /*
-        show form works table with jQuery (for edit)
+        show edit form works table with jQuery
     */
 
     var work = {
@@ -918,14 +919,151 @@
 
 
 
+    /*
+        work with tables from recruit view: Skills / Characteristics / Social Media / Interests
+        show modal form
+    */
+
+    $(document).on('click', '.add_new_skill', function () {
+        $('#modal_name').val('');
+        $('#modal_level').val('').trigger('change');
+        $('#modal_description').val('');
+        $('#createNewModalLabel').html('Add new skill');
+        $('#createNewModal').modal('show');
+        let id_skill_table = this.id;
+        typeOfSkillsTable(id_skill_table);
+    });
+
+    /*
+        insert data to view table
+    */
+
+    $(document).on('click', '#submit_skill', function (){
+        let n = $(type_of_table.tbody + " tr").length;
+        let row_skill_table = rowSkills(n);
+        $(type_of_table.tbody).append(row_skill_table);
+    });
+
+    var type_of_table = {
+        tbody: '',
+        typeArray: ''
+    }
 
 
+    /*
+        types of skill table
+    */
 
+    var typeOfSkillsTable = function(id_skill_table)
+    {
+        if(id_skill_table == 'add_new_skill')
+        {
+            type_of_table.tbody = '#skill_tbody';
+            type_of_table.typeArray = 'skills';
+            $('#createNewModalLabel').html('Add new skill');
+            $('#label_modal_name').html('Skill');
+            $('#label_modal_desc').html('Level');
+        }
 
+        if(id_skill_table == 'add_new_charac')
+        {
+            type_of_table.tbody = '#charac_tbody';
+            type_of_table.typeArray = 'charac';
+            $('#createNewModalLabel').html('Add new characteristics');
+            $('#label_modal_name').html('Characteristic');
+            $('#label_modal_desc').html('Description');
+        }
 
+        if(id_skill_table == 'add_new_social')
+        {
+            type_of_table.tbody = '#social_tbody';
+            type_of_table.typeArray = 'social';
+            $('#createNewModalLabel').html('Add new social media');
+            $('#label_modal_name').html('Platform');
+            $('#label_modal_desc').html('Link');
+        }
 
+        if(id_skill_table == 'add_new_interest')
+        {
+            type_of_table.tbody = '#interest_tbody';
+            type_of_table.typeArray = 'interest';
+            $('#createNewModalLabel').html('Add new interests');
+            $('#label_modal_name').html('Interest');
+            $('#label_modal_desc').html('Description');
+        }
+    }
 
+    /*
+        load input data from modal form
+    */
 
+    var loadDataFromSkillModal = function()
+    {
+        let inputs_row = {
+            char: '',
+            description: ''
+        }
+
+        inputs_row.char = $('#modal_name').val();
+        inputs_row.description = $('#modal_description').val();
+
+        return inputs_row;
+    }
+
+    /*
+        return a new row for skill tables
+    */
+
+    var rowSkills = function(n)
+    {
+        let fields = loadDataFromSkillModal();
+        var row_skills = `
+            <tr>
+                <td>${fields.char}</td>
+                    <input form="edit" type="hidden" value="${fields.char}" name="${type_of_table.typeArray}[${n}][char]">
+                <td>${fields.description}</td>
+                    <input form="edit" type="hidden" value="${fields.description}" name="${type_of_table.typeArray}[${n}][description]">
+                    <input form="edit" type="hidden" value="0" name="${type_of_table.typeArray}[${n}][skill_id]">
+                <td class="cell-flex">
+                    <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                        <i class="cvd-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        `
+        return row_skills;
+    }
+
+    /*
+                delete row from skills table with jQuery
+    */
+    $(document).on('click','.delete_skill', function() {
+        var closestRow = $(this).closest('tr');
+        var id_row = closestRow.children(':nth-child(5)').attr('value');
+
+        if (id_row == 0)
+            closestRow.remove();
+        else
+        {
+            let recruit_id = $('#recruit_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type:'DELETE',
+                url:`/recruits/${recruit_id}/s/${id_row}`,
+                success:function(){
+                    closestRow.remove();
+                    // location.reload();
+                    // alert(data);
+                }
+            });
+        }
+    });
 
 
 

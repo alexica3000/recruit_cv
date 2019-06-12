@@ -28,7 +28,7 @@
             <i class="cvd-arrow-right"></i>
             Open information
         </a>
-        <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+        <a href="#" class="btn btn-outline-danger btn-sm delete_work" data-toggle="modal" data-target="#confirmSkillsModal">
             <i class="cvd-trash"></i>
         </a>
     </td>

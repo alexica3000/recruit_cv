@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 
 Route::resource('recruits', 'RecruitsController');
+Route::delete('recruits/{recruit}/s/{skill}', 'RecruitsController@destroySkill');
+Route::delete('recruits/{recruit}/w/{work}', 'RecruitsController@destroyWork');
 
 Route::resource('accounts', 'AccountsController');
 

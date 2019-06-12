@@ -24,7 +24,7 @@ class CreateWorksTable extends Migration
             $table->smallInteger('type');
             $table->timestamps();
 
-            $table->foreign('recruit_id')->references('id')->on('recruits')->onDelete('cascade');
+            $table->foreign('recruit_id')->references('id')->on('recruits');
         });
     }
 

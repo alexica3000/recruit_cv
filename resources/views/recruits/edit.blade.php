@@ -11,7 +11,7 @@
             <button class="btn btn-outline-danger">Delete</button>
         </form>
 
-        <form action="{{ route('recruits.update', $recruit->id) }}" id="edit" method="post">
+        <form action="{{ route('recruits.update', $recruit->id) }}" id="edit" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="pl-2">
@@ -183,8 +183,9 @@
                     </thead>
                     <tbody id="work_tbody">
 
-                        @foreach($works as $field)
-                            @include('recruits.row', ['type' => 'works', 'hidden' => 'experience'])
+                        @foreach($recruit->works as $field)
+                            @continue($field->type != 1)
+                            @include('recruits.row_work', ['type' => 'works', 'hidden' => 'experience'])
                         @endforeach
 
                     </tbody>
@@ -222,8 +223,9 @@
                     </thead>
                     <tbody id="education_tbody">
 
-                        @foreach($educations as $field)
-                            @include('recruits.row', ['type' => 'educations', 'hidden' => 'education'])
+                        @foreach($recruit->works as $field)
+                            @continue($field->type != 2)
+                            @include('recruits.row_work', ['type' => 'educations', 'hidden' => 'education'])
                         @endforeach
 
                     </tbody>
@@ -261,8 +263,9 @@
                     </thead>
                     <tbody id="course_tbody">
 
-                        @foreach($course as $field)
-                            @include('recruits.row', ['type' => 'courses', 'hidden' => 'course'])
+                        @foreach($recruit->works as $field)
+                            @continue($field->type != 3)
+                            @include('recruits.row_work', ['type' => 'courses', 'hidden' => 'course'])
                         @endforeach
 
                     </tbody>
@@ -270,6 +273,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
     <div class="row">
         <div class="col-12 col-lg-6">
             <div class="card card-primary">
@@ -279,7 +287,7 @@
                             <h3>Skills</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                            <a href="#" id="add_new_skill" class="btn btn-primary add_new_skill" data-toggle="modal">Add new</a>
                         </div>
                     </div>
                 </div>
@@ -287,49 +295,20 @@
                     <div class="table-responsive">
                         <table class="table table-brand">
                             <thead>
-                            <tr>
-                                <th width="240">Skills</th>
-                                <th>Level</th>
-                                <th>Actions</th>
-                            </tr>
+                                <tr>
+                                    <th width="240">Skills</th>
+                                    <th>Level</th>
+                                    <th>Actions</th>
+                                </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>PHP</td>
-                                <td>Professional</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Java</td>
-                                <td>Beginner</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>SQL</td>
-                                <td>Intermediate</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>HTML &amp; CSS</td>
-                                <td>Expert</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
+                            <tbody id="skill_tbody">
+
+                                @foreach($recruit->skills as $fields)
+                                    @continue($fields->type != 1)
+                                        @include('recruits.row_skill', ['type' => 'skills'])
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -344,7 +323,7 @@
                             <h3>Characteristics</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                            <a href="#" id="add_new_charac" class="btn btn-primary add_new_skill" data-toggle="modal" >Add new</a>
                         </div>
                     </div>
                 </div>
@@ -358,26 +337,14 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Spontaneous</td>
-                                <td>-</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Structured</td>
-                                <td>I always work based on a good structure</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
+                            <tbody id="charac_tbody">
+                                @foreach($recruit->skills as $fields)
+                                    @continue($fields->type != 2)
+                                    @include('recruits.row_skill', ['type' => 'charac'])
+                                @endforeach
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -393,7 +360,7 @@
                             <h3>Social Media</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                            <a href="#" id="add_new_social" class="btn btn-primary add_new_skill" data-toggle="modal" >Add new</a>
                         </div>
                     </div>
                 </div>
@@ -407,34 +374,12 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Facebook</td>
-                                <td>https://www.facebook.com/profile/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Instagram</td>
-                                <td>https://www.instagram.com/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Linkedin</td>
-                                <td>https://www.linkedin.com/user/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
+                            <tbody id="social_tbody">
+                                @foreach($recruit->skills as $fields)
+                                    @continue($fields->type != 3)
+                                    @include('recruits.row_skill', ['type' => 'social'])
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -449,7 +394,7 @@
                             <h3>Interests</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">Add new</a>
+                            <a href="#" id="add_new_interest" class="btn btn-primary add_new_skill" data-toggle="modal" >Add new</a>
                         </div>
                     </div>
                 </div>
@@ -463,25 +408,11 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Movies</td>
-                                <td>I really like to watch movies</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mountainbike</td>
-                                <td>I like to go biking whenever possible</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            <tbody id="interest_tbody">
+                                @foreach($recruit->skills as $fields)
+                                    @continue($fields->type != 4)
+                                    @include('recruits.row_skill', ['type' => 'interest'])
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -504,7 +435,7 @@
     <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="skill_form">
                     <div class="modal-header">
                         <h5 class="modal-title" id="createNewModalLabel">Create new row</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -513,27 +444,27 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="modal_name">Skill</label>
+                            <label id="label_modal_name" for="modal_name">Skill</label>
                             <input type="text" class="form-control" name="modal_name" id="modal_name">
                         </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="modal_level">Level</label>--}}
+                            {{--<select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">--}}
+                                {{--<option></option>--}}
+                                {{--<option class="1">Beginner</option>--}}
+                                {{--<option class="2">Intermediate</option>--}}
+                                {{--<option class="3">Professional</option>--}}
+                                {{--<option class="4">Expert</option>--}}
+                            {{--</select>--}}
+                        {{--</div>--}}
                         <div class="form-group">
-                            <label for="modal_level">Level</label>
-                            <select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">
-                                <option></option>
-                                <option class="1">Beginner</option>
-                                <option class="2">Intermediate</option>
-                                <option class="3">Professional</option>
-                                <option class="4">Expert</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="modal_description">Skill</label>
+                            <label id="label_modal_desc" for="modal_description">Skill</label>
                             <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="submit_skill">Add</button>
                     </div>
                 </form>
             </div>

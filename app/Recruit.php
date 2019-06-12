@@ -20,6 +20,11 @@ class Recruit extends Model
         return $this->hasMany('App\Work');
     }
 
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
+
     public function getDateOfBirthAttribute(){
         return Carbon::parse($this->attributes['date_of_birth']);
     }

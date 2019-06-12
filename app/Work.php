@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
+    const WORK_TYPE = 1;
+    const EDUCATION_TYPE = 2;
+    const COURSE_TYPE = 3;
+
     protected $fillable = [
         'employer',
         'job',
