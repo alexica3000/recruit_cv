@@ -16,9 +16,7 @@ class Work extends Model
         'job',
         'start_date',
         'end_date',
-        'description',
-        'recruit_id',
-        'type'
+        'description'
     ];
 
     public function recruit()

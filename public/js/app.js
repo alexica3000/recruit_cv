@@ -61083,46 +61083,83 @@ if (token) {
   }();
 
   dynamicFields.init();
-  /* *********************************************************************** */
+  /************************************************************************
+       features
+    ************************************************************************/
 
-  /*
-      row template for work table from recruit
-      Tables: Work Experience / Education / Course or Training
-  */
+  /* auto-hide alert-dismissible message */
 
-  var newRowWork = function newRowWork(input_array, typeArray, n, finished, hideRow) {
-    var newRowWorkdd = "\n            <tr>\n                <td>".concat(input_array.modal_employer, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.modal_employer, "\" name=\"").concat(typeArray, "[").concat(n, "][employer]\">\n                <td>").concat(input_array.skill, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.skill, "\" name=\"").concat(typeArray, "[").concat(n, "][work_job]\">\n                <td>").concat(input_array.start_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.start_year, "\" name=\"").concat(typeArray, "[").concat(n, "][start_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.start_month, "\" name=\"").concat(typeArray, "[").concat(n, "][start_month]\">\n                <td>").concat(input_array.end_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.end_year, "\" name=\"").concat(typeArray, "[").concat(n, "][end_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.end_month, "\" name=\"").concat(typeArray, "[").concat(n, "][end_month]\">\n                <td>").concat(finished, "</td>\n                \n                <td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">\n                    <i class=\"cvd-edit\"></i>Edit</a>\n                        <a href=\"#\" class=\"table-link\" data-table-collapse=\"#").concat(hideRow).concat(n + 1, "\">\n                    <i class=\"cvd-arrow-right\"></i>Open information</a>\n                        <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                    <i class=\"cvd-trash\"></i></a>\n                </td>\n            </tr>\n            <tr class=\"row-hide\" id=\"").concat(hideRow).concat(n + 1, "\">\n                <td style=\"white-space:normal\" colspan=\"6\" class=\"cell-description\">").concat(input_array.description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.description, "\" name=\"").concat(typeArray, "[").concat(n, "][work_description]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"0\" name=\"").concat(typeArray, "[").concat(n, "][work_id]\">\n            </tr>\n        ");
-    return newRowWorkdd;
+  $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+    $(".alert-dismissible").alert('close');
+  });
+  /************************************************************************
+    Tables: Work Experience / Education / Course or Training
+   // siteSelect.init('.select2-init');
+   ************************************************************************/
+
+  var type_work = {
+    id_type_work: '',
+    tbody: '',
+    hideRow: '',
+    typeArray: ''
   };
-  /*
-      add new work with modal
-  */
-
+  /* show modal form for work to add new data */
 
   $('.add_new_work').click(function () {
-    siteSelect.init('.select2-init');
-    $('#editModalLabel').html('Add new row');
-    $('#submit_button').html('Add');
-    $('#editModal').modal('show');
     $('#modal_employer').val('');
     $('#modal_edit_name').val('');
-    $('#start_year').val('');
-    $('#start_month').val('');
-    $('#end_year').val('');
-    $('#end_month').val('');
+    $('#start_year').val('').trigger('change');
+    $('#start_month').val('').trigger('change');
+    $('#end_year').val('').trigger('change');
+    $('#end_month').val('').trigger('change');
     $('#modal_edit_description').val('');
-    var value_field = this.id;
-    $('#form_work').append('<input type="hidden" id="type_field" name="type_field" value="' + value_field + '" />');
+    $('#submit_button').html('Add');
+    $('#editModal').modal('show');
+    typeOfWorksTable(this.id);
   });
-  /*
-          add new row to work table modal
-  */
+  /* add type of work to object variable */
+
+  var typeOfWorksTable = function typeOfWorksTable(id_works) {
+    type_work.id_type_work = id_works;
+
+    if (id_works == 'add_new_work') {
+      type_work.tbody = '#work_tbody';
+      type_work.hideRow = 'experianceRow';
+      type_work.typeArray = 'works';
+      $('#editModalLabel').html('Add new work experience');
+      $('#label_employer').html('Employer');
+      $('#label_skill').html('Job');
+    }
+
+    if (id_works == 'add_new_education') {
+      type_work.tbody = '#education_tbody';
+      type_work.hideRow = 'educationRow';
+      type_work.typeArray = 'educations';
+      $('#editModalLabel').html('Add new education');
+      $('#label_employer').html('Institute');
+      $('#label_skill').html('Education');
+    }
+
+    if (id_works == 'add_new_course') {
+      type_work.tbody = '#course_tbody';
+      type_work.hideRow = 'courseRow';
+      type_work.typeArray = 'courses';
+      $('#editModalLabel').html('Add new course or training');
+      $('#label_employer').html('Institute');
+      $('#label_skill').html('Course or Training');
+    }
+  };
+  /* add new row to work table */
+
 
   $('#submit_button').on('click', function () {
-    var tbody = '',
-        hideRow = '',
-        typeArray = '';
-    var type_field = $('#type_field').val();
+    var n = $(type_work.tbody + " tr.row-hide").length;
+    var newRowWorkd = addDataToRowWork(n);
+    $(type_work.tbody).append(newRowWorkd);
+  });
+  /* load data from modal form */
+
+  var loadDataFromModaWork = function loadDataFromModaWork() {
     var input_work_array = {
       modal_employer: $('#modal_employer').val(),
       skill: $('#modal_edit_name').val(),
@@ -61132,41 +61169,21 @@ if (token) {
       end_month: $('#end_month').val(),
       description: $('#modal_edit_description').val()
     };
+    return input_work_array;
+  };
+  /* add data to row work table from recruit */
 
-    if (type_field == 'add_new_work') {
-      tbody = '#work_tbody';
-      hideRow = 'experianceRow';
-      typeArray = 'works';
-    } else if (type_field == 'add_new_education') {
-      tbody = '#education_tbody';
-      hideRow = 'educationRow';
-      typeArray = 'educations';
-    } else if (type_field == 'add_new_course') {
-      tbody = '#course_tbody';
-      hideRow = 'courseRow';
-      typeArray = 'courses';
-    }
 
-    var finished = input_work_array.end_year == '' ? 'No' : 'Yes';
-    var n = $(tbody + " tr.row-hide").length;
-    var newRowWorkd = newRowWork(input_work_array, typeArray, n, finished, hideRow);
-    $(tbody).append(newRowWorkd);
-  });
-  /*
-          correct inputs year and month for work modal
-  */
+  var addDataToRowWork = function addDataToRowWork(n) {
+    var input_array = loadDataFromModaWork();
+    var typeArray = type_work.typeArray;
+    var hideRow = type_work.hideRow;
+    var finished = input_array.end_year == '' ? 'No' : 'Yes';
+    var newRowWork = "\n            <tr>\n                <td>".concat(input_array.modal_employer, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.modal_employer, "\" name=\"").concat(typeArray, "[").concat(n, "][employer]\">\n                <td>").concat(input_array.skill, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.skill, "\" name=\"").concat(typeArray, "[").concat(n, "][work_job]\">\n                <td>").concat(input_array.start_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.start_year, "\" name=\"").concat(typeArray, "[").concat(n, "][start_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.start_month, "\" name=\"").concat(typeArray, "[").concat(n, "][start_month]\">\n                <td>").concat(input_array.end_year, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.end_year, "\" name=\"").concat(typeArray, "[").concat(n, "][end_year]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.end_month, "\" name=\"").concat(typeArray, "[").concat(n, "][end_month]\">\n                <td>").concat(finished, "</td>\n                \n                <td class=\"cell-flex\"><a href=\"#\" class=\"table-link\" data-toggle=\"modal\" data-target=\"#editModal\">\n                    <i class=\"cvd-edit\"></i>Edit</a>\n                        <a href=\"#\" class=\"table-link\" data-table-collapse=\"#").concat(hideRow).concat(n + 1, "\">\n                    <i class=\"cvd-arrow-right\"></i>Open information</a>\n                        <a href=\"#\" class=\"btn btn-outline-danger btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                    <i class=\"cvd-trash\"></i></a>\n                </td>\n            </tr>\n            <tr class=\"row-hide\" id=\"").concat(hideRow).concat(n + 1, "\">\n                <td style=\"white-space:normal\" colspan=\"6\" class=\"cell-description\">").concat(input_array.description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(input_array.description, "\" name=\"").concat(typeArray, "[").concat(n, "][work_description]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"0\" name=\"").concat(typeArray, "[").concat(n, "][work_id]\">\n            </tr>\n        ");
+    return newRowWork;
+  };
+  /* delete row from works table with jQuery */
 
-  $('#editModal').on('hidden.bs.modal', function () {
-    $('#type_field').remove();
-    siteSelect.init('.select2-init');
-    $('#select2-start_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
-    $('#select2-start_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
-    $('#select2-end_year-container').html('<span class=\"select2-selection__placeholder\">Select year</span>');
-    $('#select2-end_month-container').html('<span class=\"select2-selection__placeholder\">Select month</span>');
-  });
-  /*
-          delete row from works table with jQuery
-  */
 
   $(document).on('click', '.delete_work', function () {
     var closestRow = $(this).closest('tr');
@@ -61183,21 +61200,11 @@ if (token) {
         url: "/recruits/".concat(recruit_id, "/w/").concat(id_row),
         success: function success() {
           closestRow.add(closestRow.next()).remove(); // location.reload();
-          // alert(data);
         }
       });
     }
   });
-  /*
-      auto-hide alert-dismissible message
-  */
-
-  $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
-    $(".alert-dismissible").alert('close');
-  });
-  /*
-      show edit form works table with jQuery
-  */
+  /* show edit form works table with jQuery */
 
   var work = {
     id: 0
@@ -61205,50 +61212,42 @@ if (token) {
   $('.edit_work').click(function () {
     var currentRow = $(this).closest('tr');
     var recruit_id = $('#recruit_id').val();
-    var id_row = currentRow.next().children(':nth-child(3)').attr('value');
-    work.id = id_row;
+    work.id = currentRow.next().children(':nth-child(3)').attr('value');
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
     $.ajax({
-      type: 'PATCH',
-      url: "/recruits/".concat(recruit_id),
-      data: {
-        get_work_id: id_row
-      },
+      type: 'GET',
+      url: "/recruits/".concat(recruit_id, "/w/").concat(work.id),
       success: function success(data) {
         $('#submit_button').attr('id', 'update_work');
-        siteSelect.init('.select2-init');
         var start_date = new Date(data.start_date);
         var end_date = new Date(data.end_date);
 
         if (data.end_date == null) {
-          $('#end_year').val('');
-          $('#end_month').val('');
+          $('#end_year').val('').trigger('change');
+          $('#end_month').val('').trigger('change');
         } else {
-          $('#end_year').val(end_date.getFullYear());
-          $('#end_month').val(end_date.getMonth() + 1);
+          $('#end_year').val(end_date.getFullYear()).trigger('change');
+          $('#end_month').val(end_date.getMonth() + 1).trigger('change');
         }
 
         $('#modal_employer').val(data.employer);
         $('#modal_edit_name').val(data.job);
-        $('#start_year').val(start_date.getFullYear());
-        $('#start_month').val(start_date.getMonth() + 1);
+        $('#start_year').val(start_date.getFullYear()).trigger('change');
+        $('#start_month').val(start_date.getMonth() + 1).trigger('change');
         $('#modal_edit_description').val(data.description);
         $('#editModal').modal('show');
       }
     });
   });
-  /*
-      update row from work table
-   */
+  /* update row from work table */
 
   $(document).on('click', '#update_work', function () {
     $('#update_work').attr('id', 'submit_button');
-    var recruit_id = $('#recruit_id').val(); // let row = $(`input[value=${work.id}]`);
-
+    var recruit_id = $('#recruit_id').val();
     var input_work_array = {
       modal_employer: $('#modal_employer').val(),
       skill: $('#modal_edit_name').val(),
@@ -61265,9 +61264,8 @@ if (token) {
     });
     $.ajax({
       type: 'PATCH',
-      url: "/recruits/".concat(recruit_id),
+      url: "/recruits/".concat(recruit_id, "/w/").concat(work.id),
       data: {
-        update_work_id: work.id,
         modal_employer: input_work_array.modal_employer,
         skill: input_work_array.skill,
         start_year: input_work_array.start_year,
@@ -61277,80 +61275,103 @@ if (token) {
         description: input_work_array.description
       },
       success: function success(data) {
-        // let newRow = newRowWork(input_work_array);
-        // row.parent().prev().replaceWith(newRow);
-        location.reload(); // alert('yes!');
+        location.reload();
       }
     });
   });
-  /*
-      work with tables from recruit view: Skills / Characteristics / Social Media / Interests
-      show modal form
-  */
+  /********************************************************************************************
+    Skills / Characteristics / Social Media / Interests (tables from recruit view)
+   ********************************************************************************************/
 
+  var type_skill = {
+    id_type_skill: '',
+    tbody: '',
+    typeArray: '',
+    nr: ''
+    /* show modal form to add new data */
+
+  };
   $(document).on('click', '.add_new_skill', function () {
     $('#modal_name').val('');
     $('#modal_level').val('').trigger('change');
     $('#modal_description').val('');
-    $('#createNewModalLabel').html('Add new skill');
     $('#createNewModal').modal('show');
-    var id_skill_table = this.id;
-    typeOfSkillsTable(id_skill_table);
+    typeOfSkillsTable(this.id);
   });
-  /*
-      insert data to view table
-  */
+  /* store and show new skill */
 
   $(document).on('click', '#submit_skill', function () {
-    var n = $(type_of_table.tbody + " tr").length;
-    var row_skill_table = rowSkills(n);
-    $(type_of_table.tbody).append(row_skill_table);
+    var n = $(type_skill.tbody + " tr").length;
+    var skill = loadDataFromSkillModal();
+    var recruit_id = $('#recruit_id').val();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      url: "/recruits/".concat(recruit_id, "/s"),
+      data: {
+        "char": skill["char"],
+        description: skill.description,
+        type: type_skill.nr
+      },
+      success: function success(data) {
+        $(type_skill.tbody).append(addDataToRowSkill(n));
+      }
+    });
   });
-  var type_of_table = {
-    tbody: '',
-    typeArray: ''
-    /*
-        types of skill table
-    */
-
-  };
+  /* add type of skill to object variable */
 
   var typeOfSkillsTable = function typeOfSkillsTable(id_skill_table) {
+    type_skill.id_type_skill = id_skill_table;
+
     if (id_skill_table == 'add_new_skill') {
-      type_of_table.tbody = '#skill_tbody';
-      type_of_table.typeArray = 'skills';
+      type_skill.tbody = '#skill_tbody';
+      type_skill.typeArray = 'skills';
+      type_skill.nr = 1;
       $('#createNewModalLabel').html('Add new skill');
-      $('#label_modal_name').html('Skill');
-      $('#label_modal_desc').html('Level');
+      $('#label_modal_name').html('Skill'); // $('#label_modal_desc').html('Level');
+
+      $('#label_modal_desc').parent().hide();
+      $('#modal_level').parent().show();
     }
 
     if (id_skill_table == 'add_new_charac') {
-      type_of_table.tbody = '#charac_tbody';
-      type_of_table.typeArray = 'charac';
+      type_skill.tbody = '#charac_tbody';
+      type_skill.typeArray = 'charac';
+      type_skill.nr = 2;
       $('#createNewModalLabel').html('Add new characteristics');
+      $('#modal_level').parent().hide();
+      $('#label_modal_desc').parent().show();
       $('#label_modal_name').html('Characteristic');
       $('#label_modal_desc').html('Description');
     }
 
     if (id_skill_table == 'add_new_social') {
-      type_of_table.tbody = '#social_tbody';
-      type_of_table.typeArray = 'social';
+      type_skill.tbody = '#social_tbody';
+      type_skill.typeArray = 'social';
+      type_skill.nr = 3;
+      $('#modal_level').parent().hide();
+      $('#label_modal_desc').parent().show();
       $('#createNewModalLabel').html('Add new social media');
       $('#label_modal_name').html('Platform');
       $('#label_modal_desc').html('Link');
     }
 
     if (id_skill_table == 'add_new_interest') {
-      type_of_table.tbody = '#interest_tbody';
-      type_of_table.typeArray = 'interest';
+      type_skill.tbody = '#interest_tbody';
+      type_skill.typeArray = 'interest';
+      type_skill.nr = 4;
+      $('#modal_level').parent().hide();
+      $('#label_modal_desc').parent().show();
       $('#createNewModalLabel').html('Add new interests');
       $('#label_modal_name').html('Interest');
       $('#label_modal_desc').html('Description');
     }
   };
-  /*
-      load input data from modal form
-  */
+  /* load input data from modal form */
 
 
   var loadDataFromSkillModal = function loadDataFromSkillModal() {
@@ -61359,22 +61380,18 @@ if (token) {
       description: ''
     };
     inputs_row["char"] = $('#modal_name').val();
-    inputs_row.description = $('#modal_description').val();
+    inputs_row.description = type_skill.id_type_skill == 'add_new_skill' ? $('#modal_level').val() : $('#modal_description').val();
     return inputs_row;
   };
-  /*
-      return a new row for skill tables
-  */
+  /* return a new row with data for skill tables */
 
 
-  var rowSkills = function rowSkills(n) {
+  var addDataToRowSkill = function addDataToRowSkill(n) {
     var fields = loadDataFromSkillModal();
-    var row_skills = "\n            <tr>\n                <td>".concat(fields["char"], "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(fields["char"], "\" name=\"").concat(type_of_table.typeArray, "[").concat(n, "][char]\">\n                <td>").concat(fields.description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(fields.description, "\" name=\"").concat(type_of_table.typeArray, "[").concat(n, "][description]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"0\" name=\"").concat(type_of_table.typeArray, "[").concat(n, "][skill_id]\">\n                <td class=\"cell-flex\">\n                    <a href=\"#\" class=\"btn btn-outline-danger delete_skill btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                        <i class=\"cvd-trash\"></i>\n                    </a>\n                </td>\n            </tr>\n        ");
+    var row_skills = "\n            <tr>\n                <td>".concat(fields["char"], "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(fields["char"], "\" name=\"").concat(type_skill.typeArray, "[").concat(n, "][char]\">\n                <td>").concat(fields.description, "</td>\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(fields.description, "\" name=\"").concat(type_skill.typeArray, "[").concat(n, "][description]\">\n                    <input form=\"edit\" type=\"hidden\" value=\"0\" name=\"").concat(type_skill.typeArray, "[").concat(n, "][skill_id]\">\n                <td class=\"cell-flex\">\n                    <a href=\"#\" class=\"btn btn-outline-danger delete_skill btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                        <i class=\"cvd-trash\"></i>\n                    </a>\n                </td>\n            </tr>\n        ");
     return row_skills;
   };
-  /*
-              delete row from skills table with jQuery
-  */
+  /* delete row from skills table with jQuery */
 
 
   $(document).on('click', '.delete_skill', function () {
@@ -61391,8 +61408,7 @@ if (token) {
         type: 'DELETE',
         url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
         success: function success() {
-          closestRow.remove(); // location.reload();
-          // alert(data);
+          closestRow.remove();
         }
       });
     }

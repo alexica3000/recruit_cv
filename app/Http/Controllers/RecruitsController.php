@@ -89,12 +89,6 @@ class RecruitsController extends Controller
      */
     public function update(Request $request, Recruit $recruit)
     {
-        if(isset($request->get_work_id) && !empty($request->get_work_id))
-            return $this->getRowFromWorks($recruit, $request->get_work_id);
-
-        if(isset($request->update_work_id) && !empty($request->update_work_id))
-            return $this->updateRowFromWorks($recruit, $request);
-
 
         $recruit->update([
             'name' => $request->name,
@@ -105,6 +99,7 @@ class RecruitsController extends Controller
         ]);
 
         // insert data to skills table
+        /*
         if(!empty($request->skills))
             $this->insertDataToSkill($request->skills, $recruit, Skill::SKILLS_TYPE);
         if(!empty($request->charac))
@@ -113,6 +108,7 @@ class RecruitsController extends Controller
             $this->insertDataToSkill($request->social, $recruit, Skill::SOCIAL_TYPE);
         if(!empty($request->interest))
             $this->insertDataToSkill($request->interest, $recruit, Skill::INTERESTS_TYPE);
+        */
 
         // insert data to works table
         if(!empty($request->works))
@@ -138,17 +134,52 @@ class RecruitsController extends Controller
         return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
     }
 
+
+
+
     /**
-     * Remove the specified resource from storage.
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroySkill(Recruit $recruit, Skill $skill)
+    public function getWork(Recruit $recruit, Work $work)
     {
-        $recruit->skills()->where('id', $skill->id)->delete();
+        return $recruit->works()->where('id', $work->id)->get()->first();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateWork(Recruit $recruit, Request $request, Work $work)
+    {
+        $start_date = $request->start_year . '-' . $request->start_month . '-01';
+        $end_date = ($request->end_year == null) ? null : $request->end_year . '-' . $request->end_month . '-01';
+
+        $recruit->works()->where('id', $work->id)->update([
+            'employer' => $request->modal_employer,
+            'job' => $request->skill,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'description' => $request->description
+        ]);
 
         return response()->json(['status' => true]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeWork(Request $request)
+    {
+
     }
 
     /**
@@ -163,6 +194,47 @@ class RecruitsController extends Controller
 
         return response()->json(['status' => true]);
     }
+
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeSkill(Recruit $recruit, Request $request)
+    {
+        $skill = new Skill($request->all());
+        $skill->type = $request->type;
+        $recruit->skills()->save($skill);
+
+        return response()->json(['status' => true]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroySkill(Recruit $recruit, Skill $skill)
+    {
+        $recruit->skills()->where('id', $skill->id)->delete();
+
+        return response()->json(['status' => true]);
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -205,27 +277,12 @@ class RecruitsController extends Controller
         }
     }
 
-    protected function getRowFromWorks(Recruit $recruit, $id)
-    {
-        $work = $recruit->works()->where('id', $id)->get()->first();
-        return $work;
-    }
 
-    protected function updateRowFromWorks(Recruit $recruit, Request $request)
-    {
-        $start_date = $request->start_year . '-' . $request->start_month . '-01';
-        $end_date = ($request->end_year == null) ? null : $request->end_year . '-' . $request->end_month . '-01';
 
-        $work = $recruit->works()->findOrFail($request->update_work_id);
-        $work->update([
-            'employer' => $request->modal_employer,
-            'job' => $request->skill,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'description' => $request->description
-        ]);
-    }
 
+
+
+/*
     protected function insertDataToSkill($fields, Recruit $recruit, $type)
     {
         $containers = [];
@@ -243,7 +300,7 @@ class RecruitsController extends Controller
             }
         }
         $recruit->skills()->saveMany($containers);
-    }
+    }*/
 
 
 }
