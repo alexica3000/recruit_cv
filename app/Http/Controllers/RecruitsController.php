@@ -111,12 +111,12 @@ class RecruitsController extends Controller
         */
 
         // insert data to works table
-        if(!empty($request->works))
-            $this->insertDataToWork($request->works, $recruit, Work::WORK_TYPE);
-        if(!empty($request->educations))
-            $this->insertDataToWork($request->educations, $recruit, Work::EDUCATION_TYPE);
-        if(!empty($request->courses))
-            $this->insertDataToWork($request->courses, $recruit, Work::COURSE_TYPE);
+//        if(!empty($request->works))
+//            $this->insertDataToWork($request->works, $recruit, Work::WORK_TYPE);
+//        if(!empty($request->educations))
+//            $this->insertDataToWork($request->educations, $recruit, Work::EDUCATION_TYPE);
+//        if(!empty($request->courses))
+//            $this->insertDataToWork($request->courses, $recruit, Work::COURSE_TYPE);
 
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
@@ -168,7 +168,7 @@ class RecruitsController extends Controller
             'description' => $request->description
         ]);
 
-        return response()->json(['status' => true]);
+        return response()->json(['status' => true, 'id' => $work->id]);
     }
 
     /**
@@ -177,9 +177,22 @@ class RecruitsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeWork(Request $request)
+    public function storeWork(Request $request, Recruit $recruit)
     {
+        $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
+        $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
 
+        $work = new Work([
+            'employer' => $request->fields['modal_employer'],
+            'job' => $request->fields['modal_edit_name'],
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'description' => $request->fields['modal_edit_description']
+        ]);
+        $work->type = $request->type;
+        $recruit->works()->save($work);
+
+        return response()->json(['status' => true, 'id' => $work->id]);
     }
 
     /**
@@ -210,7 +223,7 @@ class RecruitsController extends Controller
         $skill->type = $request->type;
         $recruit->skills()->save($skill);
 
-        return response()->json(['status' => true]);
+        return response()->json(['status' => true, 'id' => $skill->id]);
     }
 
     /**

@@ -4,6 +4,15 @@
  * @see {@link http://api.jquery.com/jQuery/}
  */
 ;(function ($) {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+
     $(document).on('click', '[data-table-collapse]', function () {
         let $button = $(this);
         let id = $button.attr('data-table-collapse');
@@ -645,6 +654,37 @@
         $(".alert-dismissible").alert('close');
     });
 
+    /* reset modal form */
+
+    function resetForm($form)
+    {
+        $form.find('input').val('');
+        $form.find('select').val('').trigger('change');
+        $form.find('textarea').val('');
+
+        // $('#modal_employer').val('');
+        // $('#modal_edit_name').val('');
+        // $('#start_year').val('').trigger('change');
+        // $('#start_month').val('').trigger('change');
+        // $('#end_year').val('').trigger('change');
+        // $('#end_month').val('').trigger('change');
+        // $('#modal_edit_description').val('');
+    }
+
+    /* load data from modal form */
+
+    function loadFields($form)
+    {
+        let fields = $form.serializeArray();
+        let dataObj = {};
+
+        $(fields).each(function(i, field){
+            dataObj[field.name] = field.value;
+        });
+
+        return dataObj;
+    }
+
 
 
 
@@ -655,35 +695,68 @@
 
     ************************************************************************/
 
+    $('#editModal').on('hidden.bs.modal', function () {
+        $('#update_work').attr('id', 'submit_button');
+    });
+
+
+
     var type_work = {
         id_type_work: '',
         tbody: '',
         hideRow: '',
-        typeArray: ''
+        typeArray: '',
+        type: ''
     };
 
     /* show modal form for work to add new data */
 
     $('.add_new_work').click(function() {
-
-        $('#modal_employer').val('');
-        $('#modal_edit_name').val('');
-        $('#start_year').val('').trigger('change');
-        $('#start_month').val('').trigger('change');
-        $('#end_year').val('').trigger('change');
-        $('#end_month').val('').trigger('change');
-        $('#modal_edit_description').val('');
+        let $form = $('#form_work').closest('form');
+        resetForm($form);
         $('#submit_button').html('Add');
         $('#editModal').modal('show');
-        typeOfWorksTable(this.id);
+        typeOfWork(this.id);
     });
 
     /* add type of work to object variable */
 
-    var typeOfWorksTable = function(id_works)
+    var typeOfWork = function(id_works)
     {
         type_work.id_type_work = id_works;
 
+        switch (id_works)
+        {
+            case "add_new_work":
+                type_work.tbody = '#work_tbody';
+                type_work.hideRow = 'experianceRow';
+                type_work.typeArray = 'works';
+                type_work.type = 1;
+                $('#editModalLabel').html('Add new work experience');
+                $('#label_employer').html('Employer');
+                $('#label_skill').html('Job');
+            break;
+            case "add_new_education":
+                type_work.tbody = '#education_tbody';
+                type_work.hideRow = 'educationRow';
+                type_work.typeArray = 'educations';
+                type_work.type = 2;
+                $('#editModalLabel').html('Add new education');
+                $('#label_employer').html('Institute');
+                $('#label_skill').html('Education');
+            break;
+            case "add_new_course":
+                type_work.tbody = '#course_tbody';
+                type_work.hideRow = 'courseRow';
+                type_work.typeArray = 'courses';
+                type_work.type = 3;
+                $('#editModalLabel').html('Add new course or training');
+                $('#label_employer').html('Institute');
+                $('#label_skill').html('Course or Training');
+            break;
+        }
+
+        /*
         if(id_works == 'add_new_work') {
             type_work.tbody = '#work_tbody';
             type_work.hideRow = 'experianceRow';
@@ -710,68 +783,63 @@
             $('#label_employer').html('Institute');
             $('#label_skill').html('Course or Training');
         }
+        */
     }
 
     /* add new row to work table */
 
-    $('#submit_button').on('click', function(){
+    $(document).on('click', '#submit_button', function(){
         let n = $(type_work.tbody + " tr.row-hide").length;
-        let newRowWorkd = addDataToRowWork(n);
-        $(type_work.tbody).append(newRowWorkd);
+        let $form = $('#form_work').closest('form');
+        let recruit_id = $('#recruit_id').val();
+
+        $.ajax({
+            type: 'POST',
+            url: `/recruits/${recruit_id}/w`,
+            data: {
+                fields: loadFields($form),
+                type: type_work.type
+            },
+            success: function(data)
+            {
+                let newRowWorkd = addDataToRowWork(n, loadFields($form), type_work.typeArray, JSON.parse(data.id));
+                $(type_work.tbody).append(newRowWorkd);
+            }
+        });
     });
-
-    /* load data from modal form */
-
-    var loadDataFromModaWork = function()
-    {
-        let input_work_array = {
-            modal_employer: $('#modal_employer').val(),
-            skill: $('#modal_edit_name').val(),
-            start_year: $('#start_year').val(),
-            start_month: $('#start_month').val(),
-            end_year: $('#end_year').val(),
-            end_month: $('#end_month').val(),
-            description: $('#modal_edit_description').val()
-        };
-
-        return input_work_array;
-    }
 
     /* add data to row work table from recruit */
 
-    var addDataToRowWork = function(n)
+    var addDataToRowWork = function(n, fields, typeArray, nr)
     {
-        let input_array = loadDataFromModaWork();
-        let typeArray = type_work.typeArray;
-        let hideRow = type_work.hideRow;
-        let finished = (input_array.end_year == '') ? 'No' : 'Yes';
+        let finished = (fields['end_year'] == '') ? 'No' : 'Yes';
 
         let newRowWork = `
             <tr>
-                <td>${input_array.modal_employer}</td>
-                    <input form="edit" type="hidden" value="${input_array.modal_employer}" name="${typeArray}[${n}][employer]">
-                <td>${input_array.skill}</td>
-                    <input form="edit" type="hidden" value="${input_array.skill}" name="${typeArray}[${n}][work_job]">
-                <td>${input_array.start_year}</td>
-                    <input form="edit" type="hidden" value="${input_array.start_year}" name="${typeArray}[${n}][start_year]">
-                    <input form="edit" type="hidden" value="${input_array.start_month}" name="${typeArray}[${n}][start_month]">
-                <td>${input_array.end_year}</td>
-                    <input form="edit" type="hidden" value="${input_array.end_year}" name="${typeArray}[${n}][end_year]">
-                    <input form="edit" type="hidden" value="${input_array.end_month}" name="${typeArray}[${n}][end_month]">
+                <td>${fields['modal_employer']}</td>
+                    <input form="edit" type="hidden" value="${fields['modal_employer']}" name="${typeArray}[${n}][employer]">
+                <td>${fields['modal_edit_name']}</td>
+                    <input form="edit" type="hidden" value="${fields['modal_edit_name']}" name="${typeArray}[${n}][work_job]">
+                <td>${fields['start_year']}</td>
+                    <input form="edit" type="hidden" value="${fields['start_year']}" name="${typeArray}[${n}][start_year]">
+                    <input form="edit" type="hidden" value="${fields['start_month']}" name="${typeArray}[${n}][start_month]">
+                <td>${fields['end_year']}</td>
+                    <input form="edit" type="hidden" value="${fields['end_year']}" name="${typeArray}[${n}][end_year]">
+                    <input form="edit" type="hidden" value="${fields['end_month']}" name="${typeArray}[${n}][end_month]">
                 <td>${finished}</td>
                 
-                <td class="cell-flex"><a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
+                <td class="cell-flex"><a href="#" class="table-link edit_work" data-toggle="modal" data-target="#editModal">
                     <i class="cvd-edit"></i>Edit</a>
-                        <a href="#" class="table-link" data-table-collapse="#${hideRow}${n+1}">
+                        <a href="#" class="table-link" data-table-collapse="#${type_work.hideRow}${n+1}">
                     <i class="cvd-arrow-right"></i>Open information</a>
-                        <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                        <a href="#" class="btn btn-outline-danger btn-sm delete_work" data-toggle="modal" data-target="#confirmSkillsModal">
                     <i class="cvd-trash"></i></a>
                 </td>
             </tr>
-            <tr class="row-hide" id="${hideRow}${n+1}">
-                <td style="white-space:normal" colspan="6" class="cell-description">${input_array.description}</td>
-                    <input form="edit" type="hidden" value="${input_array.description}" name="${typeArray}[${n}][work_description]">
-                    <input form="edit" type="hidden" value="0" name="${typeArray}[${n}][work_id]">
+            <tr class="row-hide" id="${type_work.hideRow}${n+1}">
+                <td style="white-space:normal" colspan="6" class="cell-description">${fields['modal_edit_description']}</td>
+                    <input form="edit" type="hidden" value="${fields['modal_edit_description']}" name="${typeArray}[${n}][work_description]">
+                    <input form="edit" type="hidden" value="${nr}" name="${typeArray}[${n}][work_id]">
             </tr>
         `;
         return newRowWork;
@@ -783,27 +851,15 @@
         var closestRow = $(this).closest('tr');
         var id_row = closestRow.next().children(':nth-child(3)').attr('value');
 
-        if (id_row == 0)
-            closestRow.add(closestRow.next()).remove();
-        else
-        {
-            let recruit_id = $('#recruit_id').val();
+        let recruit_id = $('#recruit_id').val();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type:'DELETE',
-                url:`/recruits/${recruit_id}/w/${id_row}`,
-                success:function(){
-                    closestRow.add(closestRow.next()).remove();
-                    // location.reload();
-                }
-            });
-        }
+        $.ajax({
+            type:'DELETE',
+            url:`/recruits/${recruit_id}/w/${id_row}`,
+            success:function(){
+                closestRow.add(closestRow.next()).remove();
+            }
+        });
     });
 
     /* show edit form works table with jQuery */
@@ -812,17 +868,11 @@
         id: 0
     };
 
-    $('.edit_work').click(function(){
+    $(document).on('click', '.edit_work', function(){
 
         let currentRow = $(this).closest('tr');
         let recruit_id = $('#recruit_id').val();
         work.id = currentRow.next().children(':nth-child(3)').attr('value');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type:'GET',
@@ -858,8 +908,8 @@
     /* update row from work table */
 
     $(document).on('click', '#update_work', function(){
-        $('#update_work').attr('id', 'submit_button');
         let recruit_id = $('#recruit_id').val();
+        let $form = $('#form_work').closest('form');
 
         let input_work_array = {
             modal_employer: $('#modal_employer').val(),
@@ -870,12 +920,6 @@
             end_month: $('#end_month').val(),
             description: $('#modal_edit_description').val()
         };
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type:'PATCH',
@@ -891,7 +935,16 @@
             },
 
             success:function(data){
-                location.reload();
+                let row = $("input[name*='work_id'][value='" + work.id + "']").parent().prev();
+                // row = row.add(row.next());
+
+
+
+                let updatedRowWork = addDataToRowWork(10, loadFields($form), type_work.typeArray, JSON.parse(data.id));
+                row.replaceWith(updatedRowWork);
+                // row.add(row.next()).replaceWith(updatedRowWork);
+
+                // location.reload();
             }
         });
     });
@@ -905,7 +958,7 @@
 
     ********************************************************************************************/
 
-    var type_skill = {
+    var $type_skill = {
         id_type_skill: '',
         tbody: '',
         typeArray: '',
@@ -915,25 +968,17 @@
     /* show modal form to add new data */
 
     $(document).on('click', '.add_new_skill', function () {
-        $('#modal_name').val('');
-        $('#modal_level').val('').trigger('change');
-        $('#modal_description').val('');
+        resetForm($('#skill_form').closest('form'));
         $('#createNewModal').modal('show');
-        typeOfSkillsTable(this.id);
+        typeOfSkill(this.id);
     });
 
     /* store and show new skill */
 
     $(document).on('click', '#submit_skill', function (){
-        let n = $(type_skill.tbody + " tr").length;
+        let n = $($type_skill.tbody + " tr").length;
         let skill = loadDataFromSkillModal();
         let recruit_id = $('#recruit_id').val();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             type:'POST',
@@ -941,25 +986,77 @@
             data: {
                 char: skill.char,
                 description: skill.description,
-                type: type_skill.nr
+                type: $type_skill.nr
             },
             success:function(data){
-                $(type_skill.tbody).append(addDataToRowSkill(n));
+                $($type_skill.tbody).append(addDataToRowSkill(n, JSON.parse(data.id)));
             }
         });
     });
 
     /* add type of skill to object variable */
 
-    var typeOfSkillsTable = function(id_skill_table)
+    var typeOfSkill = function(id_skill_table)
     {
-        type_skill.id_type_skill = id_skill_table;
+        $type_skill.id_type_skill = id_skill_table;
 
+        switch (id_skill_table)
+        {
+            case "add_new_skill":
+                $type_skill.tbody = '#skill_tbody';
+                $type_skill.typeArray = 'skills';
+                $type_skill.nr = 1;
+                $('#createNewModalLabel').html('Add new skill');
+                $('#label_modal_name').html('Skill');
+                $('#label_modal_desc').parent().hide();
+                $('#modal_level').parent().show();
+            break;
+            case "add_new_charac":
+                $type_skill.tbody = '#charac_tbody';
+                $type_skill.typeArray = 'charac';
+                $type_skill.nr = 2;
+                $('#createNewModalLabel').html('Add new characteristics');
+                $('#modal_level').parent().hide();
+                $('#label_modal_desc').parent().show();
+                $('#label_modal_name').html('Characteristic');
+                $('#label_modal_desc').html('Description');
+            break;
+            case "add_new_social":
+                $type_skill.tbody = '#social_tbody';
+                $type_skill.typeArray = 'social';
+                $type_skill.nr = 3;
+                $('#modal_level').parent().hide();
+                $('#label_modal_desc').parent().show();
+                $('#createNewModalLabel').html('Add new social media');
+                $('#label_modal_name').html('Platform');
+                $('#label_modal_desc').html('Link');
+            break;
+            case "add_new_interest":
+                $type_skill.tbody = '#interest_tbody';
+                $type_skill.typeArray = 'interest';
+                $type_skill.nr = 4;
+                $('#modal_level').parent().hide();
+                $('#label_modal_desc').parent().show();
+                $('#createNewModalLabel').html('Add new interests');
+                $('#label_modal_name').html('Interest');
+                $('#label_modal_desc').html('Description');
+            break;
+        }
+
+
+
+
+
+
+
+
+
+/*
         if(id_skill_table == 'add_new_skill')
         {
-            type_skill.tbody = '#skill_tbody';
-            type_skill.typeArray = 'skills';
-            type_skill.nr = 1;
+            $type_skill.tbody = '#skill_tbody';
+            $type_skill.typeArray = 'skills';
+            $type_skill.nr = 1;
             $('#createNewModalLabel').html('Add new skill');
             $('#label_modal_name').html('Skill');
             // $('#label_modal_desc').html('Level');
@@ -969,9 +1066,9 @@
 
         if(id_skill_table == 'add_new_charac')
         {
-            type_skill.tbody = '#charac_tbody';
-            type_skill.typeArray = 'charac';
-            type_skill.nr = 2;
+            $type_skill.tbody = '#charac_tbody';
+            $type_skill.typeArray = 'charac';
+            $type_skill.nr = 2;
             $('#createNewModalLabel').html('Add new characteristics');
             $('#modal_level').parent().hide();
             $('#label_modal_desc').parent().show();
@@ -981,9 +1078,9 @@
 
         if(id_skill_table == 'add_new_social')
         {
-            type_skill.tbody = '#social_tbody';
-            type_skill.typeArray = 'social';
-            type_skill.nr = 3;
+            $type_skill.tbody = '#social_tbody';
+            $type_skill.typeArray = 'social';
+            $type_skill.nr = 3;
             $('#modal_level').parent().hide();
             $('#label_modal_desc').parent().show();
             $('#createNewModalLabel').html('Add new social media');
@@ -993,15 +1090,17 @@
 
         if(id_skill_table == 'add_new_interest')
         {
-            type_skill.tbody = '#interest_tbody';
-            type_skill.typeArray = 'interest';
-            type_skill.nr = 4;
+            $type_skill.tbody = '#interest_tbody';
+            $type_skill.typeArray = 'interest';
+            $type_skill.nr = 4;
             $('#modal_level').parent().hide();
             $('#label_modal_desc').parent().show();
             $('#createNewModalLabel').html('Add new interests');
             $('#label_modal_name').html('Interest');
             $('#label_modal_desc').html('Description');
         }
+        */
+
     }
 
     /* load input data from modal form */
@@ -1014,23 +1113,23 @@
         }
 
         inputs_row.char = $('#modal_name').val();
-        inputs_row.description = (type_skill.id_type_skill == 'add_new_skill') ? $('#modal_level').val() : $('#modal_description').val();
+        inputs_row.description = ($type_skill.id_type_skill == 'add_new_skill') ? $('#modal_level').val() : $('#modal_description').val();
 
         return inputs_row;
     }
 
     /* return a new row with data for skill tables */
 
-    var addDataToRowSkill = function(n)
+    var addDataToRowSkill = function(n, id)
     {
         let fields = loadDataFromSkillModal();
         var row_skills = `
             <tr>
                 <td>${fields.char}</td>
-                    <input form="edit" type="hidden" value="${fields.char}" name="${type_skill.typeArray}[${n}][char]">
+                    <input form="edit" type="hidden" value="${fields.char}" name="${$type_skill.typeArray}[${n}][char]">
                 <td>${fields.description}</td>
-                    <input form="edit" type="hidden" value="${fields.description}" name="${type_skill.typeArray}[${n}][description]">
-                    <input form="edit" type="hidden" value="0" name="${type_skill.typeArray}[${n}][skill_id]">
+                    <input form="edit" type="hidden" value="${fields.description}" name="${$type_skill.typeArray}[${n}][description]">
+                    <input form="edit" type="hidden" value="${id}" name="${$type_skill.typeArray}[${n}][skill_id]">
                 <td class="cell-flex">
                     <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
                         <i class="cvd-trash"></i>
@@ -1047,26 +1146,15 @@
         var closestRow = $(this).closest('tr');
         var id_row = closestRow.children(':nth-child(5)').attr('value');
 
-        if (id_row == 0)
-            closestRow.remove();
-        else
-        {
-            let recruit_id = $('#recruit_id').val();
+        let recruit_id = $('#recruit_id').val();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type:'DELETE',
-                url:`/recruits/${recruit_id}/s/${id_row}`,
-                success:function(){
-                    closestRow.remove();
-                }
-            });
-        }
+        $.ajax({
+            type:'DELETE',
+            url:`/recruits/${recruit_id}/s/${id_row}`,
+            success:function(){
+                closestRow.remove();
+            }
+        });
     });
 
 

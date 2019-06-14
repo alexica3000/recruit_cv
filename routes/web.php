@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::resource('recruits', 'RecruitsController');
 Route::get('recruits/{recruit}/w/{work}', 'RecruitsController@getWork');
+Route::post('recruits/{recruit}/w', 'RecruitsController@storeWork');
 Route::patch('recruits/{recruit}/w/{work}', 'RecruitsController@updateWork');
 Route::delete('recruits/{recruit}/w/{work}', 'RecruitsController@destroyWork');
 Route::post('recruits/{recruit}/s', 'RecruitsController@storeSkill');
