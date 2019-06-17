@@ -185,7 +185,7 @@
 
                         @foreach($recruit->works as $field)
                             @continue($field->type != 1)
-                            @include('recruits.row_work', ['type' => 'works', 'hidden' => 'experience'])
+                            @include('recruits.row_work')
                         @endforeach
 
                     </tbody>
@@ -225,7 +225,7 @@
 
                         @foreach($recruit->works as $field)
                             @continue($field->type != 2)
-                            @include('recruits.row_work', ['type' => 'educations', 'hidden' => 'education'])
+                            @include('recruits.row_work')
                         @endforeach
 
                     </tbody>
@@ -265,7 +265,7 @@
 
                         @foreach($recruit->works as $field)
                             @continue($field->type != 3)
-                            @include('recruits.row_work', ['type' => 'courses', 'hidden' => 'course'])
+                            @include('recruits.row_work')
                         @endforeach
 
                     </tbody>
@@ -306,7 +306,7 @@
 
                                 @foreach($recruit->skills as $fields)
                                     @continue($fields->type != 1)
-                                        @include('recruits.row_skill', ['type' => 'skills'])
+                                        @include('recruits.row_skill')
                                 @endforeach
 
                             </tbody>
@@ -341,7 +341,7 @@
                             <tbody id="charac_tbody">
                                 @foreach($recruit->skills as $fields)
                                     @continue($fields->type != 2)
-                                    @include('recruits.row_skill', ['type' => 'charac'])
+                                    @include('recruits.row_skill')
                                 @endforeach
                             </tbody>
 
@@ -378,7 +378,7 @@
                             <tbody id="social_tbody">
                                 @foreach($recruit->skills as $fields)
                                     @continue($fields->type != 3)
-                                    @include('recruits.row_skill', ['type' => 'social'])
+                                    @include('recruits.row_skill')
                                 @endforeach
                             </tbody>
                         </table>
@@ -411,7 +411,7 @@
                             <tbody id="interest_tbody">
                                 @foreach($recruit->skills as $fields)
                                     @continue($fields->type != 4)
-                                    @include('recruits.row_skill', ['type' => 'interest'])
+                                    @include('recruits.row_skill')
                                 @endforeach
                             </tbody>
                         </table>

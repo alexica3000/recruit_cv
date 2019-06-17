@@ -17,7 +17,7 @@ class RecruitsController extends Controller
      */
     public function index()
     {
-        $recruits = Recruit::paginate(2);
+        $recruits = Recruit::paginate(10);
 
         return view('recruits.view', compact('recruits'));
     }
@@ -157,6 +157,18 @@ class RecruitsController extends Controller
      */
     public function updateWork(Recruit $recruit, Request $request, Work $work)
     {
+        $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
+        $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
+
+        $recruit->works()->where('id', $work->id)->update([
+            'employer' => $request->fields['modal_employer'],
+            'job' => $request->fields['modal_edit_name'],
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'description' => $request->fields['modal_edit_description']
+        ]);
+
+        /*
         $start_date = $request->start_year . '-' . $request->start_month . '-01';
         $end_date = ($request->end_year == null) ? null : $request->end_year . '-' . $request->end_month . '-01';
 
@@ -166,7 +178,7 @@ class RecruitsController extends Controller
             'start_date' => $start_date,
             'end_date' => $end_date,
             'description' => $request->description
-        ]);
+        ]);*/
 
         return response()->json(['status' => true, 'id' => $work->id]);
     }
@@ -254,7 +266,7 @@ class RecruitsController extends Controller
 
 
 
-
+/*
 
     protected function insertDataToWork($fields, Recruit $recruit, $type)
     {
@@ -288,7 +300,7 @@ class RecruitsController extends Controller
                 ]);
             }
         }
-    }
+    }*/
 
 
 

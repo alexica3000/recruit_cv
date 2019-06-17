@@ -6,7 +6,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/row_work.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/row_work.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,36 +43,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add_new_work</find>
-      <find>type_of_skill</find>
-      <find>editModal</find>
-      <find>#editModal</find>
-      <find>type_field</find>
-      <find>newRowWork</find>
-      <find>edit_wor</find>
-      <find>get_work_id</find>
-      <find>getRowFromWorks</find>
-      <find>update_work_id</find>
-      <find>submit</find>
-      <find>storeSkill</find>
-      <find>insertDataToSkill</find>
-      <find>edit</find>
-      <find>createNewModal</find>
-      <find>typeOfSkillsTable</find>
-      <find>loadDataFromModaWork</find>
-      <find>loadDataFromModalWork</find>
-      <find>typeOfWorksTable</find>
-      <find>delete_work</find>
-      <find>modal_employe</find>
       <find>modal_edit_name</find>
       <find>input_array</find>
       <find>storeWork</find>
-      <find>work.id</find>
       <find>loadDataFromMod</find>
       <find>submit_button</find>
       <find>reset</find>
       <find>edit_work</find>
       <find>$loop-&gt;index</find>
+      <find>$type</find>
+      <find>ype</find>
+      <find>type</find>
+      <find>{n}</find>
+      <find>addDataToRowWork</find>
+      <find>nth-child(3)</find>
+      <find>hideRow</find>
+      <find>id_type_work</find>
+      <find>n</find>
+      <find>{{$type}}</find>
+      <find>tbody</find>
+      <find>addDataToRowSkill</find>
+      <find>type_work.hideRow</find>
+      <find>id_type_skill</find>
+      <find>typeArray</find>
+      <find>type_skill.nr</find>
+      <find>nr</find>
+      <find>description</find>
+      <find>nth-child</find>
+      <find>insertDataToWork</find>
+      <find>work.id</find>
+      <find>typeOfWork</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -85,14 +87,14 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_06_05_065602_create_works_table.php" />
         <option value="$PROJECT_DIR$/app/Recruit.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_11_112143_create_skills_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/recruits/row_work.blade.php" />
         <option value="$PROJECT_DIR$/app/Work.php" />
         <option value="$PROJECT_DIR$/app/Skill.php" />
-        <option value="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
+        <option value="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/recruits/row_work.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/main.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
       </list>
     </option>
   </component>
@@ -136,7 +138,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,6 +197,13 @@
               <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="layouts" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="asofronie" type="b2602c69:ProjectViewProjectNode" />
+              <item name="asofronie" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="recruits" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -206,7 +215,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -243,7 +252,8 @@
       <workItem from="1560237099512" duration="8387000" />
       <workItem from="1560317474569" duration="24908000" />
       <workItem from="1560404451728" duration="24082000" />
-      <workItem from="1560490332221" duration="24434000" />
+      <workItem from="1560490332221" duration="24444000" />
+      <workItem from="1560749535009" duration="14144000" />
     </task>
     <task id="LOCAL-00001" summary="edit view for recruit">
       <created>1560169295173</created>
@@ -266,11 +276,18 @@
       <option name="project" value="LOCAL" />
       <updated>1560429195361</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ajax for work">
+      <created>1560516520494</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1560516520494</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105856000" />
+    <option name="totallyTimeSpent" value="120010000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
@@ -279,13 +296,13 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16353887" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -306,7 +323,8 @@
     <MESSAGE value="redact view edit for recruit" />
     <MESSAGE value="ajax for skill" />
     <MESSAGE value="ajax for work" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajax for work" />
+    <MESSAGE value="ajax work" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajax work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -349,21 +367,21 @@
         <state relative-caret-position="16308">
           <caret line="906" column="27" lean-forward="true" selection-start-line="906" selection-start-column="27" selection-end-line="906" selection-end-column="27" />
           <folding>
-            <marker date="1560516314612" expanded="true" signature="10749:10764" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="16121:16324" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="16459:16542" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="24517:24539" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="24517:26106" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25558:26088" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25644:25697" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25803:25875" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26016:26066" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26172:26501" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26172:26560" ph="..." />
-            <marker date="1560516314612" expanded="false" signature="26201:26219" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36098:36849" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36596:36831" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36734:36809" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="10749:10764" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="16121:16324" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="16459:16542" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="22965:22987" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="22965:24469" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="23928:24451" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24014:24067" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24166:24238" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24379:24429" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24528:24844" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24528:24888" ph="..." />
+            <marker date="1560761156219" expanded="false" signature="24557:24575" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32322:32991" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32738:32973" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32876:32951" ph="..." />
           </folding>
         </state>
       </provider>
@@ -442,13 +460,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -477,7 +488,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -485,14 +495,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="20" column="68" lean-forward="true" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/recruits/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="494" column="71" lean-forward="false" selection-start-line="494" selection-start-column="71" selection-end-line="494" selection-end-column="71" />
           <folding />
         </state>
       </provider>
@@ -505,10 +507,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/row_skill.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="49" lean-forward="true" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/row_work.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="170" column="71" lean-forward="false" selection-start-line="170" selection-start-column="71" selection-end-line="170" selection-end-column="71" />
+        <state relative-caret-position="270">
+          <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -527,35 +553,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/recruits/row_work.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="36" column="54" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="54" />
-          <folding />
+        <state relative-caret-position="674">
+          <caret line="946" column="7" lean-forward="true" selection-start-line="946" selection-start-column="7" selection-end-line="946" selection-end-column="7" />
+          <folding>
+            <marker date="1560761156219" expanded="true" signature="10749:10764" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="16121:16324" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="16459:16542" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="22965:22987" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="22965:24469" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="23928:24451" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24014:24067" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24166:24238" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24379:24429" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24528:24844" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="24528:24888" ph="..." />
+            <marker date="1560761156219" expanded="false" signature="24557:24575" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32322:32991" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32738:32973" ph="..." />
+            <marker date="1560761156219" expanded="true" signature="32876:32951" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="939" column="0" lean-forward="true" selection-start-line="939" selection-start-column="0" selection-end-line="939" selection-end-column="0" />
-          <folding>
-            <marker date="1560516314612" expanded="true" signature="10749:10764" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="16121:16324" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="16459:16542" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="24517:24539" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="24517:26106" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25558:26088" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25644:25697" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="25803:25875" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26016:26066" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26172:26501" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="26172:26560" ph="..." />
-            <marker date="1560516314612" expanded="false" signature="26201:26219" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36098:36849" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36596:36831" ph="..." />
-            <marker date="1560516314612" expanded="true" signature="36734:36809" ph="..." />
-          </folding>
+        <state relative-caret-position="-389">
+          <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
