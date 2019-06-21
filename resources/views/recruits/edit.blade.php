@@ -116,6 +116,7 @@
                             </div>
                             <div class="dynamic-body">
                                 <label>Selected clients</label>
+
                                 <div class="item">
                                     <div class="form-control disabled">Client A</div>
                                     <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
@@ -123,6 +124,7 @@
                                     </a>
                                     <input type="hidden" name="clients[]" value="1">
                                 </div>
+
                                 <div class="item">
                                     <div class="form-control disabled">Client B</div>
                                     <a href="#" class="dynamic-btn danger" data-dynamic-remove="">
@@ -130,6 +132,7 @@
                                     </a>
                                     <input type="hidden" name="clients[]" value="2">
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -183,6 +186,24 @@
                     </thead>
                     <tbody id="work_tbody">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         @foreach($recruit->works as $field)
                             @continue($field->type != 1)
                             @include('recruits.row_work')
@@ -193,9 +214,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <div class="card card-primary">
         <div class="card-header">
@@ -582,3 +600,4 @@
     </div>
 
 @endsection
+

@@ -34,9 +34,14 @@
                 @include('layouts.message')
                 @yield('content')
         </div>
+        @stack('modals')
     </main>
 
 </div>
+
 <!-- JavaScripts -->
 <script src="{{asset('js/app.js')}}"></script>
+@stack('scripts')
+
+
 </body></html>

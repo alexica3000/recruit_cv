@@ -74,9 +74,6 @@ class RecruitsController extends Controller
 //        $educations = $recruit->works()->where('type', 2)->get();
 //        $course = $recruit->works()->where('type', 3)->get();
 
-
-//        $recruit->load('skills')->get();
-
         return view('recruits.edit', compact('recruit'));
     }
 

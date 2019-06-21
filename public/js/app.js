@@ -60386,6 +60386,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./main */ "./resources/js/main.js");
 
+__webpack_require__(/*! ./work */ "./resources/js/work.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -61187,7 +61189,7 @@ if (token) {
         type: type_work.type
       },
       success: function success(data) {
-        var newRowWorkd = addDataToRowWork(loadFields($form), JSON.parse(data.id));
+        var newRowWorkd = addDataToRowWork(loadFields($form), data.id);
         $(type_work.tbody).append(newRowWorkd);
       }
     });
@@ -61210,7 +61212,15 @@ if (token) {
       type: 'DELETE',
       url: "/recruits/".concat(recruit_id, "/w/").concat(id_row),
       success: function success() {
-        closestRow.add(closestRow.next()).remove();
+        closestRow.fadeOut(400, function () {
+          closestRow.add(closestRow.next()).remove();
+        });
+      },
+      error: function error() {
+        closestRow.append('<div id="work_error">Error!</div>');
+        $('#work_error').fadeOut(1000, function () {
+          $(this).remove();
+        });
       }
     });
   });
@@ -61225,7 +61235,6 @@ if (token) {
     work.id = currentRow.next().find('input[name=work_id]').attr('value');
     typeOfWork($(this).closest('div[class*=card-primary]').find('.add_new_work').attr('id'));
     $.ajax({
-      type: 'GET',
       url: "/recruits/".concat(recruit_id, "/w/").concat(work.id),
       success: function success(data) {
         $('#submit_button').html('Edit');
@@ -61280,7 +61289,7 @@ if (token) {
       success: function success(data) {
         var row = $("input[name*='work_id'][value='" + work.id + "']").parent().prev();
         row.next().remove();
-        var updatedRowWork = addDataToRowWork(loadFields($form), JSON.parse(data.id));
+        var updatedRowWork = addDataToRowWork(loadFields($form), data.id);
         row.replaceWith(updatedRowWork);
       }
     });
@@ -61315,7 +61324,8 @@ if (token) {
         type: $type_skill.type
       },
       success: function success(data) {
-        $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
+        // $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
+        $($type_skill.tbody).append(addDataToRowSkill(data.id)).children(':last').hide().fadeIn(2000);
       }
     });
   });
@@ -61394,10 +61404,335 @@ if (token) {
       type: 'DELETE',
       url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
       success: function success() {
-        closestRow.remove();
+        closestRow.fadeOut(400, function () {
+          $(this).remove();
+        });
       }
     });
   });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./resources/js/work.js":
+/*!******************************!*\
+  !*** ./resources/js/work.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * jQuery object
+ * @external jQuery
+ * @see {@link http://api.jquery.com/jQuery/}
+ */
+;
+
+(function ($) {
+  var expRules = {
+    employer: {
+      required: true,
+      minlength: 2
+    },
+    job: {
+      required: true,
+      number: true
+    },
+    start: {
+      required: true,
+      number: true
+    },
+    end: {
+      required: true,
+      number: true,
+      greaterThan: '#experience_start'
+    },
+    finished: {
+      required: true,
+      number: true
+    },
+    description: {
+      required: true,
+      minlength: 2
+    }
+  };
+  var eduRules = {
+    institute: {
+      required: true,
+      minlength: 2
+    },
+    job: {
+      required: true,
+      number: true
+    },
+    start: {
+      required: true,
+      number: true
+    },
+    end: {
+      required: true,
+      number: true,
+      greaterThan: '#education_start'
+    },
+    finished: {
+      required: true,
+      number: true
+    },
+    description: {
+      required: true,
+      minlength: 2
+    }
+  };
+
+  var modalForm = function () {
+    /**
+     * @memberOf modalForm
+     * @param {string} selector
+     */
+    this.init = function (selector) {
+      $(document).on('click', selector, function () {
+        var $button = $(selector);
+        var $form = $button.closest('form');
+        var formID = $form.attr('id');
+        var rules = {};
+
+        switch (formID) {
+          case 'addExperienceForm':
+            rules = expRules;
+            break;
+
+          case 'addEducationForm':
+            rules = eduRules;
+            break;
+        }
+
+        self.toggleDisable($button);
+
+        if (self.validateForm($form, rules).form()) {
+          var $modal = $button.closest('.modal');
+          tableRow.init($button.attr('data-target'), self.getFormData($form));
+          $modal.modal('hide');
+          $modal.find('select, input, textarea').val('');
+          $modal.find('select').trigger('change');
+        }
+
+        self.toggleDisable($(selector), false);
+        return false;
+      });
+    };
+    /**
+     * @memberOf modalForm
+     * @param {object} $form
+     */
+
+
+    this.getFormData = function ($form) {
+      var $fields = $form.find('input, select, textarea');
+      var data = {};
+      $fields.each(function () {
+        var $field = $(this);
+        var value = $field.val();
+        var text = $field.val();
+        var target = $field.attr('id');
+
+        if ($field.is('select')) {
+          text = $field.find('option:selected').text().trim();
+        }
+
+        data[target] = {
+          text: text,
+          value: value
+        };
+      });
+      return data;
+    };
+    /**
+     * @memberOf modalForm
+     * @param {object} $button
+     * @param {boolean} disable
+     */
+
+
+    this.toggleDisable = function ($button) {
+      var disable = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      if (disable) {
+        $button.addClass('disabled');
+      } else {
+        $button.removeClass('disabled');
+      }
+
+      $button.prop('disabled', disable);
+    };
+    /**
+     * @memberOf modalForm
+     * @param {object} $form
+     * @param {object} rules
+     * @return {boolean|void|ActiveX.IXMLDOMParseError}
+     */
+
+
+    this.validateForm = function ($form, rules) {
+      $.validator.addMethod("greaterThan", function (value, element, params) {
+        if (!/Invalid|NaN/.test(new Date(value))) {
+          return new Date(value) >= new Date($(params).val());
+        }
+
+        return isNaN(value) && isNaN($(params).val()) || Number(value) >= Number($(params).val());
+      }, 'Must be greater than {0}.');
+      return $form.validate({
+        rules: rules
+      });
+    };
+
+    return {
+      init: this.init
+    };
+  }();
+
+  var tableRow = function () {
+    /**
+     * @memberOf tableRow
+     * @param {string} selector
+     * @param {object} data
+     */
+    this.init = function (selector, data) {
+      var $table = $(selector);
+      var $clone = $table.find('[data-clone]').clone();
+      self.setRowData(self.cloneRow($clone), data);
+      $table.find('tbody').append(self.cloneRow($clone));
+    };
+    /**
+     * @memberOf tableRow
+     * @param {object} $clone
+     * @return {*}
+     */
+
+
+    this.cloneRow = function ($clone) {
+      var index = Date.now();
+      $clone.each(function () {
+        var $block = $(this);
+        var $fields = $block.find('[data-name]');
+        var $collapse = $block.find('[data-table-collapse]');
+        $block.removeClass('d-none').removeAttr('data-clone');
+
+        if ($collapse.length) {
+          var attr = $collapse.attr('data-table-collapse');
+          $collapse.attr('data-table-collapse', attr.replace('%index%', index));
+        }
+
+        if ($block.is('.row-hide')) {
+          var _attr = $block.attr('id');
+
+          $block.attr('id', _attr.replace('%index%', index));
+        }
+
+        $fields.each(function () {
+          var $field = $(this);
+          var name = $field.attr('data-name').replace('%index%', index);
+          $field.attr('name', name).removeAttr('data-name');
+        });
+      });
+      return $clone;
+    };
+    /**
+     * @memberOf tableRow
+     * @param {object} $rows
+     * @param {object} data
+     */
+
+
+    this.setRowData = function ($rows, data) {
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var $field = $rows.find("[data-target=\"".concat(key, "\"]"));
+
+          if ($field.length) {
+            $field.val(data[key].value);
+            $field.prev().html(data[key].text);
+          }
+        }
+      }
+    };
+
+    return {
+      init: this.init
+    };
+  }();
+  /* delete row from work table */
+
+
+  var deleteWork = function deleteWork() {
+    $(document).on('click', '.del-work', function () {
+      var closestRow = $(this).closest('tr');
+      $(document).on('click', '.confirmAction', function () {
+        var $modal = $('.confirmAction').closest('.modal');
+        $modal.modal('hide');
+        closestRow.add(closestRow.next()).remove();
+      });
+    });
+  };
+
+  var showEditModal = function showEditModal() {
+    $(document).on('click', '.edit_row', function () {
+      // $('#addExperienceButton').attr('id', 'editExperienceButton');
+      var $currentRow = $(this).closest('tr'); // let ed_employer = $currentRow.find('input[data-target=experience_employer]').attr('value');
+      // let ed_job = $currentRow.find('input[data-target=experience_job]').prev().text();
+      // let ed_start_year = $currentRow.find('input[data-target=experience_start]').attr('value');
+      // let ed_end_year = $currentRow.find('input[data-target=experience_end]').attr('value');
+      // let ed_job = $currentRow.find('input[data-target=experience_finished]').prev().text();
+
+      $('#experience_employer').val($currentRow.find('input[data-target=experience_employer]').attr('value'));
+      $('#experience_job').val($currentRow.find('input[data-target=experience_job]').attr('value')).trigger('change');
+      $('#experience_start').val($currentRow.find('input[data-target=experience_start]').attr('value')).trigger('change');
+      $('#experience_end').val($currentRow.find('input[data-target=experience_end]').attr('value')).trigger('change');
+      $('#experience_finished').val($currentRow.find('input[data-target=experience_finished]').attr('value')).trigger('change');
+      $('#experience_description').val($currentRow.next().find('input[data-target=experience_description]').attr('value'));
+      var $form = $('#addExperienceButton').closest('form');
+      var data = getFormData($form);
+      updateRowWork(data);
+    });
+  };
+
+  showEditModal();
+
+  function updateRowWork(data) {
+    $(document).on('click', '#addExperienceButton', function () {
+      // $('#editExperienceButton').attr('id', 'addExperienceButton');
+      // $('#experienceTable').find('tbody').find(':last-child').remove();
+      tableRow.init('#experienceTable', data);
+      var $modal = $('#experienceTable').closest('.modal');
+      $modal.modal('hide');
+      $modal.find('select, input, textarea').val('');
+      $modal.find('select').trigger('change'); // $($currentRow).replace();
+    });
+  }
+
+  function getFormData($form) {
+    var data = {};
+    var $fields = $form.find('input, select, textarea');
+    $fields.each(function () {
+      var $field = $(this);
+      var value = $field.val();
+      var text = $field.val();
+      var target = $field.attr('id');
+
+      if ($field.is('select')) {
+        text = $field.find('option:selected').text().trim();
+      }
+
+      data[target] = {
+        text: text,
+        value: value
+      };
+    });
+    return data;
+  }
+
+  ;
+  modalForm.init('#addExperienceButton');
+  deleteWork();
 })(jQuery);
 
 /***/ }),

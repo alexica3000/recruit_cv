@@ -760,7 +760,7 @@
             },
             success: function(data)
             {
-                let newRowWorkd = addDataToRowWork(loadFields($form), JSON.parse(data.id));
+                let newRowWorkd = addDataToRowWork(loadFields($form), data.id);
                 $(type_work.tbody).append(newRowWorkd);
             }
         });
@@ -814,7 +814,17 @@
             type:'DELETE',
             url:`/recruits/${recruit_id}/w/${id_row}`,
             success:function(){
-                closestRow.add(closestRow.next()).remove();
+                closestRow.fadeOut(400, function()
+                {
+                    closestRow.add(closestRow.next()).remove();
+                });
+            },
+            error:function(){
+                closestRow.append('<div id="work_error">Error!</div>');
+                $('#work_error').fadeOut(1000, function()
+                {
+                    $(this).remove();
+                });
             }
         });
     });
@@ -833,7 +843,6 @@
         typeOfWork($(this).closest('div[class*=card-primary]').find('.add_new_work').attr('id'));
 
         $.ajax({
-            type:'GET',
             url:`/recruits/${recruit_id}/w/${work.id}`,
 
             success:function(data){
@@ -897,7 +906,7 @@
             success:function(data){
                 let row = $("input[name*='work_id'][value='" + work.id + "']").parent().prev();
                 row.next().remove();
-                let updatedRowWork = addDataToRowWork(loadFields($form), JSON.parse(data.id));
+                let updatedRowWork = addDataToRowWork(loadFields($form), data.id);
                 row.replaceWith(updatedRowWork);
             }
         });
@@ -941,7 +950,12 @@
                 type: $type_skill.type
             },
             success:function(data){
-                $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
+                // $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
+                $($type_skill.tbody)
+                    .append(addDataToRowSkill(data.id))
+                    .children(':last')
+                    .hide()
+                    .fadeIn(2000);
             }
         });
     });
@@ -1034,14 +1048,25 @@
         var id_row = closestRow.find('input[name=skill_id').attr('value');
 
         let recruit_id = $('#recruit_id').val();
+
         $.ajax({
             type:'DELETE',
             url:`/recruits/${recruit_id}/s/${id_row}`,
             success:function(){
-                closestRow.remove();
+                closestRow.fadeOut(400, function()
+                {
+                    $(this).remove();
+                });
             }
         });
+
     });
+
+
+
+
+
+
 
 
 

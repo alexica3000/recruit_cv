@@ -62,7 +62,7 @@
                     <tr>
                         <td>{{ $recruit->name }}</td>
                         <td>{{ $recruit->job }}</td>
-                        <td>{{ $recruit->created_at->format('d / m / Y') }}</td>
+                        <td>{{ $recruit->created_at->format('d / M / Y') }}</td>
                         <td class="cell-flex">
                             <a href="{{ route('recruits.edit', $recruit->id) }}" class="table-link">
                                 <i class="cvd-eye"></i>
