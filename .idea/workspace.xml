@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e02b2e66-bed2-4b4c-b903-f7130439ae8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/app.css" afterPath="$PROJECT_DIR$/public/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/work.js" afterPath="$PROJECT_DIR$/resources/js/work.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/sass/app.scss" afterPath="$PROJECT_DIR$/resources/sass/app.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -286,7 +279,7 @@
       <workItem from="1561008897583" duration="25816000" />
       <workItem from="1561095812691" duration="16145000" />
       <workItem from="1561354931329" duration="16068000" />
-      <workItem from="1561440469244" duration="20336000" />
+      <workItem from="1561440469244" duration="20492000" />
     </task>
     <task id="LOCAL-00001" summary="edit view for recruit">
       <created>1560169295173</created>
@@ -330,11 +323,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561100384883</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ajax skill recruit">
+      <created>1561465380758</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1561465380758</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228889000" />
+    <option name="totallyTimeSpent" value="229045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
@@ -373,7 +373,8 @@
     <MESSAGE value="ajax for work" />
     <MESSAGE value="ajax work" />
     <MESSAGE value="create work for recruit" />
-    <option name="LAST_COMMIT_MESSAGE" value="create work for recruit" />
+    <MESSAGE value="ajax skill recruit" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajax skill recruit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
