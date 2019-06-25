@@ -160,47 +160,47 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr data-clone class="d-none">
-                            <td>
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][employer]" data-target="experience_employer">
-                            </td>
-                            <td>
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][job]" data-target="experience_job">
-                            </td>
-                            <td>
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][start]" data-target="experience_start">
-                            </td>
-                            <td>
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][end]" data-target="experience_end">
-                            </td>
-                            <td>
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][finished]" data-target="experience_finished">
-                            </td>
-                            <td class="cell-flex">
-                                <a href="#" class="table-link edit_row" data-toggle="modal" data-target="#experienceModal">
-                                    <i class="cvd-edit"></i>
-                                    {{ __('Edit') }}
-                                </a>
-                                <a href="#" class="table-link" data-table-collapse="#experienceRow%index%">
-                                    <i class="cvd-arrow-right"></i>
-                                    {{ __('Open information') }}
-                                </a>
-                                <a href="#" class="btn btn-outline-danger btn-sm del-work" data-toggle="modal" data-target="#confirmExperienceModal">
-                                    <i class="cvd-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr data-clone class="row-hide" id="experienceRow%index%">
-                            <td colspan="6" class="cell-description">
-                                <span class="caption"></span>
-                                <input type="hidden" data-name="experience[%index%][description]" data-target="experience_description">
-                            </td>
-                        </tr>
+                    <tr data-clone class="d-none">
+                        <td>
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][employer]" data-target="experience_employer">
+                        </td>
+                        <td>
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][job]" data-target="experience_job">
+                        </td>
+                        <td>
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][start]" data-target="experience_start">
+                        </td>
+                        <td>
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][end]" data-target="experience_end">
+                        </td>
+                        <td>
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][finished]" data-target="experience_finished">
+                        </td>
+                        <td class="cell-flex">
+                            <a href="#" class="table-link" data-row-edit="#experienceModal">
+                                <i class="cvd-edit"></i>
+                                {{ __('Edit') }}
+                            </a>
+                            <a href="#" class="table-link" data-table-collapse="#experienceRow%index%">
+                                <i class="cvd-arrow-right"></i>
+                                {{ __('Open information') }}
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-row-remove="#confirmExperienceModal">
+                                <i class="cvd-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-clone class="row-hide" id="experienceRow%index%">
+                        <td colspan="6" class="cell-description">
+                            <span class="caption"></span>
+                            <input type="hidden" data-name="experience[%index%][description]" data-target="experience_description">
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -213,13 +213,13 @@
                     <h3>{{ __('Education') }}</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#educationModal">{{ __('Add new') }}</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand" id="educationTable">
+                <table class="table table-brand">
                     <thead>
                     <tr>
                         <th width="360">{{ __('Institute') }}</th>
@@ -584,13 +584,15 @@
     @include('components.confirm', ['title' => 'Confirm remove Characteristic', 'message' => 'Are you sure you want to remove Characteristic?', 'action' => 'Remove', 'modalID' => 'confirmCharacteristicsModal'])
     @include('components.confirm', ['title' => 'Confirm remove Social Media', 'message' => 'Are you sure you want to remove Social Media?', 'action' => 'Remove', 'modalID' => 'confirmSociaModal'])
     @include('components.confirm', ['title' => 'Confirm remove Interest', 'message' => 'Are you sure you want to remove Interest?', 'action' => 'Remove', 'modalID' => 'confirmInterestsModal'])
-    <div id="modale">
 
-    <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
+    <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="experienceModalLabel">{{ __('Create new experience row') }}</h5>
+                    <h5 class="modal-title trans" id="experienceModalLabel"
+                        data-trans-edit="{{ __('Edit new experience row') }}"
+                        data-trans-create="{{ __('Create new experience row') }}"
+                    >{{ __('Create new experience row') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -653,113 +655,18 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-                        <button type="submit" class="btn btn-primary" id="addExperienceButton" data-target="#experienceTable">{{ __('Save') }}</button>
+                        <button type="submit"
+                                class="btn btn-primary trans"
+                                id="addExperienceButton"
+                                data-trans-edit="{{ __('Update') }}"
+                                data-trans-create="{{ __('Save') }}"
+                                data-target="#experienceTable">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    </div>
-
-
-
-
-
-
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="#" method="POST">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">{{ __('Edit row') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="modal_edit_name">{{ __('Skill') }}</label>
-                            <input type="text" class="form-control" name="modal_edit_name" id="modal_edit_name">
-                        </div>
-                        <label for="modal_link">{{ __('Start date') }}</label>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="start_year" id="start_year" class="form-control select2-init" data-placeholder="{{ __('Select year') }}">
-                                        <option></option>
-                                        <option class="2015">2015</option>
-                                        <option class="2016">2016</option>
-                                        <option class="2017">2017</option>
-                                        <option class="2018">2018</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="start_month" id="start_month" class="form-control select2-init" data-placeholder="{{ __('Select month') }}">
-                                        <option></option>
-                                        <option class="1">1</option>
-                                        <option class="2">2</option>
-                                        <option class="3">3</option>
-                                        <option class="4">4</option>
-                                        <option class="5">5</option>
-                                        <option class="6">6</option>
-                                        <option class="7">7</option>
-                                        <option class="8">8</option>
-                                        <option class="9">9</option>
-                                        <option class="10">10</option>
-                                        <option class="11">11</option>
-                                        <option class="12">12</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="end_year" id="end_year" class="form-control select2-init" data-placeholder="{{ __('Select year') }}">
-                                        <option></option>
-                                        <option class="2015">2015</option>
-                                        <option class="2016">2016</option>
-                                        <option class="2017">2017</option>
-                                        <option class="2018">2018</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="end_month" id="end_month" class="form-control select2-init" data-placeholder="{{ __('Select month') }}">
-                                        <option></option>
-                                        <option class="1">1</option>
-                                        <option class="2">2</option>
-                                        <option class="3">3</option>
-                                        <option class="4">4</option>
-                                        <option class="5">5</option>
-                                        <option class="6">6</option>
-                                        <option class="7">7</option>
-                                        <option class="8">8</option>
-                                        <option class="9">9</option>
-                                        <option class="10">10</option>
-                                        <option class="11">11</option>
-                                        <option class="12">12</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="modal_edit_description">{{ __('Description') }}</label>
-                            <textarea name="modal_edit_description" id="modal_edit_description" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-                        <button type="button" class="btn btn-primary">{{ __('Edit') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endpush
 
 @push('scripts')

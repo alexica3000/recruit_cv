@@ -68,36 +68,97 @@
          */
         this.init = (selector) => {
             $(document).on('click', selector, function () {
+
                 let $button = $(selector);
                 let $form = $button.closest('form');
                 let formID = $form.attr('id');
-                let rules = {};
-
-                switch(formID) {
-                    case 'addExperienceForm':
-                        rules = expRules;
-                        break;
-                    case 'addEducationForm':
-                        rules = eduRules;
-                        break;
-                }
+                let rules = self.getValidationRules(formID);
 
                 self.toggleDisable($button);
 
                 if(self.validateForm($form, rules).form()) {
                     let $modal = $button.closest('.modal');
 
-                    tableRow.init($button.attr('data-target'), self.getFormData($form));
+                    tableRow.addRow($button.attr('data-target'), self.getFormData($form));
                     $modal.modal('hide');
-
-                    $modal.find('select, input, textarea').val('');
-                    $modal.find('select').trigger('change');
                 }
 
                 self.toggleDisable($(selector), false);
 
                 return false;
+            }).on('click', '[data-row-edit]', function () {
+                let $button = $(this);
+                let id = $button.attr('data-row-edit');
+                let $modal = $(id);
+
+                tableRow.editRow($button.closest('tr'));
+                self.setModalTranslations($modal, 'edit');
+                $modal.modal('show');
+
+                return false;
+            }).on('click', '[data-row-remove]', function () {
+                tableRow.removeRow($(this));
+
+                return false;
+            }).on('hide.bs.modal', function (e) {
+                let $modal = $(e.target);
+
+                $('.table tr').removeClass('to-remove');
+                $('.confirmAction').removeClass('confirmRowRemove');
+
+                self.setModalTranslations($modal);
+                self.clearFormModal($modal);
+            }).on('click', '.confirmRowRemove', function () {
+                $('.to-remove').remove();
+                $(this).closest('.modal').modal('hide');
+
+                return false;
             });
+        };
+
+        /**
+         * @memberOf modalForm
+         * @param {object} $modal
+         * @param {string} type
+         */
+        this.setModalTranslations = ($modal, type = 'create') => {
+            let $trans = $modal.find('.trans');
+
+            $trans.each(function() {
+                let $block = $(this);
+                let trans = $block.attr(`data-trans-${type}`);
+
+                $block.html(trans);
+            });
+        };
+
+        /**
+         * @memberOf modalForm
+         * @param {object} $modal
+         */
+        this.clearFormModal = ($modal) => {
+            $modal.find('select, input, textarea').val('');
+            $modal.find('select').trigger('change');
+        };
+
+        /**
+         * @memberOf modalForm;
+         * @param {string} formID
+         * @return {object}
+         */
+        this.getValidationRules = (formID) => {
+            let rules = expRules;
+
+            switch(formID) {
+                case 'addExperienceForm':
+                    rules = expRules;
+                    break;
+                case 'addEducationForm':
+                    rules = eduRules;
+                    break;
+            }
+
+            return rules;
         };
 
         /**
@@ -170,29 +231,34 @@
         }
     }());
 
-
-
-
-
-
-
-
-
-
-
-
     let tableRow = (function () {
         /**
          * @memberOf tableRow
          * @param {string} selector
          * @param {object} data
          */
-        this.init = (selector, data) => {
+        this.addTableRow = (selector, data) => {
             let $table = $(selector);
             let $clone = $table.find('[data-clone]').clone();
 
             self.setRowData(self.cloneRow($clone), data);
             $table.find('tbody').append(self.cloneRow($clone));
+        };
+
+        /**
+         * @memberOf tableRow
+         * @param {object} $button
+         */
+        this.removeTableRow = ($button) => {
+            let id = $button.attr('data-row-remove');
+            let $modal = $(id);
+            let $tr = $button.closest('tr');
+            let $descriptionTr = $tr.next();
+
+            $descriptionTr.addClass('to-remove');
+            $tr.addClass('to-remove');
+            $modal.find('.confirmAction').addClass('confirmRowRemove');
+            $modal.modal('show');
         };
 
         /**
@@ -252,137 +318,45 @@
             }
         };
 
+        /**
+         * @memberOf tableRow
+         * @param {object} $row
+         */
+        this.editTableRow = ($row) => {
+            let $descriptionRow = $row.next();
+            let $descriptionFields = $descriptionRow.find('input');
+            let $fields = $row.find('input');
+
+            self.setDataToForm($fields);
+            self.setDataToForm($descriptionFields);
+        };
+
+        /**
+         * @memberOf tableRow
+         * @param {object} $fields
+         */
+        this.setDataToForm = ($fields) => {
+            $fields.each(function () {
+                let $field = $(this);
+                let value = $field.val();
+                let id = '#' + $field.attr('data-target');
+                let $formField = $(id);
+
+                $formField.val(value);
+
+                if($formField.is('select')) {
+                    $formField.trigger('change');
+                }
+            });
+        };
+
         return {
-            init: this.init
+            addRow: this.addTableRow,
+            removeRow: this.removeTableRow,
+            editRow: this.editTableRow,
         }
     }());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* delete row from work table */
-
-    let deleteWork = function(){
-        $(document).on('click', '.del-work', function()
-        {
-            let closestRow = $(this).closest('tr');
-
-            $(document).on('click','.confirmAction', function() {
-                let $modal = $('.confirmAction').closest('.modal');
-                $modal.modal('hide');
-
-                closestRow.add(closestRow.next()).remove();
-            });
-        });
-    };
-
-
-    let showEditModal = function()
-    {
-        $(document).on('click', '.edit_row', function(){
-
-            // $('#addExperienceButton').attr('id', 'editExperienceButton');
-            let $currentRow = $(this).closest('tr');
-
-            // let ed_employer = $currentRow.find('input[data-target=experience_employer]').attr('value');
-            // let ed_job = $currentRow.find('input[data-target=experience_job]').prev().text();
-            // let ed_start_year = $currentRow.find('input[data-target=experience_start]').attr('value');
-            // let ed_end_year = $currentRow.find('input[data-target=experience_end]').attr('value');
-            // let ed_job = $currentRow.find('input[data-target=experience_finished]').prev().text();
-
-
-            $('#experience_employer').val($currentRow.find('input[data-target=experience_employer]').attr('value'));
-            $('#experience_job').val($currentRow.find('input[data-target=experience_job]').attr('value')).trigger('change');
-            $('#experience_start').val($currentRow.find('input[data-target=experience_start]').attr('value')).trigger('change');
-            $('#experience_end').val($currentRow.find('input[data-target=experience_end]').attr('value')).trigger('change');
-            $('#experience_finished').val($currentRow.find('input[data-target=experience_finished]').attr('value')).trigger('change');
-            $('#experience_description').val($currentRow.next().find('input[data-target=experience_description]').attr('value'));
-
-            let $form = $('#addExperienceButton').closest('form');
-            let data = getFormData($form);
-
-            updateRowWork(data);
-        });
-    };
-
-    showEditModal();
-
-
-
-
-
-    function updateRowWork(data)
-    {
-        $(document).on('click', '#addExperienceButton', function(){
-            // $('#editExperienceButton').attr('id', 'addExperienceButton');
-            // $('#experienceTable').find('tbody').find(':last-child').remove();
-            tableRow.init('#experienceTable', data);
-            let $modal = $('#experienceTable').closest('.modal');
-            $modal.modal('hide');
-
-            $modal.find('select, input, textarea').val('');
-            $modal.find('select').trigger('change');
-
-            // $($currentRow).replace();
-        });
-    }
-
-
-
-    function getFormData ($form)
-    {
-        let data = {};
-        let $fields = $form.find('input, select, textarea');
-
-        $fields.each(function () {
-            let $field = $(this);
-            let value = $field.val();
-            let text = $field.val();
-            let target = $field.attr('id');
-
-            if($field.is('select')) {
-                text = $field.find('option:selected').text().trim();
-            }
-
-            data[target] = {
-                text,
-                value
-            };
-        });
-
-        return data;
-    };
-
-
-
-
-
     modalForm.init('#addExperienceButton');
-    deleteWork();
 
 }(jQuery));

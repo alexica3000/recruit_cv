@@ -190,20 +190,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         @foreach($recruit->works as $field)
                             @continue($field->type != 1)
                             @include('recruits.row_work')
@@ -321,6 +307,19 @@
                             </thead>
 
                             <tbody id="skill_tbody">
+
+                                <tr data-clone-row-skill class="d-none">
+                                    <td data-target="char"></td>
+                                    <td data-target="description"></td>
+                                    <input form="edit" type="hidden" value="" name="skill_id" data-target="skill_id" >
+                                    <td class="cell-flex">
+                                        <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                            <i class="cvd-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+
 
                                 @foreach($recruit->skills as $fields)
                                     @continue($fields->type != 1)
@@ -450,6 +449,67 @@
 
 
     <!-- Modals -->
+
+    <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="#" method="POST" id="skill_form">
+                    <div class="modal-header">
+                        <h5 class="modal-title trans-skill" id="skillModalLabel"
+                            data-trans-1="Add new skill"
+                            data-trans-2="Add new characteristics"
+                            data-trans-3="Add new social media"
+                            data-trans-4="Add new interests"
+                        >Create new row</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label id="label_modal_name" for="modal_name" class="trans-skill"
+                                   data-trans-1="Skill"
+                                   data-trans-2="Characteristic"
+                                   data-trans-3="Platform"
+                                   data-trans-4="Interest"
+                            >Skill</label>
+                            <input type="text" class="form-control" name="modal_name" id="modal_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_level">Level</label>
+                            <select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">
+                                <option></option>
+                                <option class="1">Beginner</option>
+                                <option class="2">Intermediate</option>
+                                <option class="3">Professional</option>
+                                <option class="4">Expert</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="label_modal_desc" for="modal_description" class="trans-skill"
+                                   data-trans-2="Description"
+                                   data-trans-3="Link"
+                                   data-trans-4="Description"
+                            >Skill</label>
+                            <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="submit_skill">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{{--
+
     <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -467,7 +527,7 @@
                         </div>
                         <div class="form-group">
                             <label for="modal_level">Level</label>
-                            <select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">
+                            <select name="modal_level" id="modal_level2" class="form-control select2-init" data-placeholder="Select level">
                                 <option></option>
                                 <option class="1">Beginner</option>
                                 <option class="2">Intermediate</option>
@@ -489,6 +549,7 @@
         </div>
     </div>
 
+--}}
 
 
 

@@ -61298,118 +61298,316 @@ if (token) {
     Skills / Characteristics / Social Media / Interests (tables from recruit view)
    ********************************************************************************************/
 
-  var $type_skill = {
-    tbody: '',
-    type: ''
-    /* show modal form to add new data */
+  var modalFormSkill = function () {
+    var $type_skill = {
+      tbody: '',
+      type: ''
+    };
 
-  };
-  $(document).on('click', '.add_new_skill', function () {
-    resetForm($('#skill_form').closest('form'));
-    $('#createNewModal').modal('show');
-    typeOfSkill(this.id);
-  });
+    this.init = function () {
+      $(document).on('click', '.add_new_skill', function () {
+        self.showModalSkill($(this).attr('id'));
+        return false;
+      }).on('click', '#submit_skill', function () {
+        rowSkill.addRowSkill(self.loadDataFromSkillModal(), $type_skill);
+        self.hideModalSkill();
+        return false;
+      }).on('click', '.delete_skill', function () {
+        rowSkill.deleteRowSkill(this);
+        return false;
+      });
+    };
+    /* show modal for skills*/
+
+
+    this.showModalSkill = function (typeID) {
+      self.resetFormSkill($('#skill_form').closest('form'));
+      self.typeOfSkill(typeID);
+      var $modal = $('#skillModal');
+      self.setModalSkillTrans($modal, $type_skill.type);
+      $modal.modal('show');
+    };
+    /* hide modal for skills*/
+
+
+    this.hideModalSkill = function () {
+      $('#skillModal').modal('hide');
+    };
+    /* add type of skill to object variable */
+
+
+    this.typeOfSkill = function (typeID) {
+      switch (typeID) {
+        case "add_new_skill":
+          $type_skill.tbody = '#skill_tbody';
+          $type_skill.type = 1;
+          $('#label_modal_desc').parent().hide();
+          $('#modal_level').parent().show();
+          break;
+
+        case "add_new_charac":
+          $type_skill.tbody = '#charac_tbody';
+          $type_skill.type = 2;
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+
+        case "add_new_social":
+          $type_skill.tbody = '#social_tbody';
+          $type_skill.type = 3;
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+
+        case "add_new_interest":
+          $type_skill.tbody = '#interest_tbody';
+          $type_skill.type = 4;
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+      }
+    };
+    /* trans modal skill */
+
+
+    this.setModalSkillTrans = function ($modal, type) {
+      var $trans = $modal.find('.trans-skill');
+      $trans.each(function () {
+        var $block = $(this);
+        var trans = $block.attr("data-trans-".concat(type));
+        $block.html(trans);
+      });
+    };
+    /* load input data from modal form */
+
+
+    this.loadDataFromSkillModal = function () {
+      var inputs_row = {
+        "char": '',
+        description: ''
+      };
+      inputs_row["char"] = $('#modal_name').val();
+      inputs_row.description = $type_skill.tbody == '#skill_tbody' ? $('#modal_level').val() : $('#modal_description').val();
+      return inputs_row;
+    };
+    /* reset form*/
+
+
+    this.resetFormSkill = function ($form) {
+      $form.find('input').val('');
+      $form.find('select').val('').trigger('change');
+      $form.find('textarea').val('');
+    };
+
+    return {
+      init: this.init
+    };
+  }();
+
+  modalFormSkill.init();
+
+  var rowSkill = function () {
+    /* store and add skill to new row */
+    this.addRowSkill = function ($data, $typeOfSkill) {
+      var recruit_id = $('#recruit_id').val();
+      $.ajax({
+        type: 'POST',
+        url: "/recruits/".concat(recruit_id, "/s"),
+        data: {
+          "char": $data["char"],
+          description: $data.description,
+          type: $typeOfSkill.type
+        },
+        success: function success(data) {
+          $($typeOfSkill.tbody).append(self.addDataToRowSkill(data.id, $data)).children(':last').hide().fadeIn(500);
+        }
+      });
+    };
+    /* return a new row with data for skill tables */
+
+
+    this.addDataToRowSkill = function (id, fields) {
+      var $row_skill = self.cloneRowSkill('data-clone-row-skill');
+      $.each(fields, function (index, value) {
+        var $td = $row_skill.find("td[data-target=\"".concat(index, "\"]"));
+        $td.html(value);
+      });
+      var $inputID = $row_skill.find("input[data-target=\"skill_id\"]");
+      $inputID.val(id);
+      return $row_skill;
+    };
+    /* remove row skill */
+
+
+    this.deleteRowSkill = function (e) {
+      var $closestRow = $(e).closest('tr');
+      var id_row = $closestRow.find('input[name=skill_id').attr('value');
+      var recruit_id = $('#recruit_id').val();
+      $.ajax({
+        type: 'DELETE',
+        url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
+        success: function success() {
+          $closestRow.fadeOut(300, function () {
+            $(this).remove();
+          });
+        }
+      });
+    };
+    /* clone row skill */
+
+
+    this.cloneRowSkill = function (cl) {
+      var $clone = $(document).find("[".concat(cl, "]")).clone();
+      $clone.removeClass('d-none').removeAttr("".concat(cl));
+      return $clone;
+    };
+
+    return {
+      deleteRowSkill: deleteRowSkill,
+      addRowSkill: addRowSkill
+    };
+  }(); // var $type_skill = {
+  //     tbody: '',
+  //     type: ''
+  // }
+
+  /* show modal form to add new data */
+
+  /*
+  
+      $(document).on('click', '.add_new_skill', function () {
+          resetForm($('#skill_form').closest('form'));
+          $('#createNewModal').modal('show');
+          typeOfSkill(this.id);
+      });
+  */
+
   /* store and show new skill */
 
-  $(document).on('click', '#submit_skill', function () {
-    // let n = $($type_skill.tbody + " tr").length;
-    var skill = loadDataFromSkillModal();
-    var recruit_id = $('#recruit_id').val();
-    $.ajax({
-      type: 'POST',
-      url: "/recruits/".concat(recruit_id, "/s"),
-      data: {
-        "char": skill["char"],
-        description: skill.description,
-        type: $type_skill.type
-      },
-      success: function success(data) {
-        // $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
-        $($type_skill.tbody).append(addDataToRowSkill(data.id)).children(':last').hide().fadeIn(2000);
-      }
-    });
-  });
+  /*
+  
+      $(document).on('click', '#submit_skill', function (){
+          // let n = $($type_skill.tbody + " tr").length;
+          let skill = loadDataFromSkillModal();
+          let recruit_id = $('#recruit_id').val();
+  
+          $.ajax({
+              type:'POST',
+              url:`/recruits/${recruit_id}/s`,
+              data: {
+                  char: skill.char,
+                  description: skill.description,
+                  type: $type_skill.type
+              },
+              success:function(data){
+                  // $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
+                  $($type_skill.tbody)
+                      .append(addDataToRowSkill(data.id))
+                      .children(':last')
+                      .hide()
+                      .fadeIn(2000);
+              }
+          });
+      });
+  */
+
   /* add type of skill to object variable */
 
-  var typeOfSkill = function typeOfSkill(id_skill_table) {
-    switch (id_skill_table) {
-      case "add_new_skill":
-        $type_skill.tbody = '#skill_tbody';
-        $type_skill.type = 1;
-        $('#createNewModalLabel').html('Add new skill');
-        $('#label_modal_name').html('Skill');
-        $('#label_modal_desc').parent().hide();
-        $('#modal_level').parent().show();
-        break;
+  /*var typeOfSkill = function(id_skill_table)
+  {
+      switch (id_skill_table)
+      {
+          case "add_new_skill":
+              $type_skill.tbody = '#skill_tbody';
+              $type_skill.type = 1;
+              $('#createNewModalLabel').html('Add new skill');
+              $('#label_modal_name').html('Skill');
+              $('#label_modal_desc').parent().hide();
+              $('#modal_level').parent().show();
+          break;
+          case "add_new_charac":
+              $type_skill.tbody = '#charac_tbody';
+              $type_skill.type = 2;
+              $('#createNewModalLabel').html('Add new characteristics');
+              $('#modal_level').parent().hide();
+              $('#label_modal_desc').parent().show();
+              $('#label_modal_name').html('Characteristic');
+              $('#label_modal_desc').html('Description');
+          break;
+          case "add_new_social":
+              $type_skill.tbody = '#social_tbody';
+              $type_skill.type = 3;
+              $('#modal_level').parent().hide();
+              $('#label_modal_desc').parent().show();
+              $('#createNewModalLabel').html('Add new social media');
+              $('#label_modal_name').html('Platform');
+              $('#label_modal_desc').html('Link');
+          break;
+          case "add_new_interest":
+              $type_skill.tbody = '#interest_tbody';
+              $type_skill.type = 4;
+              $('#modal_level').parent().hide();
+              $('#label_modal_desc').parent().show();
+              $('#createNewModalLabel').html('Add new interests');
+              $('#label_modal_name').html('Interest');
+              $('#label_modal_desc').html('Description');
+          break;
+      }
+  }*/
 
-      case "add_new_charac":
-        $type_skill.tbody = '#charac_tbody';
-        $type_skill.type = 2;
-        $('#createNewModalLabel').html('Add new characteristics');
-        $('#modal_level').parent().hide();
-        $('#label_modal_desc').parent().show();
-        $('#label_modal_name').html('Characteristic');
-        $('#label_modal_desc').html('Description');
-        break;
-
-      case "add_new_social":
-        $type_skill.tbody = '#social_tbody';
-        $type_skill.type = 3;
-        $('#modal_level').parent().hide();
-        $('#label_modal_desc').parent().show();
-        $('#createNewModalLabel').html('Add new social media');
-        $('#label_modal_name').html('Platform');
-        $('#label_modal_desc').html('Link');
-        break;
-
-      case "add_new_interest":
-        $type_skill.tbody = '#interest_tbody';
-        $type_skill.type = 4;
-        $('#modal_level').parent().hide();
-        $('#label_modal_desc').parent().show();
-        $('#createNewModalLabel').html('Add new interests');
-        $('#label_modal_name').html('Interest');
-        $('#label_modal_desc').html('Description');
-        break;
-    }
-  };
   /* load input data from modal form */
 
+  /*var loadDataFromSkillModal = function()
+  {
+      let inputs_row = {
+          char: '',
+          description: ''
+      }
+       inputs_row.char = $('#modal_name').val();
+      inputs_row.description = ($type_skill.tbody == '#skill_tbody') ? $('#modal_level').val() : $('#modal_description').val();
+       return inputs_row;
+  }*/
 
-  var loadDataFromSkillModal = function loadDataFromSkillModal() {
-    var inputs_row = {
-      "char": '',
-      description: ''
-    };
-    inputs_row["char"] = $('#modal_name').val();
-    inputs_row.description = $type_skill.tbody == '#skill_tbody' ? $('#modal_level').val() : $('#modal_description').val();
-    return inputs_row;
-  };
   /* return a new row with data for skill tables */
 
+  /*var addDataToRowSkill = function(id)
+  {
+      let fields = loadDataFromSkillModal();
+      var row_skills = `
+          <tr>
+              <td>${fields.char}</td>
+                  <!--<input form="edit" type="hidden" value="${fields.char}" name="char">-->
+              <td>${fields.description}</td>
+                  <!--<input form="edit" type="hidden" value="${fields.description}" name="description">-->
+                  <input form="edit" type="hidden" value="${id}" name="skill_id">
+              <td class="cell-flex">
+                  <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                      <i class="cvd-trash"></i>
+                  </a>
+              </td>
+          </tr>
+      `;
+      return row_skills;
+  }*/
 
-  var addDataToRowSkill = function addDataToRowSkill(id) {
-    var fields = loadDataFromSkillModal();
-    var row_skills = "\n            <tr>\n                <td>".concat(fields["char"], "</td>\n                    <!--<input form=\"edit\" type=\"hidden\" value=\"").concat(fields["char"], "\" name=\"char\">-->\n                <td>").concat(fields.description, "</td>\n                    <!--<input form=\"edit\" type=\"hidden\" value=\"").concat(fields.description, "\" name=\"description\">-->\n                    <input form=\"edit\" type=\"hidden\" value=\"").concat(id, "\" name=\"skill_id\">\n                <td class=\"cell-flex\">\n                    <a href=\"#\" class=\"btn btn-outline-danger delete_skill btn-sm\" data-toggle=\"modal\" data-target=\"#confirmSkillsModal\">\n                        <i class=\"cvd-trash\"></i>\n                    </a>\n                </td>\n            </tr>\n        ");
-    return row_skills;
-  };
   /* delete row from skills table with jQuery */
 
+  /*$(document).on('click','.delete_skill', function() {
+      var closestRow = $(this).closest('tr');
+      var id_row = closestRow.find('input[name=skill_id').attr('value');
+       let recruit_id = $('#recruit_id').val();
+       $.ajax({
+          type:'DELETE',
+          url:`/recruits/${recruit_id}/s/${id_row}`,
+          success:function(){
+              closestRow.fadeOut(400, function()
+              {
+                  $(this).remove();
+              });
+          }
+      });
+   });*/
 
-  $(document).on('click', '.delete_skill', function () {
-    var closestRow = $(this).closest('tr');
-    var id_row = closestRow.find('input[name=skill_id').attr('value');
-    var recruit_id = $('#recruit_id').val();
-    $.ajax({
-      type: 'DELETE',
-      url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
-      success: function success() {
-        closestRow.fadeOut(400, function () {
-          $(this).remove();
-        });
-      }
-    });
-  });
 })(jQuery);
 
 /***/ }),
@@ -61494,31 +61692,87 @@ if (token) {
         var $button = $(selector);
         var $form = $button.closest('form');
         var formID = $form.attr('id');
-        var rules = {};
-
-        switch (formID) {
-          case 'addExperienceForm':
-            rules = expRules;
-            break;
-
-          case 'addEducationForm':
-            rules = eduRules;
-            break;
-        }
-
+        var rules = self.getValidationRules(formID);
         self.toggleDisable($button);
 
         if (self.validateForm($form, rules).form()) {
           var $modal = $button.closest('.modal');
-          tableRow.init($button.attr('data-target'), self.getFormData($form));
+          tableRow.addRow($button.attr('data-target'), self.getFormData($form));
           $modal.modal('hide');
-          $modal.find('select, input, textarea').val('');
-          $modal.find('select').trigger('change');
         }
 
         self.toggleDisable($(selector), false);
         return false;
+      }).on('click', '[data-row-edit]', function () {
+        var $button = $(this);
+        var id = $button.attr('data-row-edit');
+        var $modal = $(id);
+        tableRow.editRow($button.closest('tr'));
+        self.setModalTranslations($modal, 'edit');
+        $modal.modal('show');
+        return false;
+      }).on('click', '[data-row-remove]', function () {
+        tableRow.removeRow($(this));
+        return false;
+      }).on('hide.bs.modal', function (e) {
+        var $modal = $(e.target);
+        $('.table tr').removeClass('to-remove');
+        $('.confirmAction').removeClass('confirmRowRemove');
+        self.setModalTranslations($modal);
+        self.clearFormModal($modal);
+      }).on('click', '.confirmRowRemove', function () {
+        $('.to-remove').remove();
+        $(this).closest('.modal').modal('hide');
+        return false;
       });
+    };
+    /**
+     * @memberOf modalForm
+     * @param {object} $modal
+     * @param {string} type
+     */
+
+
+    this.setModalTranslations = function ($modal) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'create';
+      var $trans = $modal.find('.trans');
+      $trans.each(function () {
+        var $block = $(this);
+        var trans = $block.attr("data-trans-".concat(type));
+        $block.html(trans);
+      });
+    };
+    /**
+     * @memberOf modalForm
+     * @param {object} $modal
+     */
+
+
+    this.clearFormModal = function ($modal) {
+      $modal.find('select, input, textarea').val('');
+      $modal.find('select').trigger('change');
+    };
+    /**
+     * @memberOf modalForm;
+     * @param {string} formID
+     * @return {object}
+     */
+
+
+    this.getValidationRules = function (formID) {
+      var rules = expRules;
+
+      switch (formID) {
+        case 'addExperienceForm':
+          rules = expRules;
+          break;
+
+        case 'addEducationForm':
+          rules = eduRules;
+          break;
+      }
+
+      return rules;
     };
     /**
      * @memberOf modalForm
@@ -61596,11 +61850,27 @@ if (token) {
      * @param {string} selector
      * @param {object} data
      */
-    this.init = function (selector, data) {
+    this.addTableRow = function (selector, data) {
       var $table = $(selector);
       var $clone = $table.find('[data-clone]').clone();
       self.setRowData(self.cloneRow($clone), data);
       $table.find('tbody').append(self.cloneRow($clone));
+    };
+    /**
+     * @memberOf tableRow
+     * @param {object} $button
+     */
+
+
+    this.removeTableRow = function ($button) {
+      var id = $button.attr('data-row-remove');
+      var $modal = $(id);
+      var $tr = $button.closest('tr');
+      var $descriptionTr = $tr.next();
+      $descriptionTr.addClass('to-remove');
+      $tr.addClass('to-remove');
+      $modal.find('.confirmAction').addClass('confirmRowRemove');
+      $modal.modal('show');
     };
     /**
      * @memberOf tableRow
@@ -61655,84 +61925,47 @@ if (token) {
         }
       }
     };
+    /**
+     * @memberOf tableRow
+     * @param {object} $row
+     */
+
+
+    this.editTableRow = function ($row) {
+      var $descriptionRow = $row.next();
+      var $descriptionFields = $descriptionRow.find('input');
+      var $fields = $row.find('input');
+      self.setDataToForm($fields);
+      self.setDataToForm($descriptionFields);
+    };
+    /**
+     * @memberOf tableRow
+     * @param {object} $fields
+     */
+
+
+    this.setDataToForm = function ($fields) {
+      $fields.each(function () {
+        var $field = $(this);
+        var value = $field.val();
+        var id = '#' + $field.attr('data-target');
+        var $formField = $(id);
+        $formField.val(value);
+
+        if ($formField.is('select')) {
+          $formField.trigger('change');
+        }
+      });
+    };
 
     return {
-      init: this.init
+      addRow: this.addTableRow,
+      removeRow: this.removeTableRow,
+      editRow: this.editTableRow
     };
   }();
-  /* delete row from work table */
 
-
-  var deleteWork = function deleteWork() {
-    $(document).on('click', '.del-work', function () {
-      var closestRow = $(this).closest('tr');
-      $(document).on('click', '.confirmAction', function () {
-        var $modal = $('.confirmAction').closest('.modal');
-        $modal.modal('hide');
-        closestRow.add(closestRow.next()).remove();
-      });
-    });
-  };
-
-  var showEditModal = function showEditModal() {
-    $(document).on('click', '.edit_row', function () {
-      // $('#addExperienceButton').attr('id', 'editExperienceButton');
-      var $currentRow = $(this).closest('tr'); // let ed_employer = $currentRow.find('input[data-target=experience_employer]').attr('value');
-      // let ed_job = $currentRow.find('input[data-target=experience_job]').prev().text();
-      // let ed_start_year = $currentRow.find('input[data-target=experience_start]').attr('value');
-      // let ed_end_year = $currentRow.find('input[data-target=experience_end]').attr('value');
-      // let ed_job = $currentRow.find('input[data-target=experience_finished]').prev().text();
-
-      $('#experience_employer').val($currentRow.find('input[data-target=experience_employer]').attr('value'));
-      $('#experience_job').val($currentRow.find('input[data-target=experience_job]').attr('value')).trigger('change');
-      $('#experience_start').val($currentRow.find('input[data-target=experience_start]').attr('value')).trigger('change');
-      $('#experience_end').val($currentRow.find('input[data-target=experience_end]').attr('value')).trigger('change');
-      $('#experience_finished').val($currentRow.find('input[data-target=experience_finished]').attr('value')).trigger('change');
-      $('#experience_description').val($currentRow.next().find('input[data-target=experience_description]').attr('value'));
-      var $form = $('#addExperienceButton').closest('form');
-      var data = getFormData($form);
-      updateRowWork(data);
-    });
-  };
-
-  showEditModal();
-
-  function updateRowWork(data) {
-    $(document).on('click', '#addExperienceButton', function () {
-      // $('#editExperienceButton').attr('id', 'addExperienceButton');
-      // $('#experienceTable').find('tbody').find(':last-child').remove();
-      tableRow.init('#experienceTable', data);
-      var $modal = $('#experienceTable').closest('.modal');
-      $modal.modal('hide');
-      $modal.find('select, input, textarea').val('');
-      $modal.find('select').trigger('change'); // $($currentRow).replace();
-    });
-  }
-
-  function getFormData($form) {
-    var data = {};
-    var $fields = $form.find('input, select, textarea');
-    $fields.each(function () {
-      var $field = $(this);
-      var value = $field.val();
-      var text = $field.val();
-      var target = $field.attr('id');
-
-      if ($field.is('select')) {
-        text = $field.find('option:selected').text().trim();
-      }
-
-      data[target] = {
-        text: text,
-        value: value
-      };
-    });
-    return data;
-  }
-
-  ;
   modalForm.init('#addExperienceButton');
-  deleteWork();
 })(jQuery);
 
 /***/ }),
