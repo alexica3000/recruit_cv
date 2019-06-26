@@ -60388,6 +60388,8 @@ __webpack_require__(/*! ./main */ "./resources/js/main.js");
 
 __webpack_require__(/*! ./work */ "./resources/js/work.js");
 
+__webpack_require__(/*! ./skill */ "./resources/js/skill.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -61612,6 +61614,114 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/skill.js":
+/*!*******************************!*\
+  !*** ./resources/js/skill.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * jQuery object
+ * @external jQuery
+ * @see {@link http://api.jquery.com/jQuery/}
+ */
+;
+
+(function ($) {
+  var skillModalForm = function () {
+    this.init = function () {
+      // let $form = $('#skill_form').closest('form');
+      var $modal = $('#skillModal');
+      $('.add-skill').on('click', function () {
+        var typeSkill = $(this).attr('type-skill');
+        self.showModalSkill(typeSkill, $modal); // console.log('here');
+      });
+    };
+    /* show Modal Skill */
+
+
+    this.showModalSkill = function (typeSkill, $modal) {
+      self.resetFormSkill($modal);
+      self.typeOfSkill(typeSkill);
+      self.setModalSkillTrans($modal, typeSkill);
+      $modal.modal('show');
+      return false;
+    };
+    /* hide modal for skills*/
+
+
+    this.hideModalSkill = function ($modal) {
+      $modal.modal('hide');
+    };
+    /* add type of skill to object variable */
+
+
+    this.typeOfSkill = function (typeID) {
+      switch (typeID) {
+        case "1":
+          $('#label_modal_desc').parent().hide();
+          $('#modal_level').parent().show();
+          break;
+
+        case "2":
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+
+        case "3":
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+
+        case "4":
+          $('#modal_level').parent().hide();
+          $('#label_modal_desc').parent().show();
+          break;
+      }
+    };
+    /* trans modal skill */
+
+
+    this.setModalSkillTrans = function ($modal, type) {
+      var $trans = $modal.find('.trans-skill');
+      $trans.each(function () {
+        var $block = $(this);
+        var trans = $block.attr("data-trans-".concat(type));
+        $block.html(trans);
+      });
+    };
+    /* load input data from modal form */
+
+
+    this.loadDataFromSkillModal = function () {
+      var inputs_row = {
+        "char": '',
+        description: ''
+      };
+      inputs_row["char"] = $('#modal_name').val();
+      inputs_row.description = $type_skill.tbody == '#skill_tbody' ? $('#modal_level').val() : $('#modal_description').val();
+      return inputs_row;
+    };
+    /* reset form*/
+
+
+    this.resetFormSkill = function ($form) {
+      $form.find('input').val('');
+      $form.find('select').val('').trigger('change');
+      $form.find('textarea').val('');
+    };
+
+    return {
+      init: init
+    };
+  }();
+
+  skillModalForm.init();
+})(jQuery);
+
+/***/ }),
+
 /***/ "./resources/js/work.js":
 /*!******************************!*\
   !*** ./resources/js/work.js ***!
@@ -61661,7 +61771,7 @@ if (token) {
     },
     job: {
       required: true,
-      number: true
+      number: false
     },
     start: {
       required: true,
@@ -61671,6 +61781,33 @@ if (token) {
       required: true,
       number: true,
       greaterThan: '#education_start'
+    },
+    finished: {
+      required: true,
+      number: true
+    },
+    description: {
+      required: true,
+      minlength: 2
+    }
+  };
+  var couRules = {
+    employer: {
+      required: true,
+      minlength: 2
+    },
+    job: {
+      required: true,
+      number: false
+    },
+    start: {
+      required: true,
+      number: true
+    },
+    end: {
+      required: true,
+      number: true,
+      greaterThan: '#course_start'
     },
     finished: {
       required: true,
@@ -61697,8 +61834,19 @@ if (token) {
 
         if (self.validateForm($form, rules).form()) {
           var $modal = $button.closest('.modal');
-          tableRow.addRow($button.attr('data-target'), self.getFormData($form));
+          var modalType = $(selector).attr('data-type');
+          var modalAction = typeof modalType === 'undefined' || modalType === 'create' ? true : false;
+
+          if (modalAction) {
+            tableRow.addRow($button.attr('data-target'), self.getFormData($form));
+          } else {
+            var rowsSelector = $modal.attr('data-modal-row-id');
+            var $rows = $("[data-row-id=\"".concat(rowsSelector, "\"]"));
+            tableRow.setRow($rows, self.getFormData($form));
+          }
+
           $modal.modal('hide');
+          $modal.removeAttr('data-row-id');
         }
 
         self.toggleDisable($(selector), false);
@@ -61706,9 +61854,13 @@ if (token) {
       }).on('click', '[data-row-edit]', function () {
         var $button = $(this);
         var id = $button.attr('data-row-edit');
+        var $tr = $button.closest('tr');
+        var rowID = $tr.attr('data-row-id');
         var $modal = $(id);
         tableRow.editRow($button.closest('tr'));
         self.setModalTranslations($modal, 'edit');
+        $modal.find(selector).attr('data-type', 'edit');
+        $modal.attr('data-modal-row-id', rowID);
         $modal.modal('show');
         return false;
       }).on('click', '[data-row-remove]', function () {
@@ -61718,6 +61870,7 @@ if (token) {
         var $modal = $(e.target);
         $('.table tr').removeClass('to-remove');
         $('.confirmAction').removeClass('confirmRowRemove');
+        $(selector).attr('data-type', 'create');
         self.setModalTranslations($modal);
         self.clearFormModal($modal);
       }).on('click', '.confirmRowRemove', function () {
@@ -61769,6 +61922,10 @@ if (token) {
 
         case 'addEducationForm':
           rules = eduRules;
+          break;
+
+        case 'addCourseForm':
+          rules = couRules;
           break;
       }
 
@@ -61853,8 +62010,9 @@ if (token) {
     this.addTableRow = function (selector, data) {
       var $table = $(selector);
       var $clone = $table.find('[data-clone]').clone();
-      self.setRowData(self.cloneRow($clone), data);
-      $table.find('tbody').append(self.cloneRow($clone));
+      var index = Date.now();
+      self.setRowData(self.cloneRow($clone, index), data);
+      $table.find('tbody').append(self.cloneRow($clone, index));
     };
     /**
      * @memberOf tableRow
@@ -61875,16 +62033,17 @@ if (token) {
     /**
      * @memberOf tableRow
      * @param {object} $clone
+     * @param number index
      * @return {*}
      */
 
 
-    this.cloneRow = function ($clone) {
-      var index = Date.now();
+    this.cloneRow = function ($clone, index) {
       $clone.each(function () {
         var $block = $(this);
         var $fields = $block.find('[data-name]');
         var $collapse = $block.find('[data-table-collapse]');
+        $block.attr('data-row-id', 'row-index-' + index);
         $block.removeClass('d-none').removeAttr('data-clone');
 
         if ($collapse.length) {
@@ -61961,11 +62120,14 @@ if (token) {
     return {
       addRow: this.addTableRow,
       removeRow: this.removeTableRow,
-      editRow: this.editTableRow
+      editRow: this.editTableRow,
+      setRow: this.setRowData
     };
   }();
 
   modalForm.init('#addExperienceButton');
+  modalForm.init('#addEducationButton');
+  modalForm.init('#addCourseButton');
 })(jQuery);
 
 /***/ }),

@@ -163,19 +163,19 @@
                     <tr data-clone class="d-none">
                         <td>
                             <span class="caption"></span>
-                            <input type="hidden" data-name="experience[%index%][employer]" data-target="experience_employer">
+                            <input form="create" type="hidden" data-name="experience[%index%][employer]" data-target="experience_employer">
                         </td>
                         <td>
                             <span class="caption"></span>
-                            <input type="hidden" data-name="experience[%index%][job]" data-target="experience_job">
+                            <input form="create" type="hidden" data-name="experience[%index%][job]" data-target="experience_job">
                         </td>
                         <td>
                             <span class="caption"></span>
-                            <input type="hidden" data-name="experience[%index%][start]" data-target="experience_start">
+                            <input form="create" type="hidden" data-name="experience[%index%][start]" data-target="experience_start">
                         </td>
                         <td>
                             <span class="caption"></span>
-                            <input type="hidden" data-name="experience[%index%][end]" data-target="experience_end">
+                            <input form="create" type="hidden" data-name="experience[%index%][end]" data-target="experience_end">
                         </td>
                         <td>
                             <span class="caption"></span>
@@ -198,7 +198,7 @@
                     <tr data-clone class="row-hide" id="experienceRow%index%">
                         <td colspan="6" class="cell-description">
                             <span class="caption"></span>
-                            <input type="hidden" data-name="experience[%index%][description]" data-target="experience_description">
+                            <input form="create" type="hidden" data-name="experience[%index%][description]" data-target="experience_description">
                         </td>
                     </tr>
                     </tbody>
@@ -213,13 +213,13 @@
                     <h3>{{ __('Education') }}</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#educationModal">{{ __('Add new') }}</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand">
+                <table class="table table-brand" id="educationTable">
                     <thead>
                     <tr>
                         <th width="360">{{ __('Institute') }}</th>
@@ -231,64 +231,47 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>PHD in bioinformatics</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                {{ __('Edit') }}
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#educationRow1">
-                                <i class="cvd-arrow-right"></i>
-                                {{ __('Open information') }}
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="educationRow1">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>PHD in bioinformatics</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                {{ __('Edit') }}
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#educationRow2">
-                                <i class="cvd-arrow-right"></i>
-                                {{ __('Open information') }}
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="educationRow2">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
+                        <tr data-clone class="d-none">
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="education[%index%][employer]" data-target="education_employer">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="education[%index%][job]" data-target="education_job">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="education[%index%][start]" data-target="education_start">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="education[%index%][end]" data-target="education_end">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input type="hidden" data-name="education[%index%][finished]" data-target="education_finished">
+                            </td>
+                            <td class="cell-flex">
+                                <a href="#" class="table-link" data-row-edit="#educationModal">
+                                    <i class="cvd-edit"></i>
+                                    {{ __('Edit') }}
+                                </a>
+                                <a href="#" class="table-link" data-table-collapse="#educationRow%index%">
+                                    <i class="cvd-arrow-right"></i>
+                                    {{ __('Open information') }}
+                                </a>
+                                <a href="#" class="btn btn-outline-danger btn-sm" data-row-remove="#confirmEducationModal">
+                                    <i class="cvd-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr data-clone class="row-hide" id="educationRow%index%">
+                            <td colspan="6" class="cell-description">
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="education[%index%][description]" data-target="education_description">
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -301,13 +284,13 @@
                     <h3>{{ __('Course or Training') }}</h3>
                 </div>
                 <div class="item">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#courseModal">{{ __('Add new') }}</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand">
+                <table class="table table-brand" id="courseTable">
                     <thead>
                     <tr>
                         <th width="360">{{ __('Institute') }}</th>
@@ -319,40 +302,68 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Moldova State University</td>
-                        <td>Scrum Master</td>
-                        <td>2018</td>
-                        <td>2022</td>
-                        <td>Yes</td>
-                        <td class="cell-flex">
-                            <a href="#" class="table-link" data-toggle="modal" data-target="#editModal">
-                                <i class="cvd-edit"></i>
-                                {{ __('Edit') }}
-                            </a>
-                            <a href="#" class="table-link" data-table-collapse="#courseRow1">
-                                <i class="cvd-arrow-right"></i>
-                                {{ __('Open information') }}
-                            </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                <i class="cvd-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="row-hide" id="courseRow1">
-                        <td colspan="6" class="cell-description">
-                            Architecto maxime ex maxime possimus dicta. Incidunt dolorem blanditiis unde optio. Molestiae harum sequi voluptas in deleniti totam voluptas atque.
-                            <br>
-                            Nihil porro voluptatum dolores nulla. Necessitatibus ducimus repellat. Dolorum architecto et commodi nesciunt perferendis autem quam quis. Ducimus commodi officiis.
-                            <br>
-                            Ex consequatur accusamus. Quis earum molestiae laboriosam repudiandae aut nihil quo rerum laudantium. Accusamus dolorem enim beatae sint qui ullam et ut. Doloribus doloremque ut ipsa eum nam quod.
-                        </td>
-                    </tr>
+                        <tr data-clone class="d-none">
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="course[%index%][employer]" data-target="course_employer">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="course[%index%][job]" data-target="course_job">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="course[%index%][start]" data-target="course_start">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="course[%index%][end]" data-target="course_end">
+                            </td>
+                            <td>
+                                <span class="caption"></span>
+                                <input type="hidden" data-name="course[%index%][finished]" data-target="course_finished">
+                            </td>
+                            <td class="cell-flex">
+                                <a href="#" class="table-link" data-row-edit="#courseModal">
+                                    <i class="cvd-edit"></i>
+                                    {{ __('Edit') }}
+                                </a>
+                                <a href="#" class="table-link" data-table-collapse="#courseRow%index%">
+                                    <i class="cvd-arrow-right"></i>
+                                    {{ __('Open information') }}
+                                </a>
+                                <a href="#" class="btn btn-outline-danger btn-sm" data-row-remove="#confirmCourseModal">
+                                    <i class="cvd-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr data-clone class="row-hide" id="courseRow%index%">
+                            <td colspan="6" class="cell-description">
+                                <span class="caption"></span>
+                                <input form="create" type="hidden" data-name="course[%index%][description]" data-target="course_description">
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-12 col-lg-6">
             <div class="card card-primary">
@@ -362,7 +373,7 @@
                             <h3>{{ __('Skills') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="1">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
@@ -377,42 +388,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>PHP</td>
-                                <td>{{ __('Professional') }}</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Java</td>
-                                <td>{{ __('Beginner') }}</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>SQL</td>
-                                <td>{{ __('Intermediate') }}</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>HTML & CSS</td>
-                                <td>{{ __('Expert') }}</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
+                                <tr data-clone-row-skill class="d-none">
+                                    <td data-target="char"></td>
+                                    <td data-target="description"></td>
+                                    <input form="edit" type="hidden" value="" name="skill_id" data-target="skill_id" >
+                                    <td class="cell-flex">
+                                        <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                            <i class="cvd-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -427,7 +414,7 @@
                             <h3>{{ __('Characteristics') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="2">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
@@ -442,24 +429,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Spontaneous</td>
-                                <td>-</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Structured</td>
-                                <td>I always work based on a good structure</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmCharacteristicsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -476,7 +446,7 @@
                             <h3>{{ __('Social Media') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="3">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
@@ -491,33 +461,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Facebook</td>
-                                <td>https://www.facebook.com/profile/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Instagram</td>
-                                <td>https://www.instagram.com/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Linkedin</td>
-                                <td>https://www.linkedin.com/user/namehere</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmSociaModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -532,7 +476,7 @@
                             <h3>{{ __('Interests') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createNewModal">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="4">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
@@ -547,24 +491,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Movies</td>
-                                <td>I really like to watch movies</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mountainbike</td>
-                                <td>I like to go biking whenever possible</td>
-                                <td class="cell-flex">
-                                    <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmInterestsModal">
-                                        <i class="cvd-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -584,6 +511,8 @@
     @include('components.confirm', ['title' => 'Confirm remove Characteristic', 'message' => 'Are you sure you want to remove Characteristic?', 'action' => 'Remove', 'modalID' => 'confirmCharacteristicsModal'])
     @include('components.confirm', ['title' => 'Confirm remove Social Media', 'message' => 'Are you sure you want to remove Social Media?', 'action' => 'Remove', 'modalID' => 'confirmSociaModal'])
     @include('components.confirm', ['title' => 'Confirm remove Interest', 'message' => 'Are you sure you want to remove Interest?', 'action' => 'Remove', 'modalID' => 'confirmInterestsModal'])
+
+    {{-- Modal for Work Experience Table --}}
 
     <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -666,6 +595,245 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal for Education Table --}}
+
+    <div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="educationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title trans" id="educationModalLabel"
+                        data-trans-edit="{{ __('Edit new education row') }}"
+                        data-trans-create="{{ __('Create new education row') }}"
+                    >{{ __('Create new education row') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="addEducationForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="education_employer">{{ __('Institute') }}</label>
+                            <input type="text" class="form-control" name="employer" id="education_employer">
+                        </div>
+                        <div class="form-group">
+                            <label for="education_job">{{ __('Education') }}</label>
+                            <input type="text" class="form-control" name="job" id="education_job">
+
+
+
+{{--
+                            <select name="job" id="education_job" class="form-control select2-init" data-placeholder="{{ __('Select job ..') }}">
+                                <option></option>
+                                <option value="1">Full Stack Developer</option>
+                                <option value="2">Backend Developer</option>
+                                <option value="3">Frontend Developer</option>
+                            </select>
+                            --}}
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modal_link">{{ __('Start year') }}</label>
+                                    <select name="start" id="education_start" class="form-control select2-init" data-placeholder="{{ __('Select start year ..') }}">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                        <option class="2018">2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modal_link">{{ __('End year') }}</label>
+                                    <select name="end" id="education_end" class="form-control select2-init" data-placeholder="{{ __('Select end year ..') }}">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                        <option class="2018">2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="education_finished">{{ __('Finished') }}</label>
+                            <select name="finished" id="education_finished" class="form-control select2-init" data-placeholder="{{ __('Select finished ..') }}">
+                                <option></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="education_description">{{ __('Description') }}</label>
+                            <textarea name="description" id="education_description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit"
+                                class="btn btn-primary trans"
+                                id="addEducationButton"
+                                data-trans-edit="{{ __('Update') }}"
+                                data-trans-create="{{ __('Save') }}"
+                                data-target="#educationTable">{{ __('Save') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal for Course Table --}}
+
+    <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title trans" id="courseModalLabel"
+                        data-trans-edit="{{ __('Edit new course row') }}"
+                        data-trans-create="{{ __('Create new course row') }}"
+                    >{{ __('Create new course row') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" id="addCourseForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="course_employer">{{ __('Institute') }}</label>
+                            <input type="text" class="form-control" name="employer" id="course_employer">
+                        </div>
+                        <div class="form-group">
+                            <label for="course_job">{{ __('Course or Training') }}</label>
+                            <input type="text" class="form-control" name="job" id="course_job">
+
+
+
+                            {{--
+                            <select name="job" id="course_job" class="form-control select2-init" data-placeholder="{{ __('Select job ..') }}">
+                                <option></option>
+                                <option value="1">Full Stack Developer</option>
+                                <option value="2">Backend Developer</option>
+                                <option value="3">Frontend Developer</option>
+                            </select>
+                            --}}
+
+
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modal_link">{{ __('Start year') }}</label>
+                                    <select name="start" id="course_start" class="form-control select2-init" data-placeholder="{{ __('Select start year ..') }}">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                        <option class="2018">2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modal_link">{{ __('End year') }}</label>
+                                    <select name="end" id="course_end" class="form-control select2-init" data-placeholder="{{ __('Select end year ..') }}">
+                                        <option></option>
+                                        <option class="2015">2015</option>
+                                        <option class="2016">2016</option>
+                                        <option class="2017">2017</option>
+                                        <option class="2018">2018</option>
+                                        <option class="2018">2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_finished">{{ __('Finished') }}</label>
+                            <select name="finished" id="course_finished" class="form-control select2-init" data-placeholder="{{ __('Select finished ..') }}">
+                                <option></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_description">{{ __('Description') }}</label>
+                            <textarea name="description" id="course_description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit"
+                                class="btn btn-primary trans"
+                                id="addCourseButton"
+                                data-trans-edit="{{ __('Update') }}"
+                                data-trans-create="{{ __('Save') }}"
+                                data-target="#courseTable">{{ __('Save') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Modal for Skills Table --}}
+    <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="#" method="POST" id="skill_form">
+                    <div class="modal-header">
+                        <h5 class="modal-title trans-skill" id="skillModalLabel"
+                            data-trans-1="Add new skill"
+                            data-trans-2="Add new characteristics"
+                            data-trans-3="Add new social media"
+                            data-trans-4="Add new interests"
+                        >Create new row</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label id="label_modal_name" for="modal_name" class="trans-skill"
+                                   data-trans-1="Skill"
+                                   data-trans-2="Characteristic"
+                                   data-trans-3="Platform"
+                                   data-trans-4="Interest"
+                            >Skill</label>
+                            <input type="text" class="form-control" name="modal_name" id="modal_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_level">Level</label>
+                            <select name="modal_level" id="modal_level" class="form-control select2-init" data-placeholder="Select level">
+                                <option></option>
+                                <option class="1">Beginner</option>
+                                <option class="2">Intermediate</option>
+                                <option class="3">Professional</option>
+                                <option class="4">Expert</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="label_modal_desc" for="modal_description" class="trans-skill"
+                                   data-trans-2="Description"
+                                   data-trans-3="Link"
+                                   data-trans-4="Description"
+                            >Skill</label>
+                            <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="submit_skill">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
 @endpush
 

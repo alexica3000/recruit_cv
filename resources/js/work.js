@@ -40,7 +40,7 @@
         },
         job: {
             required: true,
-            number: true
+            number: false
         },
         start: {
             required: true,
@@ -50,6 +50,34 @@
             required: true,
             number: true,
             greaterThan: '#education_start'
+        },
+        finished: {
+            required: true,
+            number: true
+        },
+        description: {
+            required: true,
+            minlength: 2
+        }
+    };
+
+    const couRules = {
+        employer: {
+            required: true,
+            minlength: 2
+        },
+        job: {
+            required: true,
+            number: false
+        },
+        start: {
+            required: true,
+            number: true
+        },
+        end: {
+            required: true,
+            number: true,
+            greaterThan: '#course_start'
         },
         finished: {
             required: true,
@@ -78,9 +106,20 @@
 
                 if(self.validateForm($form, rules).form()) {
                     let $modal = $button.closest('.modal');
+                    let modalType = $(selector).attr('data-type');
+                    let modalAction = typeof modalType === 'undefined' || modalType === 'create' ? true : false;
 
-                    tableRow.addRow($button.attr('data-target'), self.getFormData($form));
+                    if(modalAction) {
+                        tableRow.addRow($button.attr('data-target'), self.getFormData($form));
+                    }else {
+                        let rowsSelector = $modal.attr('data-modal-row-id');
+                        let $rows = $(`[data-row-id="${rowsSelector}"]`);
+
+                        tableRow.setRow($rows, self.getFormData($form));
+                    }
+
                     $modal.modal('hide');
+                    $modal.removeAttr('data-row-id');
                 }
 
                 self.toggleDisable($(selector), false);
@@ -89,10 +128,14 @@
             }).on('click', '[data-row-edit]', function () {
                 let $button = $(this);
                 let id = $button.attr('data-row-edit');
+                let $tr = $button.closest('tr');
+                let rowID = $tr.attr('data-row-id');
                 let $modal = $(id);
 
                 tableRow.editRow($button.closest('tr'));
                 self.setModalTranslations($modal, 'edit');
+                $modal.find(selector).attr('data-type', 'edit');
+                $modal.attr('data-modal-row-id', rowID);
                 $modal.modal('show');
 
                 return false;
@@ -105,6 +148,7 @@
 
                 $('.table tr').removeClass('to-remove');
                 $('.confirmAction').removeClass('confirmRowRemove');
+                $(selector).attr('data-type', 'create');
 
                 self.setModalTranslations($modal);
                 self.clearFormModal($modal);
@@ -155,6 +199,9 @@
                     break;
                 case 'addEducationForm':
                     rules = eduRules;
+                    break;
+                case 'addCourseForm':
+                    rules = couRules;
                     break;
             }
 
@@ -240,9 +287,10 @@
         this.addTableRow = (selector, data) => {
             let $table = $(selector);
             let $clone = $table.find('[data-clone]').clone();
+            const index = Date.now();
 
-            self.setRowData(self.cloneRow($clone), data);
-            $table.find('tbody').append(self.cloneRow($clone));
+            self.setRowData(self.cloneRow($clone, index), data);
+            $table.find('tbody').append(self.cloneRow($clone, index));
         };
 
         /**
@@ -264,16 +312,16 @@
         /**
          * @memberOf tableRow
          * @param {object} $clone
+         * @param number index
          * @return {*}
          */
-        this.cloneRow = ($clone) => {
-            let index = Date.now();
-
+        this.cloneRow = ($clone, index) => {
             $clone.each(function () {
                 let $block = $(this);
                 let $fields = $block.find('[data-name]');
                 let $collapse = $block.find('[data-table-collapse]');
 
+                $block.attr('data-row-id', 'row-index-' + index);
                 $block.removeClass('d-none').removeAttr('data-clone');
 
                 if($collapse.length) {
@@ -354,9 +402,12 @@
             addRow: this.addTableRow,
             removeRow: this.removeTableRow,
             editRow: this.editTableRow,
+            setRow: this.setRowData,
         }
     }());
 
     modalForm.init('#addExperienceButton');
+    modalForm.init('#addEducationButton');
+    modalForm.init('#addCourseButton');
 
 }(jQuery));

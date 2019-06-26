@@ -8,3 +8,4 @@
 require('./bootstrap');
 require('./main');
 require('./work');
+require('./skill');

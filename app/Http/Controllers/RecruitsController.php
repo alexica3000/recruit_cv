@@ -40,6 +40,18 @@ class RecruitsController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
+        $recruit = new Recruit;
+
+        $recruit->name = $request->name;
+        $recruit->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
+        $recruit->city = $request->city;
+        $recruit->job = $request->job;
+        $recruit->description = $request->description;
+
+        $recruit->save();
+
+        /*
         Recruit::create([
             'name' => $request->name,
             'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
@@ -47,6 +59,14 @@ class RecruitsController extends Controller
             'job' => $request->job,
             'description' => $request->description
         ]);
+        */
+
+        if(!empty($request->experience))
+            $this->insertDataToWork($request->experience, $recruit, Work::WORK_TYPE);
+        if(!empty($request->education))
+            $this->insertDataToWork($request->education, $recruit, Work::EDUCATION_TYPE);
+        if(!empty($request->course))
+            $this->insertDataToWork($request->course, $recruit, Work::COURSE_TYPE);
 
         return redirect()->route('recruits.index')->with('message', 'The recruit has been added.');
     }
@@ -263,41 +283,29 @@ class RecruitsController extends Controller
 
 
 
-/*
+
 
     protected function insertDataToWork($fields, Recruit $recruit, $type)
     {
         foreach ($fields as $field)
         {
-            $start_date = $field['start_year'] . '-' . $field['start_month'] . '-01';
-            $end_date = ($field['end_month'] == null) ? null : $field['end_year'] . '-' . $field['end_month'] . '-01';
+//            $start_date = $field['start_year'] . '-' . $field['start_month'] . '-01';
+//            $end_date = ($field['end_month'] == null) ? null : $field['end_year'] . '-' . $field['end_month'] . '-01';
 
-            if($field['work_id'] == 0)
-            {
-                $work = new Work([
-                    'employer' => $field['employer'],
-                    'job' => $field['work_job'],
-                    'start_date' => $start_date,
-                    'end_date' => $end_date,
-                    'description' => $field['work_description']
-                ]);
-                $work->type = $type;
-                $recruit->works()->save($work);
-            }
+            $start_date = $field['start'] . '-01-01';
+            $end_date = ($field['end'] == null) ? null : $field['end'] . '-01-01';
 
-            else
-            {
-                $work = $recruit->works()->findOrFail($field['work_id']);
-                $work->update([
-                    'employer' => $field['employer'],
-                    'job' => $field['work_job'],
-                    'start_date' => $start_date,
-                    'end_date' => $end_date,
-                    'description' => $field['work_description']
-                ]);
-            }
+            $work = new Work([
+                'employer' => $field['employer'],
+                'job' => $field['job'],
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'description' => $field['description']
+            ]);
+            $work->type = $type;
+            $recruit->works()->save($work);
         }
-    }*/
+    }
 
 
 
