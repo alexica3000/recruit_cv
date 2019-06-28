@@ -11,8 +11,7 @@
             minlength: 2
         },
         job: {
-            required: true,
-            number: true
+            required: true
         },
         start: {
             required: true,
@@ -24,8 +23,7 @@
             greaterThan: '#experience_start'
         },
         finished: {
-            required: true,
-            number: true
+            required: true
         },
         description: {
             required: true,
@@ -52,8 +50,7 @@
             greaterThan: '#education_start'
         },
         finished: {
-            required: true,
-            number: true
+            required: true
         },
         description: {
             required: true,
@@ -80,8 +77,7 @@
             greaterThan: '#course_start'
         },
         finished: {
-            required: true,
-            number: true
+            required: true
         },
         description: {
             required: true,
@@ -95,6 +91,7 @@
          * @param {string} selector
          */
         this.init = (selector) => {
+
             $(document).on('click', selector, function () {
 
                 let $button = $(selector);
@@ -143,15 +140,24 @@
                 tableRow.removeRow($(this));
 
                 return false;
-            }).on('hide.bs.modal', function (e) {
-                let $modal = $(e.target);
+            }).on('hide.bs.modal', function () {
 
-                $('.table tr').removeClass('to-remove');
-                $('.confirmAction').removeClass('confirmRowRemove');
-                $(selector).attr('data-type', 'create');
+                function clearM (idModal)
+                {
+                    let $modal = $(idModal);
+                    // let $modal = $(e.target);
 
-                self.setModalTranslations($modal);
-                self.clearFormModal($modal);
+                    $('.table tr').removeClass('to-remove');
+                    $('.confirmAction').removeClass('confirmRowRemove');
+                    $(selector).attr('data-type', 'create');
+
+                    self.setModalTranslations($modal);
+                    self.clearFormModal($modal);
+                };
+                clearM('#experienceModal');
+                clearM('#educationModal');
+                clearM('#courseModal');
+
             }).on('click', '.confirmRowRemove', function () {
                 $('.to-remove').remove();
                 $(this).closest('.modal').modal('hide');
@@ -273,10 +279,14 @@
             });
         };
 
+        /**
+         * @memberOf modalForm
+         */
+
         return {
             init: this.init
         }
-    }());
+    })();
 
     let tableRow = (function () {
         /**
@@ -359,7 +369,7 @@
                     let $field = $rows.find(`[data-target="${key}"]`);
 
                     if($field.length) {
-                        $field.val(data[key].value);
+                        $field.val(data[key].text);
                         $field.prev().html(data[key].text);
                     }
                 }

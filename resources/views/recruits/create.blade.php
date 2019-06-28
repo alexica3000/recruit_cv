@@ -373,13 +373,13 @@
                             <h3>{{ __('Skills') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="1">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill-cr" data-toggle="modal" type-skill-cr="skills">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-brand">
+                        <table class="table table-brand" id="skills-table-cr">
                             <thead>
                             <tr>
                                 <th width="240">{{ __('Skills') }}</th>
@@ -389,12 +389,14 @@
                             </thead>
                             <tbody>
 
-                                <tr data-clone-row-skill class="d-none">
+                                <tr data-clone-row-skill-cr class="d-none">
                                     <td data-target="char"></td>
+                                    <input form="create" type="hidden" data-name="%typeOfSkill%[%index%][char]" data-target="char">
                                     <td data-target="description"></td>
+                                    <input form="create" type="hidden" data-name="%typeOfSkill%[%index%][description]" data-target="description">
                                     <input form="edit" type="hidden" value="" name="skill_id" data-target="skill_id" >
                                     <td class="cell-flex">
-                                        <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
+                                        <a href="#" class="btn btn-outline-danger btn-sm" data-row-remove-cr="#confirm%typeOfSkill%Modal">
                                             <i class="cvd-trash"></i>
                                         </a>
                                     </td>
@@ -414,13 +416,13 @@
                             <h3>{{ __('Characteristics') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="2">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill-cr" data-toggle="modal" type-skill-cr="characteristics">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-brand">
+                        <table class="table table-brand" id="characteristics-table-cr">
                             <thead>
                             <tr>
                                 <th width="240">{{ __('Characteristic') }}</th>
@@ -446,13 +448,13 @@
                             <h3>{{ __('Social Media') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="3">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill-cr" data-toggle="modal" type-skill-cr="social">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-brand">
+                        <table class="table table-brand" id="social-table-cr">
                             <thead>
                             <tr>
                                 <th width="240">{{ __('Platform') }}</th>
@@ -476,13 +478,13 @@
                             <h3>{{ __('Interests') }}</h3>
                         </div>
                         <div class="item">
-                            <a href="#" class="btn btn-primary add-skill" data-toggle="modal" type-skill="4">{{ __('Add new') }}</a>
+                            <a href="#" class="btn btn-primary add-skill-cr" data-toggle="modal" type-skill-cr="interests">{{ __('Add new') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-brand">
+                        <table class="table table-brand" id="interests-table-cr">
                             <thead>
                             <tr>
                                 <th width="240">{{ __('Interest') }}</th>
@@ -506,11 +508,13 @@
 
 @push('modals')
     @include('components.confirm', ['title' => 'Confirm remove Work Experience', 'message' => 'Are you sure you want to remove Work Experience?', 'action' => 'Remove', 'modalID' => 'confirmExperienceModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Education', 'message' => 'Are you sure you want to remove Education?', 'action' => 'Remove', 'modalID' => 'confirmEducationModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Course', 'message' => 'Are you sure you want to remove Course?', 'action' => 'Remove', 'modalID' => 'confirmCourseModal'])
 
-    @include('components.confirm', ['title' => 'Confirm remove Skill', 'message' => 'Are you sure you want to remove Skill?', 'action' => 'Remove', 'modalID' => 'confirmSkillsModal'])
-    @include('components.confirm', ['title' => 'Confirm remove Characteristic', 'message' => 'Are you sure you want to remove Characteristic?', 'action' => 'Remove', 'modalID' => 'confirmCharacteristicsModal'])
-    @include('components.confirm', ['title' => 'Confirm remove Social Media', 'message' => 'Are you sure you want to remove Social Media?', 'action' => 'Remove', 'modalID' => 'confirmSociaModal'])
-    @include('components.confirm', ['title' => 'Confirm remove Interest', 'message' => 'Are you sure you want to remove Interest?', 'action' => 'Remove', 'modalID' => 'confirmInterestsModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Skill', 'message' => 'Are you sure you want to remove Skill?', 'action' => 'Remove', 'modalID' => 'confirmskillsModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Characteristic', 'message' => 'Are you sure you want to remove Characteristic?', 'action' => 'Remove', 'modalID' => 'confirmcharacteristicsModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Social Media', 'message' => 'Are you sure you want to remove Social Media?', 'action' => 'Remove', 'modalID' => 'confirmsocialModal'])
+    @include('components.confirm', ['title' => 'Confirm remove Interest', 'message' => 'Are you sure you want to remove Interest?', 'action' => 'Remove', 'modalID' => 'confirminterestsModal'])
 
     {{-- Modal for Work Experience Table --}}
 
@@ -536,9 +540,9 @@
                             <label for="experience_job">{{ __('Job') }}</label>
                             <select name="job" id="experience_job" class="form-control select2-init" data-placeholder="{{ __('Select job ..') }}">
                                 <option></option>
-                                <option value="1">Full Stack Developer</option>
-                                <option value="2">Backend Developer</option>
-                                <option value="3">Frontend Developer</option>
+                                <option value="Full Stack Developer">Full Stack Developer</option>
+                                <option value="Backend Developer">Backend Developer</option>
+                                <option value="Frontend Developer">Frontend Developer</option>
                             </select>
                         </div>
                         <div class="row row-xs">
@@ -573,8 +577,8 @@
                             <label for="experience_finished">{{ __('Finished') }}</label>
                             <select name="finished" id="experience_finished" class="form-control select2-init" data-placeholder="{{ __('Select finished ..') }}">
                                 <option></option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -663,8 +667,8 @@
                             <label for="education_finished">{{ __('Finished') }}</label>
                             <select name="finished" id="education_finished" class="form-control select2-init" data-placeholder="{{ __('Select finished ..') }}">
                                 <option></option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -755,8 +759,8 @@
                             <label for="course_finished">{{ __('Finished') }}</label>
                             <select name="finished" id="course_finished" class="form-control select2-init" data-placeholder="{{ __('Select finished ..') }}">
                                 <option></option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -780,16 +784,16 @@
 
 
     {{-- Modal for Skills Table --}}
-    <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+    <div class="modal fade" id="skillModalCr" tabindex="-1" role="dialog" aria-labelledby="skillModalCrLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form action="#" method="POST" id="skill_form">
                     <div class="modal-header">
-                        <h5 class="modal-title trans-skill" id="skillModalLabel"
-                            data-trans-1="Add new skill"
-                            data-trans-2="Add new characteristics"
-                            data-trans-3="Add new social media"
-                            data-trans-4="Add new interests"
+                        <h5 class="modal-title trans-skill" id="skillModalCrLabel"
+                            data-trans-skills="Add new skill"
+                            data-trans-characteristics="Add new characteristics"
+                            data-trans-social="Add new social media"
+                            data-trans-interests="Add new interests"
                         >Create new row</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -798,10 +802,10 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label id="label_modal_name" for="modal_name" class="trans-skill"
-                                   data-trans-1="Skill"
-                                   data-trans-2="Characteristic"
-                                   data-trans-3="Platform"
-                                   data-trans-4="Interest"
+                                   data-trans-skills="Skill"
+                                   data-trans-characteristics="Characteristic"
+                                   data-trans-social="Platform"
+                                   data-trans-interests="Interest"
                             >Skill</label>
                             <input type="text" class="form-control" name="modal_name" id="modal_name">
                         </div>
@@ -817,16 +821,16 @@
                         </div>
                         <div class="form-group">
                             <label id="label_modal_desc" for="modal_description" class="trans-skill"
-                                   data-trans-2="Description"
-                                   data-trans-3="Link"
-                                   data-trans-4="Description"
+                                   data-trans-characteristics="Description"
+                                   data-trans-social="Link"
+                                   data-trans-interests="Description"
                             >Skill</label>
                             <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="submit_skill">Add</button>
+                        <button type="button" class="btn btn-primary" id="submit_skill-cr">Add</button>
                     </div>
                 </form>
             </div>

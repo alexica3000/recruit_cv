@@ -440,7 +440,9 @@
 
 
 
-
+@push('modals')
+    @include('components.confirm', ['title' => 'Confirm remove', 'message' => 'Are you sure you want to remove?', 'action' => 'Remove', 'modalID' => 'confirmDeleteModal'])
+@endpush
 
 
 
@@ -507,49 +509,6 @@
 
 
 
-
-{{--
-
-    <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="createNewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="#" method="POST" id="skill_form">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createNewModalLabel">Create new row</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label id="label_modal_name" for="modal_name">Skill</label>
-                            <input type="text" class="form-control" name="modal_name" id="modal_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="modal_level">Level</label>
-                            <select name="modal_level" id="modal_level2" class="form-control select2-init" data-placeholder="Select level">
-                                <option></option>
-                                <option class="1">Beginner</option>
-                                <option class="2">Intermediate</option>
-                                <option class="3">Professional</option>
-                                <option class="4">Expert</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label id="label_modal_desc" for="modal_description">Skill</label>
-                            <textarea name="modal_description" id="modal_description" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="submit_skill">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
---}}
 
 
 

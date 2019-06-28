@@ -61,12 +61,25 @@ class RecruitsController extends Controller
         ]);
         */
 
+        /* insert data to works table */
+
         if(!empty($request->experience))
             $this->insertDataToWork($request->experience, $recruit, Work::WORK_TYPE);
         if(!empty($request->education))
             $this->insertDataToWork($request->education, $recruit, Work::EDUCATION_TYPE);
         if(!empty($request->course))
             $this->insertDataToWork($request->course, $recruit, Work::COURSE_TYPE);
+
+        /* insert data to skills table */
+
+        if(!empty($request->skills))
+            $this->insertDataToSkill($request->skills, $recruit, Skill::SKILLS_TYPE);
+        if(!empty($request->characteristics))
+            $this->insertDataToSkill($request->characteristics, $recruit, Skill::CHARACTERISTICS_TYPE);
+        if(!empty($request->social))
+            $this->insertDataToSkill($request->social, $recruit, Skill::SOCIAL_TYPE);
+        if(!empty($request->interests))
+            $this->insertDataToSkill($request->interests, $recruit, Skill::INTERESTS_TYPE);
 
         return redirect()->route('recruits.index')->with('message', 'The recruit has been added.');
     }
@@ -115,26 +128,6 @@ class RecruitsController extends Controller
             'description' => $request->description
         ]);
 
-        // insert data to skills table
-        /*
-        if(!empty($request->skills))
-            $this->insertDataToSkill($request->skills, $recruit, Skill::SKILLS_TYPE);
-        if(!empty($request->charac))
-            $this->insertDataToSkill($request->charac, $recruit, Skill::CHARACTERISTICS_TYPE);
-        if(!empty($request->social))
-            $this->insertDataToSkill($request->social, $recruit, Skill::SOCIAL_TYPE);
-        if(!empty($request->interest))
-            $this->insertDataToSkill($request->interest, $recruit, Skill::INTERESTS_TYPE);
-        */
-
-        // insert data to works table
-//        if(!empty($request->works))
-//            $this->insertDataToWork($request->works, $recruit, Work::WORK_TYPE);
-//        if(!empty($request->educations))
-//            $this->insertDataToWork($request->educations, $recruit, Work::EDUCATION_TYPE);
-//        if(!empty($request->courses))
-//            $this->insertDataToWork($request->courses, $recruit, Work::COURSE_TYPE);
-
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
 
@@ -150,9 +143,6 @@ class RecruitsController extends Controller
 
         return redirect()->route('recruits.index')->with('message', 'The recruit has beeen deleted.');
     }
-
-
-
 
     /**
      * Display the specified resource.
@@ -268,24 +258,7 @@ class RecruitsController extends Controller
         return response()->json(['status' => true]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    protected function insertDataToWork($fields, Recruit $recruit, $type)
+    private function insertDataToWork($fields, Recruit $recruit, $type)
     {
         foreach ($fields as $field)
         {
@@ -308,29 +281,20 @@ class RecruitsController extends Controller
     }
 
 
-
-
-
-
-/*
-    protected function insertDataToSkill($fields, Recruit $recruit, $type)
+    private function insertDataToSkill($fields, Recruit $recruit, $type)
     {
         $containers = [];
 
         foreach ($fields as $field)
         {
-            if($field['skill_id'] == 0)
-            {
-                $skill = new Skill([
-                    'char' => $field['char'],
-                    'description' => $field['description']
-                ]);
-                $skill->type = $type;
-                $containers[] = $skill;
-            }
+            $skill = new Skill([
+                'char' => $field['char'],
+                'description' => $field['description']
+            ]);
+            $skill->type = $type;
+            $containers[] = $skill;
         }
         $recruit->skills()->saveMany($containers);
-    }*/
-
+    }
 
 }

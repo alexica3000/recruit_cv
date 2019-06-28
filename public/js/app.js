@@ -61210,20 +61210,25 @@ if (token) {
     var closestRow = $(this).closest('tr');
     var id_row = closestRow.next().find('input[name=work_id]').attr('value');
     var recruit_id = $('#recruit_id').val();
-    $.ajax({
-      type: 'DELETE',
-      url: "/recruits/".concat(recruit_id, "/w/").concat(id_row),
-      success: function success() {
-        closestRow.fadeOut(400, function () {
-          closestRow.add(closestRow.next()).remove();
-        });
-      },
-      error: function error() {
-        closestRow.append('<div id="work_error">Error!</div>');
-        $('#work_error').fadeOut(1000, function () {
-          $(this).remove();
-        });
-      }
+    var $modal = $('#confirmDeleteModal');
+    $modal.modal('show');
+    $(document).on('click', '.confirmAction', function () {
+      $.ajax({
+        type: 'DELETE',
+        url: "/recruits/".concat(recruit_id, "/w/").concat(id_row),
+        success: function success() {
+          closestRow.fadeOut(400, function () {
+            closestRow.add(closestRow.next()).remove();
+            $modal.modal('hide');
+          });
+        },
+        error: function error() {
+          closestRow.append('<div id="work_error">Error!</div>');
+          $('#work_error').fadeOut(1000, function () {
+            $(this).remove();
+          });
+        }
+      });
     });
   });
   /* show edit form works table with jQuery */
@@ -61445,22 +61450,27 @@ if (token) {
       var $closestRow = $(e).closest('tr');
       var id_row = $closestRow.find('input[name=skill_id').attr('value');
       var recruit_id = $('#recruit_id').val();
-      $.ajax({
-        type: 'DELETE',
-        url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
-        success: function success() {
-          $closestRow.fadeOut(300, function () {
-            $(this).remove();
-          });
-        }
+      var $modal = $('#confirmDeleteModal');
+      $modal.modal('show');
+      $(document).on('click', '.confirmAction', function () {
+        $.ajax({
+          type: 'DELETE',
+          url: "/recruits/".concat(recruit_id, "/s/").concat(id_row),
+          success: function success() {
+            $closestRow.fadeOut(300, function () {
+              $modal.modal('hide');
+              $(this).remove();
+            });
+          }
+        });
       });
     };
     /* clone row skill */
 
 
-    this.cloneRowSkill = function (cl) {
-      var $clone = $(document).find("[".concat(cl, "]")).clone();
-      $clone.removeClass('d-none').removeAttr("".concat(cl));
+    this.cloneRowSkill = function (e) {
+      var $clone = $(document).find("[".concat(e, "]")).clone();
+      $clone.removeClass('d-none').removeAttr("".concat(e));
       return $clone;
     };
 
@@ -61629,52 +61639,123 @@ if (token) {
 ;
 
 (function ($) {
-  var skillModalForm = function () {
-    this.init = function () {
-      // let $form = $('#skill_form').closest('form');
-      var $modal = $('#skillModal');
-      $('.add-skill').on('click', function () {
-        var typeSkill = $(this).attr('type-skill');
-        self.showModalSkill(typeSkill, $modal); // console.log('here');
+  var skillModalFormCr = function () {
+    this.init = function (modal) {
+      var $modal = $(modal);
+      $(document).on('click', '.add-skill-cr', function () {
+        var typeSkill = $(this).attr('type-skill-cr');
+        self.showModalSkillCr(typeSkill, $modal);
+        return false;
+      }).on('click', '#submit_skill-cr', function () {
+        var table = '#' + $modal.attr('data-table-type');
+        var typeSkCr = $modal.attr('type-of-skill-cr');
+        self.addRowSkillCr(table, typeSkCr, self.getFormDataCr($modal, table));
+        $modal.modal('hide');
+        return false;
+      }).on('click', '[data-row-remove-cr]', function () {
+        self.deleteRowSkillCr(this);
+        return false;
+      }).on('click', '.confirmRowRemove', function () {
+        $('.to-remove').remove();
+        $(this).closest('.modal').modal('hide');
+        return false;
       });
     };
     /* show Modal Skill */
 
 
-    this.showModalSkill = function (typeSkill, $modal) {
-      self.resetFormSkill($modal);
-      self.typeOfSkill(typeSkill);
-      self.setModalSkillTrans($modal, typeSkill);
+    this.showModalSkillCr = function (typeSkill, $modal) {
+      self.resetFormSkillCr($modal);
+      self.typeOfSkillCr(typeSkill);
+      self.setModalSkillTransCr($modal, typeSkill);
+      $modal.attr('data-table-type', "".concat(typeSkill, "-table-cr"));
+      $modal.attr('type-of-skill-cr', "".concat(typeSkill));
       $modal.modal('show');
       return false;
     };
     /* hide modal for skills*/
 
 
-    this.hideModalSkill = function ($modal) {
+    this.hideModalSkillCr = function ($modal) {
       $modal.modal('hide');
+    };
+    /* add row from modal  */
+
+
+    this.addRowSkillCr = function ($table, typeSkCr, data) {
+      var $clone = $(document).find('[data-clone-row-skill-cr]').clone();
+      var index = Date.now();
+      var $row = self.setRowDataCr(self.cloneRowCr($clone, typeSkCr, index), data);
+      $($table).find('tbody').append($row);
+    };
+    /* clone new row */
+
+
+    this.cloneRowCr = function ($clone, typeSkCr, index) {
+      $clone.each(function () {
+        var $block = $(this);
+        var $fields = $block.find('[data-name]');
+        var $rems = $block.find('[data-row-remove-cr]');
+        $block.removeClass('d-none').removeAttr('data-clone-row-skill-cr');
+        $rems.each(function () {
+          var $rem = $(this);
+          var newRem = $rem.attr('data-row-remove-cr').replace('%typeOfSkill%', typeSkCr);
+          $rem.removeAttr('data-row-remove-cr');
+          $rem.attr('data-row-remove-cr', newRem);
+        });
+        $fields.each(function () {
+          var $field = $(this);
+          var name = $field.attr('data-name').replace('%index%', index).replace('%typeOfSkill%', typeSkCr);
+          $field.attr('name', name).removeAttr('data-name');
+        });
+      });
+      return $clone;
+    };
+    /* get data from form skill */
+
+
+    this.getFormDataCr = function ($form, table) {
+      var inputs_row = {
+        "char": '',
+        description: ''
+      };
+      inputs_row["char"] = $('#modal_name').val();
+      inputs_row.description = table == '#skills-table-cr' ? $('#modal_level').val() : $('#modal_description').val();
+      return inputs_row;
+    };
+    /* set new data for row skill */
+
+
+    this.setRowDataCr = function ($rows, data) {
+      $.each(data, function (index, value) {
+        var $td = $rows.find("td[data-target=\"".concat(index, "\"]"));
+        var $input = $rows.find("input[data-target=\"".concat(index, "\"]"));
+        $td.html(value);
+        $input.val(value);
+      });
+      return $rows;
     };
     /* add type of skill to object variable */
 
 
-    this.typeOfSkill = function (typeID) {
+    this.typeOfSkillCr = function (typeID) {
       switch (typeID) {
-        case "1":
+        case "skills":
           $('#label_modal_desc').parent().hide();
           $('#modal_level').parent().show();
           break;
 
-        case "2":
+        case "characteristics":
           $('#modal_level').parent().hide();
           $('#label_modal_desc').parent().show();
           break;
 
-        case "3":
+        case "social":
           $('#modal_level').parent().hide();
           $('#label_modal_desc').parent().show();
           break;
 
-        case "4":
+        case "interests":
           $('#modal_level').parent().hide();
           $('#label_modal_desc').parent().show();
           break;
@@ -61683,7 +61764,7 @@ if (token) {
     /* trans modal skill */
 
 
-    this.setModalSkillTrans = function ($modal, type) {
+    this.setModalSkillTransCr = function ($modal, type) {
       var $trans = $modal.find('.trans-skill');
       $trans.each(function () {
         var $block = $(this);
@@ -61691,22 +61772,21 @@ if (token) {
         $block.html(trans);
       });
     };
-    /* load input data from modal form */
+    /* remove row skill */
 
 
-    this.loadDataFromSkillModal = function () {
-      var inputs_row = {
-        "char": '',
-        description: ''
-      };
-      inputs_row["char"] = $('#modal_name').val();
-      inputs_row.description = $type_skill.tbody == '#skill_tbody' ? $('#modal_level').val() : $('#modal_description').val();
-      return inputs_row;
+    this.deleteRowSkillCr = function (e) {
+      var id = $(e).attr('data-row-remove-cr');
+      var $modal = $(id);
+      var $tr = $(e).closest('tr');
+      $tr.addClass('to-remove');
+      $modal.find('.confirmAction').addClass('confirmRowRemove');
+      $modal.modal('show');
     };
     /* reset form*/
 
 
-    this.resetFormSkill = function ($form) {
+    this.resetFormSkillCr = function ($form) {
       $form.find('input').val('');
       $form.find('select').val('').trigger('change');
       $form.find('textarea').val('');
@@ -61717,7 +61797,7 @@ if (token) {
     };
   }();
 
-  skillModalForm.init();
+  skillModalFormCr.init('#skillModalCr');
 })(jQuery);
 
 /***/ }),
@@ -61743,8 +61823,7 @@ if (token) {
       minlength: 2
     },
     job: {
-      required: true,
-      number: true
+      required: true
     },
     start: {
       required: true,
@@ -61756,8 +61835,7 @@ if (token) {
       greaterThan: '#experience_start'
     },
     finished: {
-      required: true,
-      number: true
+      required: true
     },
     description: {
       required: true,
@@ -61783,8 +61861,7 @@ if (token) {
       greaterThan: '#education_start'
     },
     finished: {
-      required: true,
-      number: true
+      required: true
     },
     description: {
       required: true,
@@ -61810,8 +61887,7 @@ if (token) {
       greaterThan: '#course_start'
     },
     finished: {
-      required: true,
-      number: true
+      required: true
     },
     description: {
       required: true,
@@ -61866,13 +61942,21 @@ if (token) {
       }).on('click', '[data-row-remove]', function () {
         tableRow.removeRow($(this));
         return false;
-      }).on('hide.bs.modal', function (e) {
-        var $modal = $(e.target);
-        $('.table tr').removeClass('to-remove');
-        $('.confirmAction').removeClass('confirmRowRemove');
-        $(selector).attr('data-type', 'create');
-        self.setModalTranslations($modal);
-        self.clearFormModal($modal);
+      }).on('hide.bs.modal', function () {
+        function clearM(idModal) {
+          var $modal = $(idModal); // let $modal = $(e.target);
+
+          $('.table tr').removeClass('to-remove');
+          $('.confirmAction').removeClass('confirmRowRemove');
+          $(selector).attr('data-type', 'create');
+          self.setModalTranslations($modal);
+          self.clearFormModal($modal);
+        }
+
+        ;
+        clearM('#experienceModal');
+        clearM('#educationModal');
+        clearM('#courseModal');
       }).on('click', '.confirmRowRemove', function () {
         $('.to-remove').remove();
         $(this).closest('.modal').modal('hide');
@@ -61995,6 +62079,10 @@ if (token) {
         rules: rules
       });
     };
+    /**
+     * @memberOf modalForm
+     */
+
 
     return {
       init: this.init
@@ -62078,7 +62166,7 @@ if (token) {
           var $field = $rows.find("[data-target=\"".concat(key, "\"]"));
 
           if ($field.length) {
-            $field.val(data[key].value);
+            $field.val(data[key].text);
             $field.prev().html(data[key].text);
           }
         }

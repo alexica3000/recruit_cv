@@ -809,23 +809,30 @@
         var closestRow = $(this).closest('tr');
         var id_row = closestRow.next().find('input[name=work_id]').attr('value');
         let recruit_id = $('#recruit_id').val();
+        let $modal = $('#confirmDeleteModal');
+        $modal.modal('show');
 
-        $.ajax({
-            type:'DELETE',
-            url:`/recruits/${recruit_id}/w/${id_row}`,
-            success:function(){
-                closestRow.fadeOut(400, function()
-                {
-                    closestRow.add(closestRow.next()).remove();
-                });
-            },
-            error:function(){
-                closestRow.append('<div id="work_error">Error!</div>');
-                $('#work_error').fadeOut(1000, function()
-                {
-                    $(this).remove();
-                });
-            }
+        $(document).on('click', '.confirmAction', function(){
+
+            $.ajax({
+                type:'DELETE',
+                url:`/recruits/${recruit_id}/w/${id_row}`,
+                success:function(){
+                    closestRow.fadeOut(400, function()
+                    {
+                        closestRow.add(closestRow.next()).remove();
+                        $modal.modal('hide');
+                    });
+                },
+                error:function(){
+                    closestRow.append('<div id="work_error">Error!</div>');
+                    $('#work_error').fadeOut(1000, function()
+                    {
+                        $(this).remove();
+                    });
+                }
+            });
+
         });
     });
 
@@ -1082,24 +1089,30 @@
             let $closestRow = $(e).closest('tr');
             let id_row = $closestRow.find('input[name=skill_id').attr('value');
             let recruit_id = $('#recruit_id').val();
+            let $modal = $('#confirmDeleteModal');
+            $modal.modal('show');
 
-            $.ajax({
-                type:'DELETE',
-                url:`/recruits/${recruit_id}/s/${id_row}`,
-                success:function(){
-                    $closestRow.fadeOut(300, function()
-                    {
-                        $(this).remove();
-                    });
-                }
+            $(document).on('click', '.confirmAction', function(){
+
+                $.ajax({
+                    type:'DELETE',
+                    url:`/recruits/${recruit_id}/s/${id_row}`,
+                    success:function(){
+                        $closestRow.fadeOut(300, function()
+                        {
+                            $modal.modal('hide');
+                            $(this).remove();
+                        });
+                    }
+                });
             });
         };
 
         /* clone row skill */
 
-        this.cloneRowSkill = (cl) => {
-            let $clone = $(document).find(`[${cl}]`).clone();
-            $clone.removeClass('d-none').removeAttr(`${cl}`);
+        this.cloneRowSkill = (e) => {
+            let $clone = $(document).find(`[${e}]`).clone();
+            $clone.removeClass('d-none').removeAttr(`${e}`);
 
             return $clone;
         };
@@ -1261,9 +1274,6 @@
         });
 
     });*/
-
-
-
 
 
 
