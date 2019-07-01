@@ -7,23 +7,27 @@
 
     let skillModalFormCr = (function(){
 
-        this.init = (modal) => {
+        let _init = (modal) => {
             let $modal = $(modal);
+            let buttonID = '#submit-skill-cr';
+            let $button = $(buttonID);
 
             $(document).on('click', '.add-skill-cr', function(){
                 let typeSkill = $(this).attr('type-skill-cr');
-                self.showModalSkillCr(typeSkill, $modal);
+                _toggleDisable($button, false);
+                _showModalSkillCr(typeSkill, $modal);
 
                 return false;
-            }).on('click', '#submit_skill-cr', function(){
+            }).on('click', buttonID, function(){
                 let table = '#' + $modal.attr('data-table-type');
                 let typeSkCr = $modal.attr('type-of-skill-cr');
-                self.addRowSkillCr(table, typeSkCr, self.getFormDataCr($modal, table));
+                _addRowSkillCr(table, typeSkCr, _getFormDataCr($modal, table));
+                _toggleDisable($button);
                 $modal.modal('hide');
 
                 return false;
             }).on('click', '[data-row-remove-cr]', function(){
-                self.deleteRowSkillCr(this);
+                _deleteRowSkillCr(this);
 
                 return false;
             }).on('click', '.confirmRowRemove', function () {
@@ -36,10 +40,10 @@
 
         /* show Modal Skill */
 
-        this.showModalSkillCr = (typeSkill, $modal) => {
-            self.resetFormSkillCr($modal);
-            self.typeOfSkillCr(typeSkill);
-            self.setModalSkillTransCr($modal, typeSkill);
+        let _showModalSkillCr = (typeSkill, $modal) => {
+            _resetFormSkillCr($modal);
+            _typeOfSkillCr(typeSkill);
+            _setModalSkillTransCr($modal, typeSkill);
             $modal.attr('data-table-type', `${typeSkill}-table-cr`);
             $modal.attr('type-of-skill-cr', `${typeSkill}`);
             $modal.modal('show');
@@ -47,25 +51,19 @@
             return false;
         };
 
-        /* hide modal for skills*/
-
-        this.hideModalSkillCr = ($modal) => {
-            $modal.modal('hide');
-        };
-
         /* add row from modal  */
 
-        this.addRowSkillCr = ($table, typeSkCr, data) => {
+        let _addRowSkillCr = ($table, typeSkCr, data) => {
             let $clone = $(document).find('[data-clone-row-skill-cr]').clone();
             const index = Date.now();
-            let $row = self.setRowDataCr(self.cloneRowCr($clone, typeSkCr, index), data);
+            let $row = _setRowDataCr(_cloneRowCr($clone, typeSkCr, index), data);
 
             $($table).find('tbody').append($row);
         };
 
         /* clone new row */
 
-        this.cloneRowCr = ($clone, typeSkCr, index) => {
+        let _cloneRowCr = ($clone, typeSkCr, index) => {
             $clone.each(function () {
                 let $block = $(this);
                 let $fields = $block.find('[data-name]');
@@ -95,21 +93,18 @@
 
         /* get data from form skill */
 
-        this.getFormDataCr = ($form, table) => {
-            let inputs_row = {
-                char: '',
-                description: ''
-            };
+        let _getFormDataCr = ($form, table) => {
+            let fields = {};
 
-            inputs_row.char = $('#modal_name').val();
-            inputs_row.description = (table == '#skills-table-cr') ? $('#modal_level').val() : $('#modal_description').val();
+            fields.char = $('#modal_name').val();
+            fields.description = (table == '#skills-table-cr') ? $('#modal_level').val() : $('#modal_description').val();
 
-            return inputs_row;
+            return fields;
         };
 
         /* set new data for row skill */
 
-        this.setRowDataCr = ($rows, data) => {
+        let _setRowDataCr = ($rows, data) => {
 
 
             $.each(data, function(index, value){
@@ -124,7 +119,7 @@
 
         /* add type of skill to object variable */
 
-        this.typeOfSkillCr = (typeID) => {
+        let _typeOfSkillCr = (typeID) => {
 
             switch (typeID)
             {
@@ -149,7 +144,7 @@
 
         /* trans modal skill */
 
-        this.setModalSkillTransCr = ($modal, type) => {
+        let _setModalSkillTransCr = ($modal, type) => {
             let $trans = $modal.find('.trans-skill');
             $trans.each(function() {
                 let $block = $(this);
@@ -160,7 +155,7 @@
 
         /* remove row skill */
 
-        this.deleteRowSkillCr = (e) => {
+        let _deleteRowSkillCr = (e) => {
             let id = $(e).attr('data-row-remove-cr');
             let $modal = $(id);
             let $tr = $(e).closest('tr');
@@ -172,14 +167,26 @@
 
         /* reset form*/
 
-        this.resetFormSkillCr = ($form) => {
+        let _resetFormSkillCr = ($form) => {
             $form.find('input').val('');
             $form.find('select').val('').trigger('change');
             $form.find('textarea').val('');
         };
 
+        /* toogleDisable button from form */
+
+        let _toggleDisable = ($button, disable = true) => {
+            if(disable) {
+                $button.addClass('disabled');
+            }else {
+                $button.removeClass('disabled');
+            }
+
+            $button.prop('disabled', disable);
+        };
+
         return {
-            init: init
+            init: _init
         }
 
     })();

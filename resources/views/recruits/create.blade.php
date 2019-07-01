@@ -830,7 +830,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="submit_skill-cr">Add</button>
+                        <button type="button" class="btn btn-primary" id="submit-skill-cr">Add</button>
                     </div>
                 </form>
             </div>

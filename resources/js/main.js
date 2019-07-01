@@ -935,14 +935,14 @@
             type: ''
         };
 
-        this.init = () => {
+        let init = () => {
             $(document).on('click', '.add_new_skill', function(){
-                self.showModalSkill($(this).attr('id'));
+                showModalSkill($(this).attr('id'));
 
                 return false;
             }).on('click', '#submit_skill', function(){
-                rowSkill.addRowSkill(self.loadDataFromSkillModal(), $type_skill);
-                self.hideModalSkill();
+                rowSkill.addRowSkill(loadDataFromSkillModal(), $type_skill);
+                hideModalSkill();
 
                 return false;
             }).on('click', '.delete_skill', function(){
@@ -954,23 +954,23 @@
 
         /* show modal for skills*/
 
-        this.showModalSkill = (typeID) => {
-            self.resetFormSkill($('#skill_form').closest('form'));
-            self.typeOfSkill(typeID);
+        let showModalSkill = (typeID) => {
+            resetFormSkill($('#skill_form').closest('form'));
+            typeOfSkill(typeID);
             let $modal = $('#skillModal');
-            self.setModalSkillTrans($modal, $type_skill.type);
+            setModalSkillTrans($modal, $type_skill.type);
             $modal.modal('show');
         };
 
         /* hide modal for skills*/
 
-        this.hideModalSkill = () => {
+        let hideModalSkill = () => {
             $('#skillModal').modal('hide');
         };
 
         /* add type of skill to object variable */
 
-        this.typeOfSkill = (typeID) => {
+        let typeOfSkill = (typeID) => {
             switch (typeID)
             {
                 case "add_new_skill":
@@ -1002,7 +1002,7 @@
 
         /* trans modal skill */
 
-        this.setModalSkillTrans = ($modal, type) => {
+        let setModalSkillTrans = ($modal, type) => {
             let $trans = $modal.find('.trans-skill');
             $trans.each(function() {
                 let $block = $(this);
@@ -1013,7 +1013,7 @@
 
         /* load input data from modal form */
 
-        this.loadDataFromSkillModal = () => {
+        let loadDataFromSkillModal = () => {
             let inputs_row = {
                 char: '',
                 description: ''
@@ -1027,14 +1027,14 @@
 
         /* reset form*/
 
-        this.resetFormSkill = ($form) => {
+        let resetFormSkill = ($form) => {
             $form.find('input').val('');
             $form.find('select').val('').trigger('change');
             $form.find('textarea').val('');
         };
 
         return {
-            init: this.init
+            init: init
         }
 
     })();
@@ -1046,7 +1046,7 @@
 
         /* store and add skill to new row */
 
-        this.addRowSkill = ($data, $typeOfSkill) => {
+        let addRowSkill = ($data, $typeOfSkill) => {
             let recruit_id = $('#recruit_id').val();
 
             $.ajax({
@@ -1059,7 +1059,7 @@
                 },
                 success:function(data){
                     $($typeOfSkill.tbody)
-                        .append(self.addDataToRowSkill(data.id, $data))
+                        .append(addDataToRowSkill(data.id, $data))
                         .children(':last')
                         .hide()
                         .fadeIn(500);
@@ -1069,8 +1069,8 @@
 
         /* return a new row with data for skill tables */
 
-        this.addDataToRowSkill = (id, fields) => {
-            let $row_skill = self.cloneRowSkill('data-clone-row-skill');
+        let addDataToRowSkill = (id, fields) => {
+            let $row_skill = cloneRowSkill('data-clone-row-skill');
 
             $.each(fields, function(index, value){
                 let $td = $row_skill.find(`td[data-target="${index}"]`);
@@ -1085,7 +1085,7 @@
 
         /* remove row skill */
 
-        this.deleteRowSkill = (e) => {
+        let deleteRowSkill = (e) => {
             let $closestRow = $(e).closest('tr');
             let id_row = $closestRow.find('input[name=skill_id').attr('value');
             let recruit_id = $('#recruit_id').val();
@@ -1110,7 +1110,7 @@
 
         /* clone row skill */
 
-        this.cloneRowSkill = (e) => {
+        let cloneRowSkill = (e) => {
             let $clone = $(document).find(`[${e}]`).clone();
             $clone.removeClass('d-none').removeAttr(`${e}`);
 
@@ -1123,163 +1123,6 @@
         }
 
     })();
-
-
-
-
-
-
-
-    // var $type_skill = {
-    //     tbody: '',
-    //     type: ''
-    // }
-
-    /* show modal form to add new data */
-/*
-
-    $(document).on('click', '.add_new_skill', function () {
-        resetForm($('#skill_form').closest('form'));
-        $('#createNewModal').modal('show');
-        typeOfSkill(this.id);
-    });
-*/
-
-    /* store and show new skill */
-/*
-
-    $(document).on('click', '#submit_skill', function (){
-        // let n = $($type_skill.tbody + " tr").length;
-        let skill = loadDataFromSkillModal();
-        let recruit_id = $('#recruit_id').val();
-
-        $.ajax({
-            type:'POST',
-            url:`/recruits/${recruit_id}/s`,
-            data: {
-                char: skill.char,
-                description: skill.description,
-                type: $type_skill.type
-            },
-            success:function(data){
-                // $($type_skill.tbody).append(addDataToRowSkill(JSON.parse(data.id)));
-                $($type_skill.tbody)
-                    .append(addDataToRowSkill(data.id))
-                    .children(':last')
-                    .hide()
-                    .fadeIn(2000);
-            }
-        });
-    });
-*/
-
-    /* add type of skill to object variable */
-
-    /*var typeOfSkill = function(id_skill_table)
-    {
-        switch (id_skill_table)
-        {
-            case "add_new_skill":
-                $type_skill.tbody = '#skill_tbody';
-                $type_skill.type = 1;
-                $('#createNewModalLabel').html('Add new skill');
-                $('#label_modal_name').html('Skill');
-                $('#label_modal_desc').parent().hide();
-                $('#modal_level').parent().show();
-            break;
-            case "add_new_charac":
-                $type_skill.tbody = '#charac_tbody';
-                $type_skill.type = 2;
-                $('#createNewModalLabel').html('Add new characteristics');
-                $('#modal_level').parent().hide();
-                $('#label_modal_desc').parent().show();
-                $('#label_modal_name').html('Characteristic');
-                $('#label_modal_desc').html('Description');
-            break;
-            case "add_new_social":
-                $type_skill.tbody = '#social_tbody';
-                $type_skill.type = 3;
-                $('#modal_level').parent().hide();
-                $('#label_modal_desc').parent().show();
-                $('#createNewModalLabel').html('Add new social media');
-                $('#label_modal_name').html('Platform');
-                $('#label_modal_desc').html('Link');
-            break;
-            case "add_new_interest":
-                $type_skill.tbody = '#interest_tbody';
-                $type_skill.type = 4;
-                $('#modal_level').parent().hide();
-                $('#label_modal_desc').parent().show();
-                $('#createNewModalLabel').html('Add new interests');
-                $('#label_modal_name').html('Interest');
-                $('#label_modal_desc').html('Description');
-            break;
-        }
-    }*/
-
-    /* load input data from modal form */
-
-    /*var loadDataFromSkillModal = function()
-    {
-        let inputs_row = {
-            char: '',
-            description: ''
-        }
-
-        inputs_row.char = $('#modal_name').val();
-        inputs_row.description = ($type_skill.tbody == '#skill_tbody') ? $('#modal_level').val() : $('#modal_description').val();
-
-        return inputs_row;
-    }*/
-
-    /* return a new row with data for skill tables */
-
-    /*var addDataToRowSkill = function(id)
-    {
-        let fields = loadDataFromSkillModal();
-        var row_skills = `
-            <tr>
-                <td>${fields.char}</td>
-                    <!--<input form="edit" type="hidden" value="${fields.char}" name="char">-->
-                <td>${fields.description}</td>
-                    <!--<input form="edit" type="hidden" value="${fields.description}" name="description">-->
-                    <input form="edit" type="hidden" value="${id}" name="skill_id">
-                <td class="cell-flex">
-                    <a href="#" class="btn btn-outline-danger delete_skill btn-sm" data-toggle="modal" data-target="#confirmSkillsModal">
-                        <i class="cvd-trash"></i>
-                    </a>
-                </td>
-            </tr>
-        `;
-        return row_skills;
-    }*/
-
-    /* delete row from skills table with jQuery */
-
-    /*$(document).on('click','.delete_skill', function() {
-        var closestRow = $(this).closest('tr');
-        var id_row = closestRow.find('input[name=skill_id').attr('value');
-
-        let recruit_id = $('#recruit_id').val();
-
-        $.ajax({
-            type:'DELETE',
-            url:`/recruits/${recruit_id}/s/${id_row}`,
-            success:function(){
-                closestRow.fadeOut(400, function()
-                {
-                    $(this).remove();
-                });
-            }
-        });
-
-    });*/
-
-
-
-
-
-
 
 
 
