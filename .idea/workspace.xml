@@ -4,9 +4,8 @@
     <list default="true" id="e02b2e66-bed2-4b4c-b903-f7130439ae8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/skill.js" afterPath="$PROJECT_DIR$/resources/js/skill.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/create.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/work.js" afterPath="$PROJECT_DIR$/resources/js/work.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,29 +36,10 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>loadFields</find>
-      <find>form_work</find>
-      <find>addExperienceButt</find>
-      <find>getFormData</find>
-      <find>addRowSkillCr</find>
-      <find>cloneRow</find>
-      <find>proba</find>
-      <find>var self</find>
-      <find>setModalTranslatio</find>
-      <find>showModalSkill</find>
-      <find>hideModalSkill</find>
-      <find>resetFormSkill</find>
-      <find>addRowSkill</find>
-      <find>addDataToRowSkill</find>
-      <find>cloneRowSkill</find>
-      <find>hideModalSkillCr</find>
-      <find>cloneRowCr</find>
-      <find>self</find>
-      <find>editModal</find>
       <find>init</find>
       <find>resetFormSkillCr</find>
       <find>type-skill-cr</find>
@@ -69,8 +49,27 @@
       <find>expRules</find>
       <find>submit_skill</find>
       <find>submit_skill-cr</find>
-      <find>toggleDisable</find>
+      <find>modal_name</find>
+      <find>employer</find>
+      <find>skills</find>
+      <find>modal_description</find>
+      <find>label_modal_desc</find>
       <find>submit-skill-cr</find>
+      <find>clearFormModal</find>
+      <find>experienceModal</find>
+      <find>id=&quot;experienceModal</find>
+      <find>validate(</find>
+      <find>_resetFormSkillCr</find>
+      <find>validateForm</find>
+      <find>getValidationRules</find>
+      <find>$modal</find>
+      <find>toggleDisable</find>
+      <find>storeWork</find>
+      <find>''</find>
+      <find>disabled</find>
+      <find>reset</find>
+      <find>_resetValidation</find>
+      <find>data(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,9 +96,9 @@
         <option value="$PROJECT_DIR$/webpack.mix.js" />
         <option value="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
-        <option value="$PROJECT_DIR$/resources/js/work.js" />
         <option value="$PROJECT_DIR$/resources/js/main.js" />
         <option value="$PROJECT_DIR$/resources/views/recruits/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/js/work.js" />
         <option value="$PROJECT_DIR$/resources/js/skill.js" />
       </list>
     </option>
@@ -276,7 +275,9 @@
       <workItem from="1561700112884" duration="6967000" />
       <workItem from="1561708228246" duration="10439000" />
       <workItem from="1561722859848" duration="3132000" />
-      <workItem from="1561960072221" duration="11334000" />
+      <workItem from="1561960072221" duration="11485000" />
+      <workItem from="1562045909757" duration="14608000" />
+      <workItem from="1562061339404" duration="4951000" />
     </task>
     <task id="LOCAL-00001" summary="edit view for recruit">
       <created>1560169295173</created>
@@ -348,11 +349,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561726249365</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="js skill create recruit">
+      <created>1561985200048</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1561985200048</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="288997000" />
+    <option name="totallyTimeSpent" value="308707000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
@@ -360,7 +368,7 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12386059" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1774799" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17908847" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -393,13 +401,46 @@
     <MESSAGE value="ajax skill recruit" />
     <MESSAGE value="modal skill for create recruit" />
     <MESSAGE value="skill for create recruit" />
-    <option name="LAST_COMMIT_MESSAGE" value="skill for create recruit" />
+    <MESSAGE value="js skill create recruit" />
+    <option name="LAST_COMMIT_MESSAGE" value="js skill create recruit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/resources/js/work.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/skill.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="74" column="44" lean-forward="true" selection-start-line="74" selection-start-column="44" selection-end-line="74" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/recruits/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13932">
+          <caret line="774" column="51" lean-forward="false" selection-start-line="774" selection-start-column="36" selection-end-line="774" selection-end-column="51" />
+          <folding>
+            <marker date="1561983454554" expanded="true" signature="24258:24451" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="24466:24646" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="24661:24832" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="24848:25017" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="25032:25228" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="25243:25426" ph="..." />
+            <marker date="1561983454554" expanded="true" signature="25441:25619" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -426,20 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15408">
           <caret line="856" column="62" lean-forward="true" selection-start-line="856" selection-start-column="62" selection-end-line="856" selection-end-column="62" />
-          <folding>
-            <marker date="1561968353860" expanded="true" signature="10749:10764" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16121:16324" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16459:16542" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:22975" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:24457" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="23916:24439" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24002:24055" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24154:24226" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24367:24417" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24832" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24876" ph="..." />
-            <marker date="1561968353860" expanded="false" signature="24545:24563" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -522,20 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16308">
           <caret line="906" column="27" lean-forward="true" selection-start-line="906" selection-start-column="27" selection-end-line="906" selection-end-column="27" />
-          <folding>
-            <marker date="1561968353860" expanded="true" signature="10749:10764" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16121:16324" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16459:16542" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:22975" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:24457" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="23916:24439" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24002:24055" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24154:24226" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24367:24417" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24832" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24876" ph="..." />
-            <marker date="1561968353860" expanded="false" signature="24545:24563" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -600,7 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="20" column="68" lean-forward="true" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -665,7 +676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -733,39 +743,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="697" column="17" lean-forward="false" selection-start-line="697" selection-start-column="8" selection-end-line="697" selection-end-column="17" />
-          <folding>
-            <marker date="1561968353860" expanded="true" signature="10749:10764" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16121:16324" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="16459:16542" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:22975" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="22953:24457" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="23916:24439" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24002:24055" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24154:24226" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24367:24417" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24832" ph="..." />
-            <marker date="1561968353860" expanded="true" signature="24516:24876" ph="..." />
-            <marker date="1561968353860" expanded="false" signature="24545:24563" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/recruits/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="832" column="89" lean-forward="false" selection-start-line="832" selection-start-column="89" selection-end-line="832" selection-end-column="89" />
+        <state relative-caret-position="126">
+          <caret line="780" column="18" lean-forward="true" selection-start-line="780" selection-start-column="18" selection-end-line="780" selection-end-column="18" />
           <folding>
             <marker date="1561983454554" expanded="true" signature="24258:24451" ph="..." />
             <marker date="1561983454554" expanded="true" signature="24466:24646" ph="..." />
@@ -778,18 +759,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2699">
+          <caret line="700" column="0" lean-forward="true" selection-start-line="700" selection-start-column="0" selection-end-line="700" selection-end-column="0" />
+          <folding>
+            <marker date="1561968353860" expanded="true" signature="10749:10764" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="16121:16324" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="16459:16542" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="22953:24457" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="23916:24439" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="24002:24055" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="24154:24226" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="24367:24417" ph="..." />
+            <marker date="1561968353860" expanded="true" signature="24516:24876" ph="..." />
+            <marker date="1561968353860" expanded="false" signature="24545:24563" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="779">
+          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/skill.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="34" lean-forward="false" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+        <state relative-caret-position="308">
+          <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/work.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="279" column="10" lean-forward="true" selection-start-line="279" selection-start-column="10" selection-end-line="279" selection-end-column="10" />
+        <state relative-caret-position="277">
+          <caret line="116" column="64" lean-forward="false" selection-start-line="116" selection-start-column="59" selection-end-line="116" selection-end-column="64" />
           <folding />
         </state>
       </provider>

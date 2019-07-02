@@ -7,6 +7,20 @@
 
     let skillModalFormCr = (function(){
 
+        const Rules = {
+            modal_name: {
+                required: true,
+                minlength: 2
+            },
+            modal_level: {
+                required: true
+            },
+            modal_description: {
+                required: true,
+                minlength: 2
+            }
+        };
+
         let _init = (modal) => {
             let $modal = $(modal);
             let buttonID = '#submit-skill-cr';
@@ -16,14 +30,19 @@
                 let typeSkill = $(this).attr('type-skill-cr');
                 _toggleDisable($button, false);
                 _showModalSkillCr(typeSkill, $modal);
+                _resetValidation($modal);
 
                 return false;
             }).on('click', buttonID, function(){
                 let table = '#' + $modal.attr('data-table-type');
                 let typeSkCr = $modal.attr('type-of-skill-cr');
-                _addRowSkillCr(table, typeSkCr, _getFormDataCr($modal, table));
-                _toggleDisable($button);
-                $modal.modal('hide');
+                let $form = $button.closest('form');
+
+                if(_validateForm($form, Rules).form()) {
+                    _toggleDisable($button);
+                    _addRowSkillCr(table, typeSkCr, _getFormDataCr($modal, table));
+                    $modal.modal('hide');
+                }
 
                 return false;
             }).on('click', '[data-row-remove-cr]', function(){
@@ -49,6 +68,15 @@
             $modal.modal('show');
 
             return false;
+        };
+
+        /* reset Validation Form */
+
+        let _resetValidation = ($modal) => {
+            let $form = $modal.find('form');
+            $modal.on('hide.bs.modal', function () {
+                $($form).validate().resetForm();
+            });
         };
 
         /* add row from modal  */
@@ -105,8 +133,6 @@
         /* set new data for row skill */
 
         let _setRowDataCr = ($rows, data) => {
-
-
             $.each(data, function(index, value){
                 let $td = $rows.find(`td[data-target="${index}"]`);
                 let $input = $rows.find(`input[data-target="${index}"]`);
@@ -120,16 +146,15 @@
         /* add type of skill to object variable */
 
         let _typeOfSkillCr = (typeID) => {
-
             switch (typeID)
             {
                 case "skills":
-                    $('#label_modal_desc').parent().hide();
+                    $('#modal_description').parent().hide();
                     $('#modal_level').parent().show();
                     break;
                 case "characteristics":
                     $('#modal_level').parent().hide();
-                    $('#label_modal_desc').parent().show();
+                    $('#modal_description').parent().show();
                     break;
                 case "social":
                     $('#modal_level').parent().hide();
@@ -168,14 +193,14 @@
         /* reset form*/
 
         let _resetFormSkillCr = ($form) => {
-            $form.find('input').val('');
-            $form.find('select').val('').trigger('change');
-            $form.find('textarea').val('');
+            $form.find('select, input, textarea').val('');
+            $form.find('select').trigger('change');
         };
 
         /* toogleDisable button from form */
 
         let _toggleDisable = ($button, disable = true) => {
+
             if(disable) {
                 $button.addClass('disabled');
             }else {
@@ -183,6 +208,25 @@
             }
 
             $button.prop('disabled', disable);
+        };
+
+        /* validate form */
+
+        let _validateForm = ($form, rules) => {
+            $.validator.addMethod("greaterThan",
+                function(value, element, params) {
+
+                    if (!/Invalid|NaN/.test(new Date(value))) {
+                        return new Date(value) >= new Date($(params).val());
+                    }
+
+                    return isNaN(value) && isNaN($(params).val())
+                        || (Number(value) >= Number($(params).val()));
+                }, 'Must be greater than {0}.');
+
+            return $form.validate({
+                rules: rules
+            });
         };
 
         return {

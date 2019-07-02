@@ -61499,6 +61499,20 @@ if (token) {
 
 (function ($) {
   var skillModalFormCr = function () {
+    var Rules = {
+      modal_name: {
+        required: true,
+        minlength: 2
+      },
+      modal_level: {
+        required: true
+      },
+      modal_description: {
+        required: true,
+        minlength: 2
+      }
+    };
+
     var _init = function _init(modal) {
       var $modal = $(modal);
       var buttonID = '#submit-skill-cr';
@@ -61510,16 +61524,22 @@ if (token) {
 
         _showModalSkillCr(typeSkill, $modal);
 
+        _resetValidation($modal);
+
         return false;
       }).on('click', buttonID, function () {
         var table = '#' + $modal.attr('data-table-type');
         var typeSkCr = $modal.attr('type-of-skill-cr');
+        var $form = $button.closest('form');
 
-        _addRowSkillCr(table, typeSkCr, _getFormDataCr($modal, table));
+        if (_validateForm($form, Rules).form()) {
+          _toggleDisable($button);
 
-        _toggleDisable($button);
+          _addRowSkillCr(table, typeSkCr, _getFormDataCr($modal, table));
 
-        $modal.modal('hide');
+          $modal.modal('hide');
+        }
+
         return false;
       }).on('click', '[data-row-remove-cr]', function () {
         _deleteRowSkillCr(this);
@@ -61545,6 +61565,15 @@ if (token) {
       $modal.attr('type-of-skill-cr', "".concat(typeSkill));
       $modal.modal('show');
       return false;
+    };
+    /* reset Validation Form */
+
+
+    var _resetValidation = function _resetValidation($modal) {
+      var $form = $modal.find('form');
+      $modal.on('hide.bs.modal', function () {
+        $($form).validate().resetForm();
+      });
     };
     /* add row from modal  */
 
@@ -61607,13 +61636,13 @@ if (token) {
     var _typeOfSkillCr = function _typeOfSkillCr(typeID) {
       switch (typeID) {
         case "skills":
-          $('#label_modal_desc').parent().hide();
+          $('#modal_description').parent().hide();
           $('#modal_level').parent().show();
           break;
 
         case "characteristics":
           $('#modal_level').parent().hide();
-          $('#label_modal_desc').parent().show();
+          $('#modal_description').parent().show();
           break;
 
         case "social":
@@ -61653,9 +61682,8 @@ if (token) {
 
 
     var _resetFormSkillCr = function _resetFormSkillCr($form) {
-      $form.find('input').val('');
-      $form.find('select').val('').trigger('change');
-      $form.find('textarea').val('');
+      $form.find('select, input, textarea').val('');
+      $form.find('select').trigger('change');
     };
     /* toogleDisable button from form */
 
@@ -61670,6 +61698,21 @@ if (token) {
       }
 
       $button.prop('disabled', disable);
+    };
+    /* validate form */
+
+
+    var _validateForm = function _validateForm($form, rules) {
+      $.validator.addMethod("greaterThan", function (value, element, params) {
+        if (!/Invalid|NaN/.test(new Date(value))) {
+          return new Date(value) >= new Date($(params).val());
+        }
+
+        return isNaN(value) && isNaN($(params).val()) || Number(value) >= Number($(params).val());
+      }, 'Must be greater than {0}.');
+      return $form.validate({
+        rules: rules
+      });
     };
 
     return {
@@ -61780,16 +61823,20 @@ if (token) {
      * @memberOf modalForm
      * @param {string} selector
      */
-    this.init = function (selector) {
+    var init = function init(selector) {
       $(document).on('click', selector, function () {
         var $button = $(selector);
+        var $modal = $button.closest('.modal');
         var $form = $button.closest('form');
         var formID = $form.attr('id');
-        var rules = self.getValidationRules(formID);
+
+        var rules = _getValidationRules(formID);
+
+        _resetValidation($modal, $form);
+
         self.toggleDisable($button);
 
-        if (self.validateForm($form, rules).form()) {
-          var $modal = $button.closest('.modal');
+        if (_validateForm($form, rules).form()) {
           var modalType = $(selector).attr('data-type');
           var modalAction = typeof modalType === 'undefined' || modalType === 'create' ? true : false;
 
@@ -61805,7 +61852,7 @@ if (token) {
           $modal.removeAttr('data-row-id');
         }
 
-        self.toggleDisable($(selector), false);
+        self.toggleDisable($button, false);
         return false;
       }).on('click', '[data-row-edit]', function () {
         var $button = $(this);
@@ -61824,7 +61871,8 @@ if (token) {
         return false;
       }).on('hide.bs.modal', function () {
         function clearM(idModal) {
-          var $modal = $(idModal); // let $modal = $(e.target);
+          var $modal = $(idModal);
+          var $form = $modal.find('form'); // $($form).validate().resetForm();
 
           $('.table tr').removeClass('to-remove');
           $('.confirmAction').removeClass('confirmRowRemove');
@@ -61859,6 +61907,14 @@ if (token) {
         $block.html(trans);
       });
     };
+    /* reset Validation Form */
+
+
+    var _resetValidation = function _resetValidation($modal, $form) {
+      $modal.on('hide.bs.modal', function () {
+        $($form).validate().resetForm();
+      });
+    };
     /**
      * @memberOf modalForm
      * @param {object} $modal
@@ -61876,7 +61932,7 @@ if (token) {
      */
 
 
-    this.getValidationRules = function (formID) {
+    var _getValidationRules = function _getValidationRules(formID) {
       var rules = expRules;
 
       switch (formID) {
@@ -61947,7 +62003,7 @@ if (token) {
      */
 
 
-    this.validateForm = function ($form, rules) {
+    var _validateForm = function _validateForm($form, rules) {
       $.validator.addMethod("greaterThan", function (value, element, params) {
         if (!/Invalid|NaN/.test(new Date(value))) {
           return new Date(value) >= new Date($(params).val());
@@ -61965,7 +62021,7 @@ if (token) {
 
 
     return {
-      init: this.init
+      init: init
     };
   }();
 

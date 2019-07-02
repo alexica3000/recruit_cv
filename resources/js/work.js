@@ -90,19 +90,21 @@
          * @memberOf modalForm
          * @param {string} selector
          */
-        this.init = (selector) => {
+        let init = (selector) => {
 
             $(document).on('click', selector, function () {
-
                 let $button = $(selector);
+                let $modal = $button.closest('.modal');
                 let $form = $button.closest('form');
                 let formID = $form.attr('id');
-                let rules = self.getValidationRules(formID);
+                let rules = _getValidationRules(formID);
+
+                _resetValidation($modal, $form);
 
                 self.toggleDisable($button);
 
-                if(self.validateForm($form, rules).form()) {
-                    let $modal = $button.closest('.modal');
+                if(_validateForm($form, rules).form()) {
+
                     let modalType = $(selector).attr('data-type');
                     let modalAction = typeof modalType === 'undefined' || modalType === 'create' ? true : false;
 
@@ -119,7 +121,7 @@
                     $modal.removeAttr('data-row-id');
                 }
 
-                self.toggleDisable($(selector), false);
+                self.toggleDisable($button, false);
 
                 return false;
             }).on('click', '[data-row-edit]', function () {
@@ -145,8 +147,8 @@
                 function clearM (idModal)
                 {
                     let $modal = $(idModal);
-                    // let $modal = $(e.target);
-
+                    let $form = $modal.find('form');
+                    // $($form).validate().resetForm();
                     $('.table tr').removeClass('to-remove');
                     $('.confirmAction').removeClass('confirmRowRemove');
                     $(selector).attr('data-type', 'create');
@@ -182,6 +184,15 @@
             });
         };
 
+        /* reset Validation Form */
+
+        let _resetValidation = ($modal, $form) => {
+
+            $modal.on('hide.bs.modal', function () {
+                $($form).validate().resetForm();
+            });
+        };
+
         /**
          * @memberOf modalForm
          * @param {object} $modal
@@ -196,7 +207,7 @@
          * @param {string} formID
          * @return {object}
          */
-        this.getValidationRules = (formID) => {
+        let _getValidationRules = (formID) => {
             let rules = expRules;
 
             switch(formID) {
@@ -262,7 +273,7 @@
          * @param {object} rules
          * @return {boolean|void|ActiveX.IXMLDOMParseError}
          */
-        this.validateForm = ($form, rules) => {
+        let _validateForm = ($form, rules) => {
             $.validator.addMethod("greaterThan",
                 function(value, element, params) {
 
@@ -284,7 +295,7 @@
          */
 
         return {
-            init: this.init
+            init: init
         }
     })();
 
@@ -353,7 +364,6 @@
                     $field.attr('name', name).removeAttr('data-name');
                 });
             });
-
 
             return $clone;
         };
