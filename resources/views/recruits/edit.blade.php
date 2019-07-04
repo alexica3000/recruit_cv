@@ -166,14 +166,14 @@
                     <h3>Work Experience</h3>
                 </div>
                 <div class="item">
-                    <a href="#" id="add_new_work" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" type-work-ed="works">Add new</a>
                 </div>
             </div>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand">
+                <table class="table table-brand" id="works-table-wo">
                     <thead>
                         <tr>
                             <th width="360">Employer</th>
@@ -185,10 +185,6 @@
                         </tr>
                     </thead>
                     <tbody id="work_tbody">
-
-
-
-
 
                         @foreach($recruit->works as $field)
                             @continue($field->type != 1)
@@ -208,13 +204,13 @@
                     <h3>Education</h3>
                 </div>
                 <div class="item">
-                    <a href="#" id="add_new_education" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" type-work-ed="educations">Add new</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand">
+                <table class="table table-brand" id="educations-table-wo">
                     <thead>
                     <tr>
                         <th width="360">Institute</th>
@@ -248,13 +244,13 @@
                     <h3>Course or Training</h3>
                 </div>
                 <div class="item">
-                    <a href="#" id="add_new_course" class="btn btn-primary add_new_work" data-toggle="modal" >Add new</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" type-work-ed="courses">Add new</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-brand">
+                <table class="table table-brand" id="courses-table-wo">
                     <thead>
                     <tr>
                         <th width="360">Institute</th>
@@ -521,7 +517,15 @@
             <div class="modal-content">
                 <form action="#" method="POST" id="form_work">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit row</h5>
+                        <h5 class="modal-title trans-work" id="editModalLabel"
+                            data-trans-works="Add new work experience"
+                            data-trans-educations="Add new education"
+                            data-trans-courses="Add new course or training"
+
+                            data-ed-trans-works="Edit work experience"
+                            data-ed-trans-educations="Edit education"
+                            data-ed-trans-courses="Edit course or training"
+                        >Edit row</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -529,12 +533,20 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="modal_edit_name" id="label_employer">Employer</label>
+                            <label for="modal_edit_name" id="label_employer" class="trans-work"
+                                   data-trans-works="Employer"
+                                   data-trans-educations="Institute"
+                                   data-trans-courses="Institute"
+                            >Employer</label>
                             <input type="text" class="form-control" name="modal_employer" id="modal_employer">
                         </div>
 
                         <div class="form-group">
-                            <label for="modal_edit_name" id="label_skill">Skill</label>
+                            <label for="modal_edit_name" id="label_skill" class="trans-work"
+                                   data-trans-works="Job"
+                                   data-trans-educations="Education"
+                                   data-trans-courses="Course or Training"
+                            >Skill</label>
                             <input type="text" class="form-control" name="modal_edit_name" id="modal_edit_name">
                         </div>
 
@@ -612,7 +624,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button id="submit_button" type="button" class="btn btn-primary" data-dismiss="modal">Edit</button>
+                        <button id="submit_button" type="button" class="btn btn-primary" data-type="create">Edit</button>
                     </div>
                 </form>
             </div>
@@ -621,3 +633,7 @@
 
 @endsection
 
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+@endpush

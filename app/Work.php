@@ -36,4 +36,21 @@ class Work extends Model
         else
             return Carbon::parse($this->attributes['end_date']);
     }
+
+    public static function typeOfTable ($type)
+    {
+        switch($type)
+        {
+            case '#works-table-wo':
+                $typeNr = 1;
+                break;
+            case '#educations-table-wo':
+                $typeNr = 2;
+                break;
+            case '#courses-table-wo':
+                $typeNr = 3;
+                break;
+        }
+        return $typeNr;
+    }
 }

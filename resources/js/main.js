@@ -656,7 +656,7 @@
 
     /* reset modal form */
 
-    function resetForm($form)
+    /*function resetForm($form)
     {
         $form.find('input').val('');
         $form.find('select').val('').trigger('change');
@@ -669,11 +669,11 @@
         // $('#end_year').val('').trigger('change');
         // $('#end_month').val('').trigger('change');
         // $('#modal_edit_description').val('');
-    }
+    }*/
 
     /* load data from modal form */
 
-    function loadFields($form)
+    /*function loadFields($form)
     {
         let fields = $form.serializeArray();
         let dataObj = {};
@@ -683,7 +683,7 @@
         });
 
         return dataObj;
-    }
+    }*/
 
 
 
@@ -695,95 +695,175 @@
 
     ************************************************************************/
 
-    $('#editModal').on('hidden.bs.modal', function () {
-        $('#update_work').attr('id', 'submit_button');
-    });
+    let modalWorkSkillEdit = (function(){
 
-    var type_work = {
-        tbody: '',
-        type: ''
-    };
-
-    /* show modal form for work to add new data */
-
-    $('.add_new_work').click(function() {
-        let $form = $('#form_work').closest('form');
-        resetForm($form);
-        $('#submit_button').html('Add');
-        $('#editModal').modal('show');
-        typeOfWork(this.id);
-    });
-
-    /* add type of work to object variable */
-
-    var typeOfWork = function(id_works)
-    {
-        switch (id_works)
-        {
-            case "add_new_work":
-                type_work.tbody = '#work_tbody';
-                type_work.type = 1;
-                $('#editModalLabel').html('Add new work experience');
-                $('#label_employer').html('Employer');
-                $('#label_skill').html('Job');
-            break;
-            case "add_new_education":
-                type_work.tbody = '#education_tbody';
-                type_work.type = 2;
-                $('#editModalLabel').html('Add new education');
-                $('#label_employer').html('Institute');
-                $('#label_skill').html('Education');
-            break;
-            case "add_new_course":
-                type_work.tbody = '#course_tbody';
-                type_work.type = 3;
-                $('#editModalLabel').html('Add new course or training');
-                $('#label_employer').html('Institute');
-                $('#label_skill').html('Course or Training');
-            break;
-        }
-    }
-
-    /* add new row to work table */
-
-    $(document).on('click', '#submit_button', function(){
-        // let n = $(type_work.tbody + " tr.row-hide").length;
-        let $form = $('#form_work').closest('form');
-        let recruit_id = $('#recruit_id').val();
-
-        $.ajax({
-            type: 'POST',
-            url: `/recruits/${recruit_id}/w`,
-            data: {
-                fields: loadFields($form),
-                type: type_work.type
+        const workRules = {
+            modal_employer: {
+                required: true,
+                minlength: 2
             },
-            success: function(data)
-            {
-                let newRowWorkd = addDataToRowWork(loadFields($form), data.id);
-                $(type_work.tbody).append(newRowWorkd);
+            modal_edit_name: {
+                required: true,
+                minlength: 2
+            },
+            start_year: {
+                required: true,
+                minlength: 1,
+                maxlength: 4
+            },
+            start_month: {
+                required: true,
+                minlength: 1,
+                maxlength: 2
+            },
+            end_year: {
+                required: true,
+                minlength: 1,
+                maxlength: 4
+            },
+            end_month: {
+                required: true,
+                minlength: 1,
+                maxlength: 2
+            },
+            modal_edit_description: {
+                required: true,
+                minlength: 2
             }
-        });
-    });
+        };
 
-    /* add data to row work table from recruit */
+        /* cache DOM */
+        let recruit_id      = $('#recruit_id').val();
+        let $modal          = $('#editModal');
+        let $deleteModal    = $('#confirmDeleteModal');
+        let showNewModalID  = '[type-work-ed]';
+        let deleteButtonID  = '.delete_work';
+        let editButtonID    = '.edit_work';
+        let submitButtonID  = '#submit_button';
+        let $form = $modal.find('form');
+        let workID;
 
-    var addDataToRowWork = function(fields, work_id)
-    {
-        let finished = (fields['end_year'] == '') ? 'No' : 'Yes';
+        let _init = () => {
 
-        let newRowWork = `
+            /* bind events */
+             $(document).on('click', showNewModalID, _showNewModal )
+                        .on('click', deleteButtonID, _deleteWork   )
+                        .on('click', editButtonID,   _editWork     )
+                        .on('click', submitButtonID, function(){
+                            let modalType = $(submitButtonID).attr('data-type');
+                            modalType === 'create' ? _storeNewWork() : _updateWork();
+                        });
+        };
+
+        /* show modal form for work to add new data */
+        let _showNewModal = (e) => {
+            let typeWork = $(e.target).attr('type-work-ed');
+            $modal.attr('data-table-type', `${typeWork}-table-wo`);
+
+            _setModalTrans(typeWork);
+            _resetForm();
+            _resetValidation();
+
+            $(submitButtonID).html('Add');
+            $(submitButtonID).attr('data-type', 'create');
+
+            $modal.modal('show');
+        };
+
+        /* reset modal form */
+        let _resetForm = () => {
+            $form.find('select, input, textarea').val('');
+            $form.find('select').val('').trigger('change');
+        }
+
+        /* toogleDisable button from form */
+        let _toggleDisable = ($button, disable = true) => {
+            disable ? $button.addClass('disabled') : $button.removeClass('disabled');
+            $button.prop('disabled', disable);
+        };
+
+        /* trans modal skill */
+        let _setModalTrans = (type, $edit = false) => {
+            let $trans = $modal.find('.trans-work');
+            $trans.each(function() {
+                let $block = $(this);
+                let trans = $block.attr(`data-trans-${type}`);
+                $block.html(trans);
+
+                if($edit)
+                {
+                    let trans2 = $block.attr(`data-ed-trans-${type}`);
+                    $block.html(trans2);
+                }
+            });
+        };
+
+        /* add new row to work table */
+        let _storeNewWork = () => {
+            let table = '#' + $modal.attr('data-table-type');
+
+            if ($form.validate({rules: workRules}).form())
+            {
+                _toggleDisable($(submitButtonID));
+
+                $.ajax({
+                    type: 'POST',
+                    url: `/recruits/${recruit_id}/w`,
+                    data: {
+                        fields: _loadFields(),
+                        type: table
+                    },
+                    success: function(data)
+                    {
+                        if (data.status === false)
+                        {
+                            $(table).after(`<div class="alert alert-danger alert-dismissible error-skill">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                </div>`);
+
+                            $.each(data.message, function(key, value){
+                                $('.error-skill').append(`<li>${value}</li>`);
+                            });
+
+                            $('.error-skill').fadeOut(3000, function(){
+                                (this).remove();
+                            });
+                        }
+
+                        if (data.status === true)
+                        {
+                            let newRowWorkd = _addDataToRowWork(_loadFields(), data.id);
+                            $(table).find('tbody').append(newRowWorkd);
+                            $modal.modal('hide');
+                        }
+                    }
+                });
+                _toggleDisable($(submitButtonID), false);
+            }
+        };
+
+        /* load data from modal form */
+        let _loadFields = () => {
+            let fields = $form.serializeArray();
+            let dataObj = {};
+
+            $(fields).each(function(i, field){
+                dataObj[field.name] = field.value;
+            });
+
+            return dataObj;
+        }
+
+        /* add data to row work table from recruit */
+        let _addDataToRowWork = (fields, work_id) => {
+            let finished = (fields['end_year'] == '') ? 'No' : 'Yes';
+
+            let newRowWork = `
             <tr>
-                <td>${fields['modal_employer']}</td>
-                    <!--<input form="edit" type="hidden" value="${fields['modal_employer']}" name="employer">-->
+                <td>${fields['modal_employer']}</td>                    
                 <td>${fields['modal_edit_name']}</td>
-                    <!--<input form="edit" type="hidden" value="${fields['modal_edit_name']}" name="work_job">-->
                 <td>${fields['start_year']}</td>
-                    <!--<input form="edit" type="hidden" value="${fields['start_year']}" name="start_year">-->
-                    <!--<input form="edit" type="hidden" value="${fields['start_month']}" name="start_month">-->
                 <td>${fields['end_year']}</td>
-                    <!--<input form="edit" type="hidden" value="${fields['end_year']}" name="end_year">-->
-                    <!--<input form="edit" type="hidden" value="${fields['end_month']}" name="end_month">-->
                 <td>${finished}</td>
                 
                 <td class="cell-flex"><a href="#" class="table-link edit_work" data-toggle="modal" data-target="#editModal">
@@ -796,128 +876,123 @@
             </tr>
             <tr class="row-hide" id="hiddenRow${work_id}">
                 <td style="white-space:normal" colspan="6" class="cell-description">${fields['modal_edit_description']}</td>
-                    <!--<input form="edit" type="hidden" value="${fields['modal_edit_description']}" name="work_description">-->
                     <input form="edit" type="hidden" value="${work_id}" name="work_id">
             </tr>
         `;
-        return newRowWork;
-    }
+            return newRowWork;
+        };
 
-    /* delete row from works table with jQuery */
+        /* delete row from works table with jQuery */
+        let _deleteWork = (e) => {
+            let closestRow = $(e.target).closest('tr');
+            let id_row = closestRow.next().find('input[name=work_id]').attr('value');
 
-    $(document).on('click','.delete_work', function() {
-        var closestRow = $(this).closest('tr');
-        var id_row = closestRow.next().find('input[name=work_id]').attr('value');
-        let recruit_id = $('#recruit_id').val();
-        let $modal = $('#confirmDeleteModal');
-        $modal.modal('show');
+            $deleteModal.modal('show');
 
-        $(document).on('click', '.confirmAction', function(){
+            $(document).on('click', '.confirmAction', function(){
+
+                $.ajax({
+                    type:'DELETE',
+                    url:`/recruits/${recruit_id}/w/${id_row}`,
+                    success:function(){
+                        closestRow.fadeOut(400, function()
+                        {
+                            closestRow.add(closestRow.next()).remove();
+                            $deleteModal.modal('hide');
+                        });
+                    },
+                    error:function(){
+                        closestRow.append('<div id="work_error">Error!</div>');
+                        $('#work_error').fadeOut(1000, function()
+                        {
+                            $(e.target).remove();
+                        });
+                    }
+                });
+            });
+        };
+
+        /* show edit form works table with jQuery */
+        let _editWork = (e) => {
+            let currentRow = $(e.target).closest('tr');
+            let typeWork = $(e.target).closest('div[class*=card-primary]').find('a[type-work-ed]').attr('type-work-ed');
+
+            workID = currentRow.next().find('input[name=work_id]').attr('value');
+
+            _setModalTrans(typeWork, true);
 
             $.ajax({
-                type:'DELETE',
-                url:`/recruits/${recruit_id}/w/${id_row}`,
-                success:function(){
-                    closestRow.fadeOut(400, function()
+                url:`/recruits/${recruit_id}/w/${workID}`,
+
+                success:function(data){
+                    $(submitButtonID).html('Edit');
+
+                    var start_date = new Date(data.start_date);
+                    var end_date = new Date(data.end_date);
+
+                    if (data.end_date == null)
                     {
-                        closestRow.add(closestRow.next()).remove();
-                        $modal.modal('hide');
-                    });
-                },
-                error:function(){
-                    closestRow.append('<div id="work_error">Error!</div>');
-                    $('#work_error').fadeOut(1000, function()
+                        $('#end_year').val('').trigger('change');
+                        $('#end_month').val('').trigger('change');
+                    }
+                    else
                     {
-                        $(this).remove();
-                    });
+                        $('#end_year').val(end_date.getFullYear()).trigger('change');
+                        $('#end_month').val(end_date.getMonth()+1).trigger('change');
+                    }
+
+                    $('#modal_employer').val(data.employer);
+                    $('#modal_edit_name').val(data.job);
+                    $('#start_year').val(start_date.getFullYear()).trigger('change');
+                    $('#start_month').val(start_date.getMonth()+1).trigger('change');
+                    $('#modal_edit_description').val(data.description);
+                    $(submitButtonID).attr('data-type', 'edit');
+                    $modal.modal('show');
                 }
             });
 
-        });
-    });
+            return false;
+        };
 
-    /* show edit form works table with jQuery */
+        /* update row from work table */
+        let _updateWork = () => {
 
-    var work = {
-        id: 0
-    };
+            if ($form.validate({rules: workRules}).form())
+            {
+                _toggleDisable($(submitButtonID));
 
-    $(document).on('click', '.edit_work', function(){
-
-        let currentRow = $(this).closest('tr');
-        let recruit_id = $('#recruit_id').val();
-        work.id = currentRow.next().find('input[name=work_id]').attr('value');
-        typeOfWork($(this).closest('div[class*=card-primary]').find('.add_new_work').attr('id'));
-
-        $.ajax({
-            url:`/recruits/${recruit_id}/w/${work.id}`,
-
-            success:function(data){
-                $('#submit_button').html('Edit');
-                $('#submit_button').attr('id', 'update_work');
-
-                var start_date = new Date(data.start_date);
-                var end_date = new Date(data.end_date);
-
-                if (data.end_date == null)
-                {
-                    $('#end_year').val('').trigger('change');
-                    $('#end_month').val('').trigger('change');
-                }
-                else
-                {
-                    $('#end_year').val(end_date.getFullYear()).trigger('change');
-                    $('#end_month').val(end_date.getMonth()+1).trigger('change');
-                }
-
-                $('#modal_employer').val(data.employer);
-                $('#modal_edit_name').val(data.job);
-                $('#start_year').val(start_date.getFullYear()).trigger('change');
-                $('#start_month').val(start_date.getMonth()+1).trigger('change');
-                $('#modal_edit_description').val(data.description);
-                $('#editModal').modal('show');
+                $.ajax({
+                    type:'PATCH',
+                    url:`/recruits/${recruit_id}/w/${workID}`,
+                    data:{
+                        fields: _loadFields()
+                    },
+                    success:function(data){
+                        let row = $("input[name*='work_id'][value='" + workID + "']").parent().prev();
+                        row.next().remove();
+                        let updatedRowWork = _addDataToRowWork(_loadFields(), data.id);
+                        row.replaceWith(updatedRowWork);
+                        $modal.modal('hide');
+                    }
+                });
+                _toggleDisable($(submitButtonID), false);
             }
-        });
-    });
+        };
 
-    /* update row from work table */
+        /* reset Validation Form */
+        let _resetValidation = () => {
+            $modal.on('hide.bs.modal', function () {
+                $($form).validate().resetForm();
+            });
+        };
 
-    $(document).on('click', '#update_work', function(){
-        let recruit_id = $('#recruit_id').val();
-        let $form = $('#form_work').closest('form');
+        return {
+            init: _init
+        }
 
-        // let input_work_array = {
-        //     modal_employer: $('#modal_employer').val(),
-        //     skill: $('#modal_edit_name').val(),
-        //     start_year: $('#start_year').val(),
-        //     start_month: $('#start_month').val(),
-        //     end_year: $('#end_year').val(),
-        //     end_month: $('#end_month').val(),
-        //     description: $('#modal_edit_description').val()
-        // };
+    })();
 
-        $.ajax({
-            type:'PATCH',
-            url:`/recruits/${recruit_id}/w/${work.id}`,
-            data:{
-                fields: loadFields($form),
-                // modal_employer: input_work_array.modal_employer,
-                // skill: input_work_array.skill,
-                // start_year: input_work_array.start_year,
-                // start_month: input_work_array.start_month,
-                // end_year: input_work_array.end_year,
-                // end_month: input_work_array.end_month,
-                // description: input_work_array.description
-            },
-
-            success:function(data){
-                let row = $("input[name*='work_id'][value='" + work.id + "']").parent().prev();
-                row.next().remove();
-                let updatedRowWork = addDataToRowWork(loadFields($form), data.id);
-                row.replaceWith(updatedRowWork);
-            }
-        });
-    });
+    modalWorkSkillEdit.init();
 
 
 
@@ -930,19 +1005,41 @@
 
     let modalFormSkill = (function(){
 
+        const Rules = {
+            modal_name: {
+                required: true,
+                minlength: 2
+            },
+            modal_level: {
+                required: true
+            },
+            modal_description: {
+                required: true,
+                minlength: 2
+            }
+        };
+
         let $type_skill = {
             tbody: '',
             type: ''
         };
 
         let init = () => {
+            let $modal = $('#skillModal');
+
             $(document).on('click', '.add_new_skill', function(){
-                showModalSkill($(this).attr('id'));
+                _showModalSkill($(this).attr('id'));
+                _resetValidation($modal);
 
                 return false;
             }).on('click', '#submit_skill', function(){
-                rowSkill.addRowSkill(loadDataFromSkillModal(), $type_skill);
-                hideModalSkill();
+
+                let $form = $('#submit_skill').closest('form');
+                if ($form.validate({rules: Rules}).form())
+                {
+                    rowSkill.addRowSkill(loadDataFromSkillModal(), $type_skill);
+                    hideModalSkill();
+                }
 
                 return false;
             }).on('click', '.delete_skill', function(){
@@ -954,7 +1051,7 @@
 
         /* show modal for skills*/
 
-        let showModalSkill = (typeID) => {
+        let _showModalSkill = (typeID) => {
             resetFormSkill($('#skill_form').closest('form'));
             typeOfSkill(typeID);
             let $modal = $('#skillModal');
@@ -1033,6 +1130,15 @@
             $form.find('textarea').val('');
         };
 
+        /* reset Validation Form */
+
+        let _resetValidation = ($modal) => {
+            let $form = $modal.find('form');
+            $modal.on('hide.bs.modal', function () {
+                $($form).validate().resetForm();
+            });
+        };
+
         return {
             init: init
         }
@@ -1058,11 +1164,36 @@
                     type: $typeOfSkill.type
                 },
                 success:function(data){
-                    $($typeOfSkill.tbody)
-                        .append(addDataToRowSkill(data.id, $data))
-                        .children(':last')
-                        .hide()
-                        .fadeIn(500);
+                    if (data.status === true)
+                    {
+                        $($typeOfSkill.tbody)
+                            .append(addDataToRowSkill(data.id, $data))
+                            .children(':last')
+                            .hide()
+                            .fadeIn(500);
+                    }
+                    if (data.status === false)
+                    {
+                        $($typeOfSkill.tbody).closest('table')
+                            .after(`<div class="alert alert-danger alert-dismissible error-skill">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    </div>`);
+
+                        $.each(data.message, function(key, value){
+                            $('.error-skill').append(`<li>${value}</li>`);
+                        });
+
+                        $('.error-skill').fadeOut(3000, function(){
+                            (this).remove();
+                        });
+                    }
+                },
+                error:function(){
+                    $($typeOfSkill.tbody).closest('table')
+                        .after(`<div class="alert alert-danger error-skill">Save error...</div>`);
+                        $('.error-skill').fadeOut(2000, function(){
+                            (this).remove();
+                        });
                 }
             });
         };

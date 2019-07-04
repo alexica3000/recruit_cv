@@ -147,8 +147,6 @@
                 function clearM (idModal)
                 {
                     let $modal = $(idModal);
-                    let $form = $modal.find('form');
-                    // $($form).validate().resetForm();
                     $('.table tr').removeClass('to-remove');
                     $('.confirmAction').removeClass('confirmRowRemove');
                     $(selector).attr('data-type', 'create');

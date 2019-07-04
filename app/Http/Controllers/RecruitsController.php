@@ -7,6 +7,7 @@ use App\Skill;
 use App\Work;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RecruitsController extends Controller
 {
@@ -198,20 +199,38 @@ class RecruitsController extends Controller
      */
     public function storeWork(Request $request, Recruit $recruit)
     {
-        $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
-        $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
-
-        $work = new Work([
-            'employer' => $request->fields['modal_employer'],
-            'job' => $request->fields['modal_edit_name'],
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'description' => $request->fields['modal_edit_description']
+        /** @var Validator $validator */
+        $validator = Validator::make($request->all(), [
+            'fields.modal_employer' => 'required|max:255',
+            'fields.modal_edit_name' => 'required|max:255',
+            'fields.start_year' => 'required|max:2100|numeric',
+            'fields.start_month' => 'required|max:12|numeric',
+            'fields.end_year' => 'required|max:2100|numeric',
+            'fields.end_month' => 'required|max:12|numeric',
+            'fields.modal_edit_description' => 'required|max:255',
+            'type' => 'required|max:21'
         ]);
-        $work->type = $request->type;
-        $recruit->works()->save($work);
 
-        return response()->json(['status' => true, 'id' => $work->id]);
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()]);
+        }
+        else {
+            $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
+            $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
+
+            $work = new Work([
+                'employer' => $request->fields['modal_employer'],
+                'job' => $request->fields['modal_edit_name'],
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'description' => $request->fields['modal_edit_description']
+            ]);
+//            $work->type = $request->type;
+            $work->type = Work::typeOfTable($request->type);
+            $recruit->works()->save($work);
+
+            return response()->json(['status' => true, 'id' => $work->id]);
+        }
     }
 
     /**
@@ -238,11 +257,22 @@ class RecruitsController extends Controller
      */
     public function storeSkill(Recruit $recruit, Request $request)
     {
-        $skill = new Skill($request->all());
-        $skill->type = $request->type;
-        $recruit->skills()->save($skill);
+        /** @var Validator $validator */
+        $validator = Validator::make($request->all(), [
+            'char' => 'required|max:255',
+            'description' => 'required'
+        ]);
 
-        return response()->json(['status' => true, 'id' => $skill->id]);
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()]);
+        }
+        else {
+            $skill = new Skill($request->all());
+            $skill->type = $request->type;
+            $recruit->skills()->save($skill);
+
+            return response()->json(['status' => true, 'id' => $skill->id]);
+        }
     }
 
     /**
