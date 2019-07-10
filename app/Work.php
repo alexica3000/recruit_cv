@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Work extends Model
 {
@@ -35,6 +36,16 @@ class Work extends Model
             return null;
         else
             return Carbon::parse($this->attributes['end_date']);
+    }
+
+    public function setStartDateAttribute($value)
+    {
+        return $this->attributes['start_date'] = $value . '-01-01';
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        return $this->attributes['end_date'] = ($value == null) ? null : $value . '-01-01';
     }
 
     public static function typeOfTable ($type)

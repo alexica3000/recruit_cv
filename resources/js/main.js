@@ -650,9 +650,9 @@
 
     /* auto-hide alert-dismissible message */
 
-    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+    /*$(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
         $(".alert-dismissible").alert('close');
-    });
+    });*/
 
     /* reset modal form */
 
@@ -711,21 +711,21 @@
                 minlength: 1,
                 maxlength: 4
             },
-            start_month: {
+            /*start_month: {
                 required: true,
                 minlength: 1,
                 maxlength: 2
-            },
+            },*/
             end_year: {
-                required: true,
+                required: false,
                 minlength: 1,
                 maxlength: 4
             },
-            end_month: {
+            /*end_month: {
                 required: true,
                 minlength: 1,
                 maxlength: 2
-            },
+            },*/
             modal_edit_description: {
                 required: true,
                 minlength: 2
@@ -815,26 +815,28 @@
                     },
                     success: function(data)
                     {
-                        if (data.status === false)
+                        if (data.status === true)
+                        {
+                            let newRowWorkd = _addDataToRowWork(_loadFields(), data.id);
+                            $(table).find('tbody').append(newRowWorkd);
+                            $modal.modal('hide');
+                        }
+                    },
+                    error: function(data)
+                    {
+                        if (data.status === 422)
                         {
                             $(table).after(`<div class="alert alert-danger alert-dismissible error-skill">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                </div>`);
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            </div>`);
 
-                            $.each(data.message, function(key, value){
+                            $.each(data.responseJSON.errors, function(key, value){
                                 $('.error-skill').append(`<li>${value}</li>`);
                             });
 
                             $('.error-skill').fadeOut(3000, function(){
                                 (this).remove();
                             });
-                        }
-
-                        if (data.status === true)
-                        {
-                            let newRowWorkd = _addDataToRowWork(_loadFields(), data.id);
-                            $(table).find('tbody').append(newRowWorkd);
-                            $modal.modal('hide');
                         }
                     }
                 });
@@ -924,7 +926,8 @@
             $.ajax({
                 url:`/recruits/${recruit_id}/w/${workID}`,
 
-                success:function(data){
+                success:function(data)
+                {
                     $(submitButtonID).html('Edit');
 
                     var start_date = new Date(data.start_date);
@@ -933,18 +936,18 @@
                     if (data.end_date == null)
                     {
                         $('#end_year').val('').trigger('change');
-                        $('#end_month').val('').trigger('change');
+                        // $('#end_month').val('').trigger('change');
                     }
                     else
                     {
                         $('#end_year').val(end_date.getFullYear()).trigger('change');
-                        $('#end_month').val(end_date.getMonth()+1).trigger('change');
+                        // $('#end_month').val(end_date.getMonth()+1).trigger('change');
                     }
 
                     $('#modal_employer').val(data.employer);
                     $('#modal_edit_name').val(data.job);
                     $('#start_year').val(start_date.getFullYear()).trigger('change');
-                    $('#start_month').val(start_date.getMonth()+1).trigger('change');
+                    // $('#start_month').val(start_date.getMonth()+1).trigger('change');
                     $('#modal_edit_description').val(data.description);
                     $(submitButtonID).attr('data-type', 'edit');
                     $modal.modal('show');
@@ -957,6 +960,9 @@
         /* update row from work table */
         let _updateWork = () => {
 
+            let row = $("input[name*='work_id'][value='" + workID + "']").parent().prev();
+            let table = '#' + row.closest('table').attr('id');
+
             if ($form.validate({rules: workRules}).form())
             {
                 _toggleDisable($(submitButtonID));
@@ -967,12 +973,29 @@
                     data:{
                         fields: _loadFields()
                     },
-                    success:function(data){
-                        let row = $("input[name*='work_id'][value='" + workID + "']").parent().prev();
+                    success:function(data)
+                    {
                         row.next().remove();
                         let updatedRowWork = _addDataToRowWork(_loadFields(), data.id);
                         row.replaceWith(updatedRowWork);
                         $modal.modal('hide');
+                    },
+                    error: function(data)
+                    {
+                        if (data.status === 422)
+                        {
+                            $(table).after(`<div class="alert alert-danger alert-dismissible error-skill">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            </div>`);
+
+                            $.each(data.responseJSON.errors, function(key, value){
+                                $('.error-skill').append(`<li>${value}</li>`);
+                            });
+
+                            $('.error-skill').fadeOut(3000, function(){
+                                (this).remove();
+                            });
+                        }
                     }
                 });
                 _toggleDisable($(submitButtonID), false);
@@ -1163,7 +1186,8 @@
                     description: $data.description,
                     type: $typeOfSkill.type
                 },
-                success:function(data){
+                success:function(data)
+                {
                     if (data.status === true)
                     {
                         $($typeOfSkill.tbody)
@@ -1172,14 +1196,16 @@
                             .hide()
                             .fadeIn(500);
                     }
-                    if (data.status === false)
-                    {
+                },
+                error:function(data)
+                {
+                    if(data.status === 422){
                         $($typeOfSkill.tbody).closest('table')
-                            .after(`<div class="alert alert-danger alert-dismissible error-skill">
+                            .after(`<div class="alert alert-danger error-skill">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                     </div>`);
 
-                        $.each(data.message, function(key, value){
+                        $.each(data.responseJSON.errors, function(key, value){
                             $('.error-skill').append(`<li>${value}</li>`);
                         });
 
@@ -1187,13 +1213,6 @@
                             (this).remove();
                         });
                     }
-                },
-                error:function(){
-                    $($typeOfSkill.tbody).closest('table')
-                        .after(`<div class="alert alert-danger error-skill">Save error...</div>`);
-                        $('.error-skill').fadeOut(2000, function(){
-                            (this).remove();
-                        });
                 }
             });
         };

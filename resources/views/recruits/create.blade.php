@@ -21,14 +21,14 @@
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="name">Name (*)</label>
-                        <input form="create" type="text" class="form-control" name="name" id="name" placeholder="Name">
+                        <input form="create" type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="date_of_birth">Date of birth</label>
                         <div class="input-group datetimepicker-default" id="date_of_birth" data-target-input="nearest">
-                            <input form="create"  type="text" class="form-control datetimepicker-input" name="date_of_birth" placeholder="Select date" data-target="#date_of_birth">
+                            <input form="create"  type="text" class="form-control datetimepicker-input" name="date_of_birth" placeholder="Select date" data-target="#date_of_birth" value="{{ old('date_of_birth') }}">
                             <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                 <div class="input-group-text">
                                     <i class="cvd-calendar"></i>
@@ -40,19 +40,19 @@
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input form="create"  type="text" class="form-control" name="city" id="city" placeholder="City">
+                        <input form="create"  type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ old('city') }}">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="job">Job</label>
-                        <input form="create"  type="text" class="form-control" name="job" id="job" placeholder="Job">
+                        <input form="create"  type="text" class="form-control" name="job" id="job" placeholder="Job" value="{{ old('job') }}">
                     </div>
                 </div>
                 <div class="col-12 col-md-7">
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea form="create" name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea form="create" name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <div class="col-12 col-md-5">

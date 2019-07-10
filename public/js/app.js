@@ -61098,9 +61098,10 @@ if (token) {
 
   /* auto-hide alert-dismissible message */
 
-  $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
-    $(".alert-dismissible").alert('close');
-  });
+  /*$(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert-dismissible").alert('close');
+  });*/
+
   /* reset modal form */
 
   /*function resetForm($form)
@@ -61149,21 +61150,23 @@ if (token) {
         minlength: 1,
         maxlength: 4
       },
-      start_month: {
-        required: true,
-        minlength: 1,
-        maxlength: 2
-      },
+
+      /*start_month: {
+          required: true,
+          minlength: 1,
+          maxlength: 2
+      },*/
       end_year: {
-        required: true,
+        required: false,
         minlength: 1,
         maxlength: 4
       },
-      end_month: {
-        required: true,
-        minlength: 1,
-        maxlength: 2
-      },
+
+      /*end_month: {
+          required: true,
+          minlength: 1,
+          maxlength: 2
+      },*/
       modal_edit_description: {
         required: true,
         minlength: 2
@@ -61256,21 +61259,22 @@ if (token) {
             type: table
           },
           success: function success(data) {
-            if (data.status === false) {
-              $(table).after("<div class=\"alert alert-danger alert-dismissible error-skill\">\n                                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                                </div>");
-              $.each(data.message, function (key, value) {
-                $('.error-skill').append("<li>".concat(value, "</li>"));
-              });
-              $('.error-skill').fadeOut(3000, function () {
-                this.remove();
-              });
-            }
-
             if (data.status === true) {
               var newRowWorkd = _addDataToRowWork(_loadFields(), data.id);
 
               $(table).find('tbody').append(newRowWorkd);
               $modal.modal('hide');
+            }
+          },
+          error: function error(data) {
+            if (data.status === 422) {
+              $(table).after("<div class=\"alert alert-danger alert-dismissible error-skill\">\n                                                <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                                            </div>");
+              $.each(data.responseJSON.errors, function (key, value) {
+                $('.error-skill').append("<li>".concat(value, "</li>"));
+              });
+              $('.error-skill').fadeOut(3000, function () {
+                this.remove();
+              });
             }
           }
         });
@@ -61341,17 +61345,15 @@ if (token) {
           var end_date = new Date(data.end_date);
 
           if (data.end_date == null) {
-            $('#end_year').val('').trigger('change');
-            $('#end_month').val('').trigger('change');
+            $('#end_year').val('').trigger('change'); // $('#end_month').val('').trigger('change');
           } else {
-            $('#end_year').val(end_date.getFullYear()).trigger('change');
-            $('#end_month').val(end_date.getMonth() + 1).trigger('change');
+            $('#end_year').val(end_date.getFullYear()).trigger('change'); // $('#end_month').val(end_date.getMonth()+1).trigger('change');
           }
 
           $('#modal_employer').val(data.employer);
           $('#modal_edit_name').val(data.job);
-          $('#start_year').val(start_date.getFullYear()).trigger('change');
-          $('#start_month').val(start_date.getMonth() + 1).trigger('change');
+          $('#start_year').val(start_date.getFullYear()).trigger('change'); // $('#start_month').val(start_date.getMonth()+1).trigger('change');
+
           $('#modal_edit_description').val(data.description);
           $(submitButtonID).attr('data-type', 'edit');
           $modal.modal('show');
@@ -61363,6 +61365,9 @@ if (token) {
 
 
     var _updateWork = function _updateWork() {
+      var row = $("input[name*='work_id'][value='" + workID + "']").parent().prev();
+      var table = '#' + row.closest('table').attr('id');
+
       if ($form.validate({
         rules: workRules
       }).form()) {
@@ -61375,13 +61380,23 @@ if (token) {
             fields: _loadFields()
           },
           success: function success(data) {
-            var row = $("input[name*='work_id'][value='" + workID + "']").parent().prev();
             row.next().remove();
 
             var updatedRowWork = _addDataToRowWork(_loadFields(), data.id);
 
             row.replaceWith(updatedRowWork);
             $modal.modal('hide');
+          },
+          error: function error(data) {
+            if (data.status === 422) {
+              $(table).after("<div class=\"alert alert-danger alert-dismissible error-skill\">\n                                                <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                                            </div>");
+              $.each(data.responseJSON.errors, function (key, value) {
+                $('.error-skill').append("<li>".concat(value, "</li>"));
+              });
+              $('.error-skill').fadeOut(3000, function () {
+                this.remove();
+              });
+            }
           }
         });
 
@@ -61564,22 +61579,17 @@ if (token) {
           if (data.status === true) {
             $($typeOfSkill.tbody).append(addDataToRowSkill(data.id, $data)).children(':last').hide().fadeIn(500);
           }
-
-          if (data.status === false) {
-            $($typeOfSkill.tbody).closest('table').after("<div class=\"alert alert-danger alert-dismissible error-skill\">\n                                        <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                                    </div>");
-            $.each(data.message, function (key, value) {
+        },
+        error: function error(data) {
+          if (data.status === 422) {
+            $($typeOfSkill.tbody).closest('table').after("<div class=\"alert alert-danger error-skill\">\n                                        <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>\n                                    </div>");
+            $.each(data.responseJSON.errors, function (key, value) {
               $('.error-skill').append("<li>".concat(value, "</li>"));
             });
             $('.error-skill').fadeOut(3000, function () {
               this.remove();
             });
           }
-        },
-        error: function error() {
-          $($typeOfSkill.tbody).closest('table').after("<div class=\"alert alert-danger error-skill\">Save error...</div>");
-          $('.error-skill').fadeOut(2000, function () {
-            this.remove();
-          });
         }
       });
     };

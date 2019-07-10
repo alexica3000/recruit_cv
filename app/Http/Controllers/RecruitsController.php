@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddRecruitRequest;
+use App\Http\Requests\AddSkillRequest;
+use App\Http\Requests\AddWorkRequest;
+use App\Http\Requests\EditRecruitRequest;
+use App\Http\Requests\EditWorkAjaxRequest;
 use App\Recruit;
 use App\Skill;
 use App\Work;
@@ -39,28 +44,13 @@ class RecruitsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRecruitRequest $request)
     {
 //        dd($request);
+
         $recruit = new Recruit;
-
-        $recruit->name = $request->name;
-        $recruit->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
-        $recruit->city = $request->city;
-        $recruit->job = $request->job;
-        $recruit->description = $request->description;
-
+        $recruit->fill($request->all());
         $recruit->save();
-
-        /*
-        Recruit::create([
-            'name' => $request->name,
-            'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
-            'city' => $request->city,
-            'job' => $request->job,
-            'description' => $request->description
-        ]);
-        */
 
         /* insert data to works table */
 
@@ -118,16 +108,9 @@ class RecruitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recruit $recruit)
+    public function update(EditRecruitRequest $request, Recruit $recruit)
     {
-
-        $recruit->update([
-            'name' => $request->name,
-            'date_of_birth' => Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d'),
-            'city' => $request->city,
-            'job' => $request->job,
-            'description' => $request->description
-        ]);
+        $recruit->update($request->all());
 
         return redirect()->route('recruits.edit', $recruit->id)->with('message', 'The recruit has been updated.');
     }
@@ -163,18 +146,29 @@ class RecruitsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateWork(Recruit $recruit, Request $request, Work $work)
+    public function updateWork(Recruit $recruit, EditWorkAjaxRequest $request, Work $work)
     {
-        $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
-        $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
+//        $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
+//        $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
 
-        $recruit->works()->where('id', $work->id)->update([
-            'employer' => $request->fields['modal_employer'],
-            'job' => $request->fields['modal_edit_name'],
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'description' => $request->fields['modal_edit_description']
+        $new_work = new Work([
+            'employer'      => $request->fields['modal_employer'],
+            'job'           => $request->fields['modal_edit_name'],
+            'start_date'    => $request->fields['start_year'],
+            'end_date'      => $request->fields['end_year'],
+            'description'   => $request->fields['modal_edit_description']
         ]);
+
+        $recruit->works()->where('id', $work->id)->update($new_work->toArray());
+
+
+        /*$recruit->works()->where('id', $work->id)->update([
+            'employer'      => $request->fields['modal_employer'],
+            'job'           => $request->fields['modal_edit_name'],
+            'start_date'    => $request->fields['start_year'],
+            'end_date'      => $request->fields['end_year'],
+            'description'   => $request->fields['modal_edit_description']
+        ]);*/
 
         /*
         $start_date = $request->start_year . '-' . $request->start_month . '-01';
@@ -197,40 +191,43 @@ class RecruitsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeWork(Request $request, Recruit $recruit)
+    public function storeWork(AddWorkRequest $request, Recruit $recruit)
     {
         /** @var Validator $validator */
-        $validator = Validator::make($request->all(), [
+        /*$validator = Validator::make($request->all(), [
             'fields.modal_employer' => 'required|max:255',
             'fields.modal_edit_name' => 'required|max:255',
             'fields.start_year' => 'required|max:2100|numeric',
-            'fields.start_month' => 'required|max:12|numeric',
-            'fields.end_year' => 'required|max:2100|numeric',
-            'fields.end_month' => 'required|max:12|numeric',
+//            'fields.start_month' => 'required|max:12|numeric',
+            'fields.end_year' => 'nullable|max:2100|numeric',
+//            'fields.end_month' => 'required|max:12|numeric',
             'fields.modal_edit_description' => 'required|max:255',
             'type' => 'required|max:21'
-        ]);
+        ]);*/
 
-        if ($validator->fails()) {
+        /*if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->errors()]);
-        }
-        else {
-            $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
-            $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
+        }*/
 
-            $work = new Work([
-                'employer' => $request->fields['modal_employer'],
-                'job' => $request->fields['modal_edit_name'],
-                'start_date' => $start_date,
-                'end_date' => $end_date,
-                'description' => $request->fields['modal_edit_description']
-            ]);
+//            $start_date = $request->fields['start_year'] . '-' . $request->fields['start_month'] . '-01';
+//            $end_date = ($request->fields['end_month'] == null) ? null : $request->fields['end_year'] . '-' . $request->fields['end_month'] . '-01';
+//            return $request->fields['start_year'];
+
+//            $start_date = $request->fields['start_year'] . '-01-01';
+//            $end_date = ($request->fields['end_year'] == null) ? null : $request->fields['end_year'] . '-01-01';
+
+        $work = new Work([
+            'employer'      => $request->fields['modal_employer'],
+            'job'           => $request->fields['modal_edit_name'],
+            'start_date'    => $request->fields['start_year'],
+            'end_date'      => $request->fields['end_year'],
+            'description'   => $request->fields['modal_edit_description']
+        ]);
 //            $work->type = $request->type;
-            $work->type = Work::typeOfTable($request->type);
-            $recruit->works()->save($work);
+        $work->type = Work::typeOfTable($request->type);
+        $recruit->works()->save($work);
 
-            return response()->json(['status' => true, 'id' => $work->id]);
-        }
+        return response()->json(['status' => true, 'id' => $work->id]);
     }
 
     /**
@@ -246,33 +243,30 @@ class RecruitsController extends Controller
         return response()->json(['status' => true]);
     }
 
-
-
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeSkill(Recruit $recruit, Request $request)
+    public function storeSkill(Recruit $recruit, AddSkillRequest $request)
     {
         /** @var Validator $validator */
-        $validator = Validator::make($request->all(), [
+        /*$validator = Validator::make($request->all(), [
             'char' => 'required|max:255',
             'description' => 'required'
-        ]);
+        ]);*/
 
-        if ($validator->fails()) {
+        /*if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->errors()]);
-        }
-        else {
-            $skill = new Skill($request->all());
-            $skill->type = $request->type;
-            $recruit->skills()->save($skill);
+        }*/
 
-            return response()->json(['status' => true, 'id' => $skill->id]);
-        }
+        $skill = new Skill($request->all());
+        $skill->type = $request->type;
+        $recruit->skills()->save($skill);
+
+        return response()->json(['status' => true, 'id' => $skill->id]);
+
     }
 
     /**
@@ -299,11 +293,11 @@ class RecruitsController extends Controller
             $end_date = ($field['end'] == null) ? null : $field['end'] . '-01-01';
 
             $work = new Work([
-                'employer' => $field['employer'],
-                'job' => $field['job'],
-                'start_date' => $start_date,
-                'end_date' => $end_date,
-                'description' => $field['description']
+                'employer'      => $field['employer'],
+                'job'           => $field['job'],
+                'start_date'    => $start_date,
+                'end_date'      => $end_date,
+                'description'   => $field['description']
             ]);
             $work->type = $type;
             $recruit->works()->save($work);
@@ -318,8 +312,8 @@ class RecruitsController extends Controller
         foreach ($fields as $field)
         {
             $skill = new Skill([
-                'char' => $field['char'],
-                'description' => $field['description']
+                'char'          => $field['char'],
+                'description'   => $field['description']
             ]);
             $skill->type = $type;
             $containers[] = $skill;

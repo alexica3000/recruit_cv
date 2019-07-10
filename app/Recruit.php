@@ -25,7 +25,13 @@ class Recruit extends Model
         return $this->hasMany(Skill::class);
     }
 
-    public function getDateOfBirthAttribute(){
+    public function setDateOfBirthAttribute($value)
+    {
+        return $this->attributes['date_of_birth'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function getDateOfBirthAttribute()
+    {
         return Carbon::parse($this->attributes['date_of_birth']);
     }
 }

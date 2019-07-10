@@ -103,6 +103,7 @@
 
                 self.toggleDisable($button);
 
+
                 if(_validateForm($form, rules).form()) {
 
                     let modalType = $(selector).attr('data-type');
