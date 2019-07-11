@@ -5,10 +5,10 @@
 @section('buttons')
     <div class="d-flex justify-content-md-end">
 
-        <form action="{{ route('recruits.destroy', $recruit->id) }}" method="post">
+        <form action="{{ route('recruits.destroy', $recruit->id) }}" method="post" class="deleteForm">
             @method('DELETE')
             @csrf
-            <button class="btn btn-outline-danger">Delete</button>
+            <button class="btn btn-outline-danger softDelete" >Delete</button>
         </form>
 
         <form action="{{ route('recruits.update', $recruit->id) }}" id="edit" method="post" enctype="multipart/form-data">
@@ -579,68 +579,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
-
-
-
-
-                            {{--<div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="start_month" id="start_month" class="form-control select2-init" data-placeholder="Select month">
-                                        <option></option>
-                                        <option class="1">1</option>
-                                        <option class="2">2</option>
-                                        <option class="3">3</option>
-                                        <option class="4">4</option>
-                                        <option class="5">5</option>
-                                        <option class="6">6</option>
-                                        <option class="7">7</option>
-                                        <option class="8">8</option>
-                                        <option class="9">9</option>
-                                        <option class="10">10</option>
-                                        <option class="11">11</option>
-                                        <option class="12">12</option>
-                                    </select>
-                                </div>
-                            </div>--}}
-                        </div>
-
-                        {{--<label for="end_year">End date</label>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="end_year" id="end_year" class="form-control select2-init" data-placeholder="Select year">
-                                        <option></option>
-                                        <option value="2015">2015</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <select name="end_month" id="end_month" class="form-control select2-init" data-placeholder="Select month">
-                                        <option></option>
-                                        <option class="1">1</option>
-                                        <option class="2">2</option>
-                                        <option class="3">3</option>
-                                        <option class="4">4</option>
-                                        <option class="5">5</option>
-                                        <option class="6">6</option>
-                                        <option class="7">7</option>
-                                        <option class="8">8</option>
-                                        <option class="9">9</option>
-                                        <option class="10">10</option>
-                                        <option class="11">11</option>
-                                        <option class="12">12</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>--}}
-
-
 
                         <div class="form-group">
                             <label for="modal_edit_description">Description</label>

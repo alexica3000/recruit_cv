@@ -61642,6 +61642,37 @@ if (token) {
       addRowSkill: addRowSkill
     };
   }();
+  /********************************************************************************************
+    Delete Modal Confirm
+    ********************************************************************************************/
+
+
+  var deleteFormConfirm = function () {
+    var softButton = '.softDelete';
+    var confirmModalButton = '.confirmAction';
+    var $modal = $('#confirmDeleteModal');
+    var $deleteForm = $('.deleteForm');
+
+    var init = function init() {
+      $(document).on('click', softButton, showModal).on('click', confirmModalButton, submitDeleteModal);
+    };
+
+    var showModal = function showModal(e) {
+      e.preventDefault();
+      $modal.modal('show');
+    };
+
+    var submitDeleteModal = function submitDeleteModal() {
+      $deleteForm.submit();
+      $modal.modal('hide');
+    };
+
+    return {
+      init: init
+    };
+  }();
+
+  deleteFormConfirm.init();
 })(jQuery);
 
 /***/ }),

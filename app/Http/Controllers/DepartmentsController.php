@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddDepartmentRequest;
 use Illuminate\Http\Request;
 use App\Department;
 
@@ -38,7 +39,7 @@ class DepartmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddDepartmentRequest $request)
     {
         $path = $request->file('logo')->store('logos', 'public');
 

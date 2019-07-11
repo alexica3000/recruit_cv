@@ -1274,6 +1274,40 @@
 
     })();
 
+    /********************************************************************************************
+
+     Delete Modal Confirm
+
+     ********************************************************************************************/
+
+    let deleteFormConfirm = (function(){
+
+        let softButton          = '.softDelete';
+        let confirmModalButton  = '.confirmAction';
+        let $modal              = $('#confirmDeleteModal');
+        let $deleteForm         = $('.deleteForm');
+
+        let init = () => {
+            $(document).on('click', softButton, showModal)
+                       .on('click', confirmModalButton, submitDeleteModal);
+        };
+
+        let showModal = (e) => {
+            e.preventDefault();
+            $modal.modal('show');
+        };
+
+        let submitDeleteModal = () => {
+            $deleteForm.submit();
+            $modal.modal('hide');
+        };
+
+        return {
+            init: init
+        }
+    })();
+
+    deleteFormConfirm.init();
 
 
 }(jQuery));

@@ -5,10 +5,10 @@
 @section('buttons')
     <div class="d-flex justify-content-md-end">
 
-        <form action="{{ route('accounts.destroy', $account->id) }}" method="POST">
+        <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" class="deleteForm">
             @method('DELETE')
             @csrf
-            <button class="btn btn-outline-danger">Delete</button>
+            <button class="btn btn-outline-danger softDelete">Delete</button>
         </form>
 
         <form id="edit" method="post" action="{{ route('accounts.update', $account->id) }}">
@@ -78,3 +78,8 @@
     </div>
 
 @endsection
+
+@push('modals')
+    @include('components.confirm', ['title' => 'Confirm remove', 'message' => 'Are you sure you want to remove?', 'action' => 'Remove', 'modalID' => 'confirmDeleteModal'])
+@endpush
+
