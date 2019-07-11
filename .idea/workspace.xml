@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e02b2e66-bed2-4b4c-b903-f7130439ae8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/DepartmentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/DepartmentsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecruitsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/accounts/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/accounts/edit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/recruits/edit.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -332,7 +326,7 @@
       <workItem from="1562568462475" duration="5180000" />
       <workItem from="1562649550118" duration="2843000" />
       <workItem from="1562736067138" duration="25321000" />
-      <workItem from="1562822996630" duration="6156000" />
+      <workItem from="1562822996630" duration="6301000" />
     </task>
     <task id="LOCAL-00001" summary="edit view for recruit">
       <created>1560169295173</created>
@@ -432,11 +426,18 @@
       <option name="project" value="LOCAL" />
       <updated>1562763051329</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="delete confirm for recruit">
+      <created>1562829325913</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1562829325913</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="398522000" />
+    <option name="totallyTimeSpent" value="398667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="293" y="53" width="1865" height="1055" extended-state="6" />
@@ -481,7 +482,8 @@
     <MESSAGE value="validation form for create recruit" />
     <MESSAGE value="form for edit recruit" />
     <MESSAGE value="changes in recruit controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes in recruit controller" />
+    <MESSAGE value="delete confirm for recruit" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete confirm for recruit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -711,6 +713,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="636">
           <caret line="121" column="17" lean-forward="false" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
