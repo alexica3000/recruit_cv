@@ -10,6 +10,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Class User
+ * @package App\Models
+ * @property integer $role_id
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -17,6 +22,10 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const ROLE_ADMIN = 1;
+    const ROLE_CLIENT = 2;
+    const ROLE_USER = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +36,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -58,4 +68,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role_id == self::ROLE_ADMIN;
+    }
 }
