@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="m-4">
                     <div class="text-right">
-                        <button type="button" class="bg-blue-500 text-white px-6 py-1 rounded font-medium hover:bg-blue-600 transition duration-200 each-in-out small">Add</button>
+                        <a href="{{ route('users.create') }}" class="bg-blue-500 text-white px-6 py-1 rounded font-medium hover:bg-blue-600 transition duration-200 each-in-out small">Add</a>
                         <button type="button" class="bg-red-500 text-white px-6 py-1 rounded font-medium hover:bg-red-600 transition duration-200 each-in-out small">Delete</button>
                     </div>
 
