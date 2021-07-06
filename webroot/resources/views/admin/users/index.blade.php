@@ -32,20 +32,17 @@
                                             <div class="mr-2">
                                                 {{ $user->id }}
                                             </div>
-                                            <span class="font-medium">React Project</span>
                                         </div>
                                     </td>
                                     <td class="py-3 px-6 text-left">
                                         <div class="flex items-center">
                                             <div class="mr-2">
-                                                <span>Eshal Rosas</span>
+                                                <span>{{ $user->name }}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-6 text-center">
-                                        <div class="flex items-center justify-center">
-                                            {{ $user->email }}
-                                        </div>
+                                    <td class="py-3 px-6">
+                                        <div>{{ $user->email }}</div>
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ $user->role }}</span>
