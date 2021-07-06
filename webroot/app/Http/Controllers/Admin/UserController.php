@@ -13,9 +13,7 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        $users = User::query()->get();
-
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index');
     }
 
     public function create(): View
