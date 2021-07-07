@@ -12,7 +12,7 @@ class UsersList extends Component
 
     public function mount()
     {
-        $this->users = User::query()->get();
+        $this->users = User::query()->latest()->get();
     }
 
     public function render(): View
@@ -24,6 +24,6 @@ class UsersList extends Component
     {
         $user->delete();
 
-        $this->users = User::query()->get();
+        $this->users = User::query()->latest()->get();
     }
 }

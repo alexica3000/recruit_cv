@@ -35,11 +35,14 @@ class User extends Authenticatable
         self::ROLE_USER   => 'User',
     ];
 
-    const ROLES_CLASSES = [
-        self::ROLE_ADMIN  => 'bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs',
-        self::ROLE_CLIENT => 'bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs',
-        self::ROLE_USER   => 'bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs',
-    ];
+//    const ROLES_CLASSES = [
+////        self::ROLE_ADMIN  => 'bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs',
+//        self::ROLE_ADMIN  => 'purple',
+////        self::ROLE_CLIENT => 'bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs',
+//        self::ROLE_CLIENT => 'green',
+////        self::ROLE_USER   => 'bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs',
+//        self::ROLE_USER   => 'yellow',
+//    ];
 
     /**
      * The attributes that are mass assignable.
@@ -93,8 +96,8 @@ class User extends Authenticatable
         return self::ROLES[$this->role_id] ?? 'User';
     }
 
-    public function getClassRoleAttribute(): string
-    {
-
-    }
+//    public function getClassRoleAttribute(): string
+//    {
+//        return self::ROLES_CLASSES[$this->role_id] ?? '';
+//    }
 }
