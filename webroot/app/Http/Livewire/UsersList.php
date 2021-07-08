@@ -3,12 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
 class UsersList extends Component
 {
-    public $users;
+    public Collection $users;
+
+    protected $listeners = ['deleteUser' => 'destroy'];
 
     public function mount()
     {
@@ -20,10 +23,14 @@ class UsersList extends Component
         return view('livewire.users-list');
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function destroy(User $user)
     {
-        $user->delete();
+        abort_if(auth()->id() == $user->id, 403, 'You cannot delete yourself.');
 
+        $user->delete();
         $this->users = User::query()->latest()->get();
     }
 }

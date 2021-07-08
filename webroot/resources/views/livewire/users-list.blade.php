@@ -45,7 +45,8 @@
                             <i class="fas fa-edit"></i>
                         </div>
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <button wire:click="destroy({{$user}})"><i class="fas fa-trash-alt"></i></button>
+{{--                            <button wire:click="destroy({{$user}})"><i class="fas fa-trash-alt"></i></button>--}}
+                            <button wire:click="$emit('showModal', {{$user->id}})"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                 </td>
