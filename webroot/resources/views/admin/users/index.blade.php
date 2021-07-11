@@ -14,7 +14,7 @@
                     </div>
 
                     <livewire:users-list/>
-                    <livewire:modal />
+                    <x-modal />
                 </div>
             </div>
         </div>

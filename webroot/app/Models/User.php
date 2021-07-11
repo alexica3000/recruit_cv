@@ -96,6 +96,10 @@ class User extends Authenticatable
         return self::ROLES[$this->role_id] ?? 'User';
     }
 
+    public function getSlashesNameAttribute(): string
+    {
+        return addslashes($this->name);
+    }
 //    public function getClassRoleAttribute(): string
 //    {
 //        return self::ROLES_CLASSES[$this->role_id] ?? '';
