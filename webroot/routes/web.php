@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
-Route::get('test', [UserController::class, 'index']);
+
 Route::get('/', fn() => redirect()->route('dashboard'));
 
 Route::prefix('dashboard')->middleware(['auth:sanctum', 'verified'])->group(function() {

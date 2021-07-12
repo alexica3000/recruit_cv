@@ -1,4 +1,23 @@
 <div>
+    <div class="mb-4 md:mr-2 md:mb-0">
+        <input
+            class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Search"
+            name="search"
+        />
+
+        <select
+            class="text-sm text-gray-600 pl-5 pr-10 ml-5 bg-white hover:border-gray-400 focus:outline-none appearance-none border rounded leading-tight"
+            wire:model="roleId"
+        >
+            <option value="">Choose a role</option>
+            @foreach(\App\Models\User::ROLES as $key => $role)
+                <option value="{{ $key }}">{{ $role }}</option>
+            @endforeach
+        </select>
+    </div>
+
     <table class="min-w-max w-full table-auto mt-4">
         <thead>
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
