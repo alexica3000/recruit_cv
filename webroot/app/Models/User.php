@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Interfaces\HasRoleInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,32 +18,13 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $role
  * @property integer $role_id
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasRoleInterface
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
-    const ROLE_ADMIN = 1;
-    const ROLE_CLIENT = 2;
-    const ROLE_USER = 3;
-
-    const ROLES = [
-        self::ROLE_ADMIN  => 'Admin',
-        self::ROLE_CLIENT => 'Client',
-        self::ROLE_USER   => 'User',
-    ];
-
-//    const ROLES_CLASSES = [
-////        self::ROLE_ADMIN  => 'bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs',
-//        self::ROLE_ADMIN  => 'purple',
-////        self::ROLE_CLIENT => 'bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs',
-//        self::ROLE_CLIENT => 'green',
-////        self::ROLE_USER   => 'bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs',
-//        self::ROLE_USER   => 'yellow',
-//    ];
 
     /**
      * The attributes that are mass assignable.
@@ -100,8 +82,4 @@ class User extends Authenticatable
     {
         return addslashes($this->name);
     }
-//    public function getClassRoleAttribute(): string
-//    {
-//        return self::ROLES_CLASSES[$this->role_id] ?? '';
-//    }
 }
