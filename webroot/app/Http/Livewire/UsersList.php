@@ -11,6 +11,7 @@ use Livewire\Component;
 class UsersList extends Component
 {
     public Collection $users;
+    public ?string $search = null;
     public ?string $roleId = null;
 
     protected $listeners = ['deleteUser' => 'destroy'];
@@ -41,6 +42,9 @@ class UsersList extends Component
     private function getUsers(): Collection
     {
         return User::query()
+            ->when($this->search, function(Builder $query) {
+                $query->where('name', 'like', "%$this->search%");
+            })
             ->when($this->roleId, function(Builder $query) {
                 $query->where('role_id', $this->roleId);
             })

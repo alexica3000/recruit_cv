@@ -5,6 +5,7 @@
             type="text"
             placeholder="Search"
             name="search"
+            wire:model="search"
         />
 
         <select
