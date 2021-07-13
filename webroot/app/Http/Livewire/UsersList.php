@@ -51,4 +51,10 @@ class UsersList extends Component
             ->latest()
             ->get();
     }
+
+    public function clear()
+    {
+        $this->search = null;
+        $this->roleId = '';
+    }
 }

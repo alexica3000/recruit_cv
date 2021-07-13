@@ -5,7 +5,7 @@
             type="text"
             placeholder="Search"
             name="search"
-            wire:model="search"
+            wire:model.debounce.500ms="search"
         />
 
         <select
@@ -17,6 +17,12 @@
                 <option value="{{ $key }}">{{ $role }}</option>
             @endforeach
         </select>
+
+        <button
+            type="button"
+            class="text-sm text-gray-800 bg-gray-300 py-2 rounded hover:bg-gray-600 hover:text-gray-100 px-8"
+            wire:click="clear"
+        >Clear</button>
     </div>
 
     <table class="min-w-max w-full table-auto mt-4">
