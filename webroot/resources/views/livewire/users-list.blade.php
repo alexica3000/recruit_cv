@@ -9,7 +9,7 @@
         />
 
         <select
-            class="text-sm text-gray-600 pl-5 pr-10 ml-5 bg-white hover:border-gray-400 focus:outline-none appearance-none border rounded leading-tight"
+            class="text-sm text-gray-600 pl-5 pr-10 ml-2 bg-white hover:border-gray-400 focus:outline-none appearance-none border rounded leading-tight"
             wire:model="roleId"
         >
             <option value="">Choose a role</option>
@@ -20,7 +20,7 @@
 
         <button
             type="button"
-            class="text-sm text-gray-800 bg-gray-300 py-2 rounded hover:bg-gray-600 hover:text-gray-100 px-8"
+            class="text-sm text-gray-800 bg-gray-300 py-2 px-8 ml-2 rounded hover:bg-gray-600 hover:text-gray-100"
             wire:click="clear"
         >Clear</button>
     </div>
@@ -64,9 +64,6 @@
                 </td>
                 <td class="py-2 px-6 text-center">
                     <div class="flex item-center justify-center">
-                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <i class="fas fa-eye"></i>
-                        </div>
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                             <a href="{{ route('users.edit', $user) }}"><i class="fas fa-edit"></i></a>
                         </div>

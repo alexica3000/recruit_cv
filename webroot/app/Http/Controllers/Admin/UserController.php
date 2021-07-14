@@ -44,16 +44,15 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $user->update($request->only(['name', 'email', 'role_id']));
+
+        if ($request->input('password')) {
+            $user->update($request->input('password'));
+        }
+
+        return redirect()->route('users.edit', $user);
     }
 
     /**

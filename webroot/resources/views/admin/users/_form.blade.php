@@ -59,7 +59,7 @@
         <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
             Role
         </label>
-        <select class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" name="role_id">
+        <select class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none rounded" name="role_id">
             <option>Choose a role</option>
             @foreach(\App\Models\User::ROLES as $key => $role)
                 <option value="{{ $key }}" {{ $key == $user->role_id ? 'selected' : '' }}>{{ $role }}</option>

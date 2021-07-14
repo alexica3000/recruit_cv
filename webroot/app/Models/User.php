@@ -82,4 +82,9 @@ class User extends Authenticatable implements HasRoleInterface
     {
         return addslashes($this->name);
     }
+
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

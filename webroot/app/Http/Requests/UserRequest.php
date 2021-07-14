@@ -14,11 +14,21 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
+        $method = request()->getMethod();
+
         return [
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255',
-            'password' => 'required|confirmed|max:255',
+            'password' => $this->passwordRules(),
             'role_id'  => 'required|in:' . implode(',', array_keys(User::ROLES))
         ];
+    }
+
+    private function passwordRules(): array
+    {
+        $putRules = ['required', 'confirmed', 'max:255'];
+        $postRules = ['nullable', 'confirmed', 'max:255'];
+
+        return request()->getMethod() == 'put' ? $putRules : $postRules;
     }
 }
