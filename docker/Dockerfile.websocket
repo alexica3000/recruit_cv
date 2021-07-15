@@ -1,0 +1,11 @@
+FROM node:latest
+
+RUN npm install -g laravel-echo-server
+
+EXPOSE 6001
+
+WORKDIR /app
+
+ADD websocket-entrypoint.sh /websocket-entrypoint.sh
+RUN chmod 755 /*.sh
+CMD ["/websocket-entrypoint.sh"]

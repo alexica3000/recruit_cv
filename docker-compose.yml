@@ -1,71 +1,80 @@
-version: '3.1'
+version: '3'
 services:
-
-  # The nginx Web Server
-  web:
-    build:
-      context: ./
-      dockerfile: docker/web.dockerfile
-    working_dir: /var/www
-    ports:
-      - 8080:80
-    volumes:
-      - ./:/var/www
-    depends_on:
-      - "app"
-      - "mariadb"
-    networks:
-      - intership-network
-
-  # The PHP Application
   app:
     build:
-      context: ./
-      dockerfile: docker/app.dockerfile
-    working_dir: /var/www
-    environment:
-      DB_PORT: 3306
-      DB_HOST: mariadb
-      MAIL_HOST: mailhog
-      MAIL_PORT: 1025
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      context: ./docker
+      dockerfile: Dockerfile.app
+    working_dir: /app
     volumes:
-      - ./:/var/www
-      - ./docker/php.ini:/usr/local/etc/php/php.ini
+      - ./webroot:/app
     networks:
-      - intership-network
-
-  mariadb:
-    image: mariadb
-    restart: always
+      - debug-network
     environment:
-      MYSQL_USER: intership
-      MYSQL_PASSWORD: intership
-      MYSQL_DATABASE : intership
-      MYSQL_ROOT_PASSWORD : root
-    ports:
-      - 33060:3306
-    networks:
-      - intership-network
+      PHP_IDE_CONFIG: "serverName=127.0.0.1"
 
-  # Mailhog
-  mailhog:
-    image: mailhog/mailhog
+  presentation:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.presentation
+    working_dir: /app
+    volumes:
+      - ./webroot:/app
     ports:
-      - 1025:1025
-      - 8025:8025
+      - 8082:80
     networks:
-      - intership-network
+      - debug-network
 
-  # Redis
+  database:
+    image: mysql:5.7
+    command: --max_allowed_packet=52505856
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=recruit"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+    ports:
+      - "33062:3306"
+    networks:
+      - debug-network
+
+  queue:
+    image: recruit_cv_app
+    command: php artisan queue:work
+    volumes:
+      - ./webroot:/app
+    restart: always
+    networks:
+      - debug-network
+
   redis:
-    image: redis
+    image: redis:alpine
+    command: redis-server
     ports:
       - 6379:6379
     networks:
-      - intership-network
+      - debug-network
+
+  websocket-server:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.websocket
+    volumes:
+      - ./webroot:/app
+    ports:
+      - "6001:6001"
+    depends_on:
+      - redis
+    networks:
+      - debug-network
+
+volumes:
+  dbdata:
 
 networks:
-  intership-network:
+  debug-network:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.220.0/28
