@@ -14,8 +14,6 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
-        $method = request()->getMethod();
-
         return [
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255',
@@ -30,5 +28,12 @@ class UserRequest extends FormRequest
         $postRules = ['nullable', 'confirmed', 'max:255'];
 
         return request()->getMethod() == 'put' ? $putRules : $postRules;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'role_id.in' => 'Role field is required.'
+        ];
     }
 }
