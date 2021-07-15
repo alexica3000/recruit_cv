@@ -27,15 +27,9 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show()
     {
-        //
+        abort(404);
     }
 
     public function edit(User $user): View
@@ -54,14 +48,8 @@ class UserController extends Controller
         return redirect()->route('users.edit', $user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        abort(404);
     }
 }
