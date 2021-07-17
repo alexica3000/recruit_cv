@@ -36,7 +36,7 @@ class UsersList extends Component
         abort_if(auth()->id() == $user->id, 403, 'You cannot delete yourself.');
 
         $user->delete();
-        $this->users = User::query()->latest()->get();
+        $this->users = $this->getUsers();
     }
 
     private function getUsers(): Collection
@@ -48,7 +48,7 @@ class UsersList extends Component
             ->when($this->roleId, function(Builder $query) {
                 $query->where('role_id', $this->roleId);
             })
-            ->latest()
+            ->orderBy('id', 'desc')
             ->get();
     }
 

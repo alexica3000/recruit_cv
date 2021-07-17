@@ -68,13 +68,7 @@
     </div>
 </div>
 
-<div class="mb-6 text-center">
-    <button
-        class="px-12 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-        type="submit"
-    >
-        {{ isset($user->id) ? 'Edit User' : 'Add User' }}
-    </button>
-
-    <a href="{{ route('users.index') }}" class="px-12 py-2 ml-2 font-bold text-white bg-yellow-500 rounded-full hover:bg-yellow-700 focus:outline-none focus:shadow-outline">Cancel</a>
+<div class="mb-6 text-center flex justify-center">
+    <x-forms.submit-button text="{{ isset($user->id) ? 'Edit User' : 'Add User' }}" />
+    <x-forms.cancel-button route="{{ route('users.index') }}" />
 </div>

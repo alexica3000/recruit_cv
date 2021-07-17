@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * Class User
  * @package App\Model
  * @property string $classRole
+ * @property string $name
  * @property string $role
  * @property integer $role_id
  */
@@ -81,10 +82,5 @@ class User extends Authenticatable implements HasRoleInterface
     public function getSlashesNameAttribute(): string
     {
         return addslashes($this->name);
-    }
-
-    public function setPasswordAttribute($value): void
-    {
-        $this->attributes['password'] = bcrypt($value);
     }
 }
