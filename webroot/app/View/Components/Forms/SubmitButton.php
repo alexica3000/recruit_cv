@@ -5,19 +5,17 @@ namespace App\View\Components\Forms;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class AddButton extends Component
+class SubmitButton extends Component
 {
-    public string $route;
     public string $text;
 
-    public function __construct(string $route, string $text = 'Add')
+    public function __construct(string $text)
     {
-        $this->route = $route;
         $this->text = $text;
     }
 
     public function render(): View
     {
-        return view('components.forms.add-button');
+        return view('components.forms.submit-button');
     }
 }

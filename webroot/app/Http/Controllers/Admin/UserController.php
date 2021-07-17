@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function create(): View
     {
-        return view('admin.users.add');
+        return view('admin.users.create');
     }
 
     public function store(UserRequest $request) : RedirectResponse
