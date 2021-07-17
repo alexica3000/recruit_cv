@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request) : RedirectResponse
     {
-        User::query()->create($request->validated());
+        User::query()->create($request->only('name', 'email', 'role_id') + ['password' => bcrypt($request->input('password'))]);
 
         return redirect()->route('users.index');
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
         $user->update($request->only(['name', 'email', 'role_id']));
 
         if ($request->input('password')) {
-            $user->update($request->input('password'));
+            $user->update(['password' => bcrypt($request->input('password'))]);
         }
 
         return redirect()->route('users.edit', $user);

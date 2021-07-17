@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class DepartmentController extends Controller
+class CompanyController extends Controller
 {
     public function index(): View
     {
-        return view('admin.departments.index');
+        return view('admin.companies.index');
     }
 
     public function create(): View
     {
-        return view('admin.departments.create');
+        return view('admin.companies.create');
     }
 
     /**

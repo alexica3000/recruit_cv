@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,5 +10,5 @@ Route::get('/', fn() => redirect()->route('dashboard'));
 Route::prefix('dashboard')->middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/', [DashboardController::class, 'home'])->name('dashboard');
     Route::resource('users', UserController::class);
-    Route::resource('departments', DepartmentController::class);
+    Route::resource('companies', CompanyController::class);
 });

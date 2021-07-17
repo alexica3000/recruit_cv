@@ -1,4 +1,5 @@
 <div>
+    @php /** @var \App\Models\Company $company */ @endphp
     <div class="mb-4 md:mr-2 md:mb-0">
         <input
             class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -19,35 +20,36 @@
         </tr>
         </thead>
         <tbody class="text-gray-600 text-sm font-light">
-        @foreach($departments as $department)
+
+        @foreach($companies as $company)
             <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="py-2 px-6 text-left whitespace-nowrap">
                     <div class="flex items-center">
                         <div class="mr-2">
-                            {{ $department->id }}
+                            {{ $company->id }}
                         </div>
                     </div>
                 </td>
                 <td class="py-2 px-6 text-left">
                     <div class="flex items-center">
                         <div class="mr-2">
-                            <span>{{ $department->name }}</span>
+                            <span>{{ $company->name }}</span>
                         </div>
                     </div>
                 </td>
                 <td class="py-2 px-6 text-center">
-                    {{ $department->created_at->format('d.m.Y') }}
+                    {{ $company->created_at->format('d.m.Y') }}
                 </td>
                 <td class="py-2 px-6 text-center">
                     <div class="flex item-center justify-center">
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <a href="{{ route('departments.edit', $department) }}"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('companies.edit', $company) }}"><i class="fas fa-edit"></i></a>
                         </div>
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
-                            <button id="del_user_{{ $department->id }}" wire:click="destroy({{$department->id}})"></button>
+                            <button id="del_user_{{ $company->id }}" wire:click="destroy({{$company->id}})"></button>
                             <button
                                 type="button"
-                                @click="$dispatch('dispatchdeletemodal', {title: '{{ addslashes($department->name) }}', form_id: 'del_user_{{ $department->id }}'})"
+                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $company->slashedName }}', form_id: 'del_user_{{ $company->id }}'})"
                             >
                                 <i class="fas fa-trash-alt"></i>
                             </button>

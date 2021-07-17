@@ -1,3 +1,5 @@
+@php /** @var \App\Models\Company $company */ @endphp
+
 <div class="mb-4 md:flex md:justify-between">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
@@ -8,7 +10,7 @@
             type="text"
             placeholder="Name"
             name="name"
-            value="{{ $department->name }}"
+            value="{{ $company->name }}"
         />
     </div>
 </div>
@@ -28,6 +30,6 @@
 </div>
 
 <div class="flex mb-6 text-center justify-center">
-    <x-forms.submit-button text="{{ isset($department->id) ? 'Edit Department' : 'Add Department' }}" />
-    <x-forms.cancel-button route="{{ route('departments.index') }}" />
+    <x-forms.submit-button text="{{ isset($company->id) ? 'Edit Company' : 'Add Company' }}" />
+    <x-forms.cancel-button route="{{ route('companies.index') }}" />
 </div>
