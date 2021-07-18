@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\HasRoleInterface;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,11 @@ use Laravel\Sanctum\HasApiTokens;
  * Class User
  * @package App\Model
  * @property string $classRole
+ * @property Carbon $created_at
+ * @property string $email
+ * @property int $id
  * @property string $name
+ * @property string $slashesName
  * @property string $role
  * @property integer $role_id
  */

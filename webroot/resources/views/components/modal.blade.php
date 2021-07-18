@@ -77,7 +77,7 @@
                 this.fnOpenModal();
             },
             text() {
-                return `Are you sure you want to delete ${this.title} user?`;
+                return `Are you sure you want to delete ${this.title}?`;
             },
             fnOpenModal() {
                 this.$refs.delete_modal.classList.remove('hidden');

@@ -37,6 +37,7 @@
             </tr>
         </thead>
         <tbody class="text-gray-600 text-sm font-light">
+        @php /** @var \App\Models\User $user */ @endphp
         @foreach($users as $user)
             <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="py-2 px-6 text-left whitespace-nowrap">
@@ -71,7 +72,7 @@
                             <button id="del_user_{{ $user->id }}" wire:click="destroy({{$user->id}})"></button>
                             <button
                                 type="button"
-                                @click="$dispatch('dispatchdeletemodal', {title: '{{ addslashes($user->name) }}', form_id: 'del_user_{{ $user->id }}'})"
+                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $user->slashesName }}', form_id: 'del_user_{{ $user->id }}'})"
                             >
                                 <i class="fas fa-trash-alt"></i>
                             </button>

@@ -46,10 +46,10 @@
                             <a href="{{ route('companies.edit', $company) }}"><i class="fas fa-edit"></i></a>
                         </div>
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
-                            <button id="del_user_{{ $company->id }}" wire:click="destroy({{$company->id}})"></button>
+                            <button id="del_company_{{ $company->id }}" wire:click="destroy({{$company->id}})"></button>
                             <button
                                 type="button"
-                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $company->slashedName }}', form_id: 'del_user_{{ $company->id }}'})"
+                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $company->slashedName }}', form_id: 'del_company_{{ $company->id }}'})"
                             >
                                 <i class="fas fa-trash-alt"></i>
                             </button>

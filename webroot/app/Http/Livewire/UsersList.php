@@ -31,7 +31,7 @@ class UsersList extends Component
     /**
      * @throws \Throwable
      */
-    public function destroy(User $user)
+    public function destroy(User $user): void
     {
         abort_if(auth()->id() == $user->id, 403, 'You cannot delete yourself.');
 
@@ -52,7 +52,7 @@ class UsersList extends Component
             ->get();
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->search = null;
         $this->roleId = '';

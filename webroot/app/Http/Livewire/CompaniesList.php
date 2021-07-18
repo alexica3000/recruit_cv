@@ -25,7 +25,13 @@ class CompaniesList extends Component
             ->when($this->search, function(Builder $query) {
                 $query->where('name', 'like', "%$this->search%");
             })
-            ->latest()
+            ->orderBy('id', 'desc')
             ->get();
+    }
+
+    public function destroy(Company $company): void
+    {
+        $company->delete();
+        $this->companies = $this->getCompanies();
     }
 }
