@@ -45,7 +45,7 @@ class UserController extends Controller
             $user->update(['password' => bcrypt($request->input('password'))]);
         }
 
-        return redirect()->route('users.edit', $user);
+        return redirect()->route('users.edit', $user)->with('status', 'User has been updated successfully.');
     }
 
     public function destroy()

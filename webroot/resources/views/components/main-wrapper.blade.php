@@ -4,6 +4,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="m-4">
                     <x-errors/>
+                    <x-status />
                     {{ $slot }}
                 </div>
             </div>
