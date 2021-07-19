@@ -17,15 +17,14 @@
 
 <div class="mb-4 w-full">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
-{{--        <label class="block mb-2 text-sm font-bold text-gray-700" for="password">--}}
-{{--            Role--}}
-{{--        </label>--}}
-{{--        <select class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none rounded" name="role_id">--}}
-{{--            <option>Choose a role</option>--}}
-{{--            @foreach(\App\Models\User::ROLES as $key => $role)--}}
-{{--                <option value="{{ $key }}" {{ $key == $user->role_id ? 'selected' : '' }}>{{ $role }}</option>--}}
-{{--            @endforeach--}}
-{{--        </select>--}}
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+            Image
+        </label>
+        <label class="px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-600 hover:text-white">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span class="mt-2 text-base leading-normal">Select a file</span>
+            <input type='file' class="hidden" name="image" />
+        </label>
     </div>
 </div>
 

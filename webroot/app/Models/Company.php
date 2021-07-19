@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Class Company
@@ -14,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $slashedName
  */
-class Company extends Model
+class Company extends Model implements HasImagesInterface
 {
     use HasFactory;
 
@@ -24,5 +26,10 @@ class Company extends Model
     public function getSlashedNameAttribute(): string
     {
         return addslashes($this->name);
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

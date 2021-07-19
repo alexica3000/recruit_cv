@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
+use App\Services\ImageService;
 use Illuminate\View\View;
 
 class CompanyController extends Controller
@@ -19,9 +20,11 @@ class CompanyController extends Controller
         return view('admin.companies.create');
     }
 
-    public function store(CompanyRequest $request): View
+    public function store(CompanyRequest $request, ImageService $service): View
     {
-        Company::query()->create($request->validated());
+        /** @var Company $company */
+        $company = Company::query()->create($request->validated());
+        $service->saveImage($request, $company);
 
         return view('admin.companies.index');
     }
