@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Company
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property int $id
  * @property string $name
  * @property string $slashedName
+ * @property Image $logo
+ * @property string $logoUrl
  */
 class Company extends Model implements HasImagesInterface
 {
@@ -31,5 +34,19 @@ class Company extends Model implements HasImagesInterface
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function getLogoAttribute(): Model|Image|null
+    {
+        return $this->images()->first();
+    }
+
+    public function getLogoUrlAttribute(): string
+    {
+        if ($this->logo) {
+            return Storage::url($this->logo->url);
+        }
+
+        return asset('/images/default.png');
     }
 }

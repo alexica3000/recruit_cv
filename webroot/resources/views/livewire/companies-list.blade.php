@@ -33,7 +33,8 @@
                 <td class="py-2 px-6 text-left">
                     <div class="flex items-center">
                         <div class="mr-2">
-                            <span>{{ $company->name }}</span>
+                            <img src="{{ $company->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
+                            <span class="ml-2">{{ $company->name }}</span>
                         </div>
                     </div>
                 </td>
