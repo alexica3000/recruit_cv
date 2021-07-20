@@ -36,7 +36,7 @@ class Company extends Model implements HasImagesInterface
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function getLogoAttribute(): Model|Image|null
+    public function getLogoAttribute()
     {
         return $this->images()->first();
     }

@@ -39,9 +39,10 @@ class CompanyController extends Controller
         return view('admin.companies.edit', compact('company'));
     }
 
-    public function update(CompanyRequest $request, Company $company): View
+    public function update(CompanyRequest $request, Company $company, ImageService $service): View
     {
         $company->update($request->validated());
+        $service->updateImage($request, $company);
 
         return view('admin.companies.edit', compact('company'));
     }

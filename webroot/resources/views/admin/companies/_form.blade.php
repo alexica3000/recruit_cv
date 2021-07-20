@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="mb-4 w-full">
+<div class="mb-4 w-full flex">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
             Image
@@ -26,6 +26,11 @@
             <input type='file' class="hidden" name="image" />
         </label>
     </div>
+    @if($company->logo)
+        <div class="w-1/4">
+            <img src="{{ $company->logoUrl }}" alt="">
+        </div>
+    @endif
 </div>
 
 <div class="flex mb-6 text-center justify-center">

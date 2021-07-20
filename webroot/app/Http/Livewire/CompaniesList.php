@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Company;
+use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -29,8 +30,9 @@ class CompaniesList extends Component
             ->get();
     }
 
-    public function destroy(Company $company): void
+    public function destroy(Company $company, ImageService $service): void
     {
+        $service->deleteImage($company->logo);
         $company->delete();
         $this->companies = $this->getCompanies();
     }
