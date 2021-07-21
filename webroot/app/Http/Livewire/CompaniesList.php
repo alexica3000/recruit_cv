@@ -5,24 +5,33 @@ namespace App\Http\Livewire;
 use App\Models\Company;
 use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * Class CompaniesList
+ * @package App\Http\Livewire
+ * @property string $search;
+ */
 class CompaniesList extends Component
 {
     use WithPagination;
 
-    protected $companies;
-    public ?string $search = null;
+    public string $search;
 
-    public function render()
+    public function mount()
     {
-        $this->companies = $this->getCompanies();
-
-        return view('livewire.companies-list', ['companies' => $this->companies]);
+        $this->search = '';
     }
 
-    private function getCompanies()
+    public function render(): View
+    {
+        return view('livewire.companies-list', ['companies' => $this->getCompanies()]);
+    }
+
+    private function getCompanies(): LengthAwarePaginator
     {
         return Company::query()
             ->when($this->search, function(Builder $query) {
@@ -36,6 +45,5 @@ class CompaniesList extends Component
     {
         $service->deleteImage($company->logo);
         $company->delete();
-        $this->companies = $this->getCompanies();
     }
 }
