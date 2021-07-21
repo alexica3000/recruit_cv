@@ -25,23 +25,30 @@ class Company extends Model implements HasImagesInterface
 
     protected $table = 'companies';
     protected $fillable = ['name'];
+    protected $perPage = 10;
 
     public function getSlashedNameAttribute(): string
     {
         return addslashes($this->name);
     }
 
+    /**
+     * @return MorphMany|Image[]
+     */
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function getLogoAttribute()
+    /**
+     * @return Image|null
+     */
+    protected function getLogoAttribute(): Image|null
     {
         return $this->images()->first();
     }
 
-    public function getLogoUrlAttribute(): string
+    protected function getLogoUrlAttribute(): string
     {
         if ($this->logo) {
             return Storage::url($this->logo->url);
