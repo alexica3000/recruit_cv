@@ -8,7 +8,7 @@
     <x-main-wrapper>
         <div class="flex justify-center">
             <div class="w-full lg:w-8/12 bg-white rounded-lg lg:rounded-l-none">
-                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="{{ route('companies.store') }}" method="post">
+                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="{{ route('companies.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @include('admin.companies._form', ['company' => new \App\Models\Company()])
                 </form>

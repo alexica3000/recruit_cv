@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
+use App\Models\Company;
+use App\Services\ImageService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CompanyController extends Controller
@@ -18,59 +21,35 @@ class CompanyController extends Controller
         return view('admin.companies.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(CompanyRequest $request, ImageService $service): RedirectResponse
     {
-        //
+        /** @var Company $company */
+        $company = Company::query()->create($request->validated());
+        $service->saveImage($request, $company);
+
+        return redirect()->route('companies.index')->with('status', 'The Company has been saved successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show()
     {
-        //
+        abort(404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Company $company): View
     {
-        //
+        return view('admin.companies.edit', compact('company'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, Company $company, ImageService $service): RedirectResponse
     {
-        //
+        $company->update($request->validated());
+        $service->updateImage($request, $company);
+
+        return redirect()->route('companies.edit', $company)->with('status', 'The Company has been saved successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        abort(404);
     }
 }

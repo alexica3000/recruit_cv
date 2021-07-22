@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Company
@@ -13,16 +16,44 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $slashedName
+ * @property Image $logo
+ * @property string $logoUrl
  */
-class Company extends Model
+class Company extends Model implements HasImagesInterface
 {
     use HasFactory;
 
     protected $table = 'companies';
     protected $fillable = ['name'];
+    protected $perPage = 10;
 
-    public function addSlashedNameAttribute(): string
+    public function getSlashedNameAttribute(): string
     {
         return addslashes($this->name);
+    }
+
+    /**
+     * @return MorphMany|Image[]
+     */
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * @return Image|null
+     */
+    protected function getLogoAttribute(): Image|null
+    {
+        return $this->images()->first();
+    }
+
+    protected function getLogoUrlAttribute(): string
+    {
+        if ($this->logo) {
+            return Storage::url($this->logo->url);
+        }
+
+        return asset('/images/default.png');
     }
 }

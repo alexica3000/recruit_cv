@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         User::query()->create($request->only('name', 'email', 'role_id') + ['password' => bcrypt($request->input('password'))]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('status', 'User has been saved successfully.');
     }
 
     public function show()
@@ -45,7 +45,7 @@ class UserController extends Controller
             $user->update(['password' => bcrypt($request->input('password'))]);
         }
 
-        return redirect()->route('users.edit', $user);
+        return redirect()->route('users.edit', $user)->with('status', 'User has been updated successfully.');
     }
 
     public function destroy()

@@ -33,7 +33,8 @@
                 <td class="py-2 px-6 text-left">
                     <div class="flex items-center">
                         <div class="mr-2">
-                            <span>{{ $company->name }}</span>
+                            <img src="{{ $company->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
+                            <span class="ml-2">{{ $company->name }}</span>
                         </div>
                     </div>
                 </td>
@@ -46,10 +47,10 @@
                             <a href="{{ route('companies.edit', $company) }}"><i class="fas fa-edit"></i></a>
                         </div>
                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
-                            <button id="del_user_{{ $company->id }}" wire:click="destroy({{$company->id}})"></button>
+                            <button id="del_company_{{ $company->id }}" wire:click="destroy({{$company->id}})"></button>
                             <button
                                 type="button"
-                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $company->slashedName }}', form_id: 'del_user_{{ $company->id }}'})"
+                                @click="$dispatch('dispatchdeletemodal', {title: '{{ $company->slashedName }}', form_id: 'del_company_{{ $company->id }}'})"
                             >
                                 <i class="fas fa-trash-alt"></i>
                             </button>
@@ -60,4 +61,7 @@
         @endforeach
         </tbody>
     </table>
+    <div class="mt-5">
+        {{ $companies->links() }}
+    </div>
 </div>
