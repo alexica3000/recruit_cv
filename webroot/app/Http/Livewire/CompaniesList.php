@@ -31,6 +31,11 @@ class CompaniesList extends Component
         return view('livewire.companies-list', ['companies' => $this->getCompanies()]);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     private function getCompanies(): LengthAwarePaginator
     {
         return Company::query()

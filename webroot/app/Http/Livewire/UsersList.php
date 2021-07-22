@@ -35,6 +35,11 @@ class UsersList extends Component
         return view('livewire.users-list', ['users' => $this->getUsers()]);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function destroy(User $user): void
     {
         abort_if(auth()->id() == $user->id, 403, 'You cannot delete yourself.');

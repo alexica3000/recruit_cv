@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Services\ImageService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CompanyController extends Controller
@@ -20,13 +21,13 @@ class CompanyController extends Controller
         return view('admin.companies.create');
     }
 
-    public function store(CompanyRequest $request, ImageService $service): View
+    public function store(CompanyRequest $request, ImageService $service): RedirectResponse
     {
         /** @var Company $company */
         $company = Company::query()->create($request->validated());
         $service->saveImage($request, $company);
 
-        return view('admin.companies.index');
+        return redirect()->route('companies.index')->with('status', 'The Company has been saved successfully.');
     }
 
     public function show()
@@ -39,12 +40,12 @@ class CompanyController extends Controller
         return view('admin.companies.edit', compact('company'));
     }
 
-    public function update(CompanyRequest $request, Company $company, ImageService $service): View
+    public function update(CompanyRequest $request, Company $company, ImageService $service): RedirectResponse
     {
         $company->update($request->validated());
         $service->updateImage($request, $company);
 
-        return view('admin.companies.edit', compact('company'));
+        return redirect()->route('companies.edit', $company)->with('status', 'The Company has been saved successfully.');
     }
 
     public function destroy()
