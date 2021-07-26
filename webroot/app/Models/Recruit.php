@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * Class Recruit
  * @package App\Models
  * @property  int $id
+ * @property string $name
+ * @property string $city
+ * @property string $job
+ * @property Carbon $birth_date
+ * @property string $description
  */
 class Recruit extends Model
 {

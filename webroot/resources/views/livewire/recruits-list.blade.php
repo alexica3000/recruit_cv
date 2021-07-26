@@ -38,24 +38,44 @@
                     <td class="py-2 px-6 text-left">
                         <div class="flex items-center">
                             <div class="mr-2">
-                                <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
+{{--                                <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">--}}
                                 <span class="ml-2">{{ $recruit->name }}</span>
                             </div>
                         </div>
                     </td>
                     <td class="py-2 px-6 text-center">
-                        {{ $recruit->created_at->format('d.m.Y') }}
+                        <div class="flex items-center">
+                            <div class="mr-2">
+                                <span class="ml-2">{{ $recruit->city }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-2 px-6 text-center">
+                        <div class="flex items-center">
+                            <div class="mr-2">
+                                <span class="ml-2">{{ $recruit->job }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-2 px-6 text-center">
+                        @if($recruit->birth_date)
+                            <div class="flex items-center">
+                                <div class="mr-2">
+                                    <span class="ml-2">{{ $recruit->birth_date->format('d.m.Y') }}</span>
+                                </div>
+                            </div>
+                        @endif
                     </td>
                     <td class="py-2 px-6 text-center">
                         <div class="flex item-center justify-center">
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                <a href="{{ route('companies.edit', $recruit) }}"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('recruits.edit', $recruit) }}"><i class="fas fa-edit"></i></a>
                             </div>
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
-                                <button id="del_company_{{ $recruit->id }}" wire:click="destroy({{$recruit->id}})"></button>
+                                <button id="del_recruit_{{ $recruit->id }}" wire:click="destroy({{$recruit->id}})"></button>
                                 <button
                                     type="button"
-                                    @click="$dispatch('dispatchdeletemodal', {title: '{{ $recruit->slashedName }}', form_id: 'del_company_{{ $recruit->id }}'})"
+                                    @click="$dispatch('dispatchdeletemodal', {title: '{{ $recruit->slashedName }}', form_id: 'del_recruit_{{ $recruit->id }}'})"
                                 >
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
