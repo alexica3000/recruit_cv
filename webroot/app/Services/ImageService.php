@@ -20,6 +20,10 @@ class ImageService
         }
     }
 
+    /**
+     * @param Request $request
+     * @param HasImagesInterface $resource
+     */
     public function updateImage(Request $request, HasImagesInterface $resource): void
     {
         if(!$request->hasFile('image')) {

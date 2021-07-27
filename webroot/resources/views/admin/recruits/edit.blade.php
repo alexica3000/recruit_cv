@@ -8,7 +8,7 @@
     <x-main-wrapper>
         <div class="flex justify-center">
             <div class="w-full lg:w-8/12 bg-white rounded-lg lg:rounded-l-none ">
-                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="{{ route('recruits.update', $recruit) }}" method="post">
+                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" action="{{ route('recruits.update', $recruit) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     @include('admin.recruits._form', ['recruit' => $recruit])

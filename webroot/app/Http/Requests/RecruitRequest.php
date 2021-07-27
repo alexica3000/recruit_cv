@@ -19,6 +19,7 @@ class RecruitRequest extends FormRequest
             'job'         => 'required|string|max:191',
             'description' => 'required|string|max:191',
             'birth_date'  => 'required|date',
+            'image'       => 'required|image|max:5000',
         ];
     }
 }

@@ -38,7 +38,7 @@
                     <td class="py-2 px-6 text-left">
                         <div class="flex items-center">
                             <div class="mr-2">
-{{--                                <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">--}}
+                                <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
                                 <span class="ml-2">{{ $recruit->name }}</span>
                             </div>
                         </div>

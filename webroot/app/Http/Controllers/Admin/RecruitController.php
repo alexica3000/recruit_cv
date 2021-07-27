@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecruitRequest;
 use App\Models\Recruit;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RecruitController extends Controller
@@ -21,9 +21,11 @@ class RecruitController extends Controller
         return view('admin.recruits.create');
     }
 
-    public function store(RecruitRequest $request): RedirectResponse
+    public function store(RecruitRequest $request, ImageService $service): RedirectResponse
     {
-        Recruit::query()->create($request->validated());
+        /** @var Recruit $recruit */
+        $recruit = Recruit::query()->create($request->validated());
+        $service->saveImage($request, $recruit);
 
         return redirect()->route('recruits.index')->with('status', 'The recruit has been saved successfully.');
     }
@@ -38,9 +40,10 @@ class RecruitController extends Controller
         return view('admin.recruits.edit', compact('recruit'));
     }
 
-    public function update(RecruitRequest $request, Recruit $recruit): RedirectResponse
+    public function update(RecruitRequest $request, Recruit $recruit, ImageService $service): RedirectResponse
     {
         $recruit->update($request->validated());
+        $service->updateImage($request, $recruit);
 
         return redirect()->route('recruits.edit', $recruit)->with('status', 'The recruit has been updated successfully.');
     }
