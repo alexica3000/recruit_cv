@@ -14,12 +14,17 @@ class RecruitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => 'required|string|max:191',
-            'city'        => 'required|string|max:191',
-            'job'         => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-            'birth_date'  => 'required|date',
-            'image'       => 'required|image|max:5000',
+            'name'             => 'required|string|max:191',
+            'city'             => 'required|string|max:191',
+            'job'              => 'required|string|max:191',
+            'description'      => 'required|string|max:191',
+            'birth_date'       => 'required|date',
+            'image'            => 'nullable|image|max:5000',
+            'work.name'        => 'required|string|max:191',
+            'work.short'       => 'required|string|max:191',
+            'work.start'       => 'required|date',
+            'work.end'         => 'nullable|date',
+            'work.description' => 'required|string',
         ];
     }
 }

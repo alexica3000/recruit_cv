@@ -1,5 +1,6 @@
 @php
     /** @var \App\Models\Recruit $recruit */
+    /** @var \App\Models\Experience $work */
 @endphp
 
 <div class="mb-4 md:flex md:justify-between">
@@ -80,6 +81,77 @@
         @endif
     </div>
 </div>
+
+<hr class="border border-gray-300 my-4">
+
+<div>
+    Work Experience
+</div>
+
+<div class="mb-4 md:flex md:justify-between">
+    <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+            Employer
+        </label>
+        <input
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Name"
+            name="work[name]"
+            value="{{ $work->name }}"
+        />
+    </div>
+    <div class="md:ml-2 w-1/2">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+            Job
+        </label>
+        <input
+            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Job"
+            name="work[short]"
+            value="{{ $work->short }}"
+        />
+    </div>
+</div>
+
+<div class="mb-4 md:flex md:justify-between">
+    <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+            Start
+        </label>
+        <input
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="date"
+            placeholder="Start"
+            name="work[start]"
+            value="{{ $work->start ? $work->start->format('Y-m-d') : '' }}"
+        />
+    </div>
+    <div class="md:ml-2 w-1/2">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+            End On
+        </label>
+        <input
+            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="date"
+            placeholder="End On"
+            name="work[end]"
+            value="{{ $work->end ? $work->end->format('Y-m-d') : '' }}"
+        />
+    </div>
+</div>
+
+<div class="mb-4 md:flex md:justify-between">
+    <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
+            Description
+        </label>
+        <textarea name="work[description]" id="description" cols="33" rows="5">{{ $work->description }}</textarea>
+    </div>
+</div>
+
+<hr class="border border-gray-300 my-4">
 
 <div class="mb-6 text-center flex justify-center">
     <x-forms.submit-button text="{{ isset($recruit->id) ? 'Edit Recruit' : 'Add Recruit' }}" />

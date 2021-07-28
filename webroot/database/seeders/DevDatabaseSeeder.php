@@ -11,6 +11,7 @@ class DevDatabaseSeeder extends Seeder
         $this->call([
             DevUsersSeeder::class,
             DevCompaniesSeeder::class,
+            DevRecruitsSeeder::class,
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecruitRequest;
+use App\Models\Experience;
 use App\Models\Recruit;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
@@ -37,12 +38,17 @@ class RecruitController extends Controller
 
     public function edit(Recruit $recruit): View
     {
-        return view('admin.recruits.edit', compact('recruit'));
+        $work = $recruit->work();
+
+        return view('admin.recruits.edit', compact('recruit', 'work'));
     }
 
     public function update(RecruitRequest $request, Recruit $recruit, ImageService $service): RedirectResponse
     {
         $recruit->update($request->validated());
+        $work = $recruit->work();
+        $work->fill($request->input('work'));
+        $work->save();
         $service->updateImage($request, $recruit);
 
         return redirect()->route('recruits.edit', $recruit)->with('status', 'The recruit has been updated successfully.');

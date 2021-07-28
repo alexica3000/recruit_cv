@@ -7,22 +7,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RecruitFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Recruit::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name'        => $this->faker->name,
+            'city'        => $this->faker->city,
+            'job'         => $this->faker->jobTitle,
+            'description' => $this->faker->sentence(20),
+            'birth_date'  => $this->faker->dateTime,
         ];
     }
 }

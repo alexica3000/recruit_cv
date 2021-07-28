@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -56,5 +57,25 @@ class Recruit extends Model implements HasImagesInterface
         }
 
         return asset('/images/default.png');
+    }
+
+    public function experience()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function work(): Experience
+    {
+        return $this->experience()->firstOrNew(['type' => Experience::TYPE_WORK]);
+    }
+
+    public function education(): Experience
+    {
+        return $this->experience()->firstOrNew(['type' => Experience::TYPE_EDUCATION]);
+    }
+
+    public function course(): Experience
+    {
+        return $this->experience()->firstOrNew(['type' => Experience::TYPE_COURSE]);
     }
 }

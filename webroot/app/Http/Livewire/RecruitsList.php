@@ -20,6 +20,7 @@ class RecruitsList extends Component
     private function getRecruits(): LengthAwarePaginator
     {
         return Recruit::query()
+            ->orderByDesc('id')
             ->paginate();
     }
 }
