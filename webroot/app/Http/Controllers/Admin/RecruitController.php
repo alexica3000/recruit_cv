@@ -38,17 +38,15 @@ class RecruitController extends Controller
 
     public function edit(Recruit $recruit): View
     {
-        $work = $recruit->work();
-
-        return view('admin.recruits.edit', compact('recruit', 'work'));
+        return view('admin.recruits.edit', compact('recruit'));
     }
 
     public function update(RecruitRequest $request, Recruit $recruit, ImageService $service): RedirectResponse
     {
         $recruit->update($request->validated());
-        $work = $recruit->work();
-        $work->fill($request->input('work'));
-        $work->save();
+        $this->executeSaveExperience($request, $recruit->work());
+        $this->executeSaveExperience($request, $recruit->education());
+        $this->executeSaveExperience($request, $recruit->course());
         $service->updateImage($request, $recruit);
 
         return redirect()->route('recruits.edit', $recruit)->with('status', 'The recruit has been updated successfully.');
@@ -57,5 +55,11 @@ class RecruitController extends Controller
     public function destroy()
     {
         abort(404);
+    }
+
+    private function executeSaveExperience(RecruitRequest $request, Experience $experience)
+    {
+        $experience->fill($request->input('work'));
+        $experience->save();
     }
 }
