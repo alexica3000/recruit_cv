@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Base\BaseRecruitController;
 use App\Http\Requests\RecruitRequest;
-use App\Models\Experience;
 use App\Models\Recruit;
-use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class RecruitController extends Controller
+class RecruitController extends BaseRecruitController
 {
     public function index(): View
     {
@@ -22,11 +20,9 @@ class RecruitController extends Controller
         return view('admin.recruits.create');
     }
 
-    public function store(RecruitRequest $request, ImageService $service): RedirectResponse
+    public function store(RecruitRequest $request): RedirectResponse
     {
-        /** @var Recruit $recruit */
-        $recruit = Recruit::query()->create($request->validated());
-        $service->saveImage($request, $recruit);
+        $this->storeRecruit($request);
 
         return redirect()->route('recruits.index')->with('status', 'The recruit has been saved successfully.');
     }
@@ -41,13 +37,9 @@ class RecruitController extends Controller
         return view('admin.recruits.edit', compact('recruit'));
     }
 
-    public function update(RecruitRequest $request, Recruit $recruit, ImageService $service): RedirectResponse
+    public function update(RecruitRequest $request, Recruit $recruit): RedirectResponse
     {
-        $recruit->update($request->validated());
-        $this->executeSaveExperience($request, $recruit->work());
-        $this->executeSaveExperience($request, $recruit->education());
-        $this->executeSaveExperience($request, $recruit->course());
-        $service->updateImage($request, $recruit);
+        $this->updateRecruit($request, $recruit);
 
         return redirect()->route('recruits.edit', $recruit)->with('status', 'The recruit has been updated successfully.');
     }
@@ -55,11 +47,5 @@ class RecruitController extends Controller
     public function destroy()
     {
         abort(404);
-    }
-
-    private function executeSaveExperience(RecruitRequest $request, Experience $experience)
-    {
-        $experience->fill($request->input('work'));
-        $experience->save();
     }
 }
