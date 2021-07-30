@@ -19,12 +19,7 @@ class CompaniesList extends Component
 {
     use WithPagination;
 
-    public string $search;
-
-    public function mount()
-    {
-        $this->search = '';
-    }
+    public string $search = '';
 
     public function render(): View
     {
