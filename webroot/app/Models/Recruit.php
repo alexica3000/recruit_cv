@@ -6,8 +6,8 @@ use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Storage;
  * @property string|null $logoUrl
  * @property Image|null $logo
  * @property Image[]|MorphMany $images
+ * @property HasMany $works
+ * @property HasMany $educations
+ * @property HasMany $courses
  */
 class Recruit extends Model implements HasImagesInterface
 {
@@ -59,23 +62,23 @@ class Recruit extends Model implements HasImagesInterface
         return asset('/images/default.png');
     }
 
-    public function experience()
+    public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
     }
 
-    public function work(): Experience
+    public function works(): HasMany
     {
-        return $this->experience()->firstOrNew(['type' => Experience::TYPE_WORK]);
+        return $this->experiences()->where('type', Experience::TYPE_WORK);
     }
 
-    public function education(): Experience
+    public function educations(): HasMany
     {
-        return $this->experience()->firstOrNew(['type' => Experience::TYPE_EDUCATION]);
+        return $this->experiences()->where('type', Experience::TYPE_EDUCATION);
     }
 
-    public function course(): Experience
+    public function courses(): HasMany
     {
-        return $this->experience()->firstOrNew(['type' => Experience::TYPE_COURSE]);
+        return $this->experiences()->where('type', Experience::TYPE_COURSE);
     }
 }

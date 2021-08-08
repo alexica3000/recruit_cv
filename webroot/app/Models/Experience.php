@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Experience
  * @package App\Models
+ * @property int $id
  * @property string $name
  * @property string $short
  * @property Carbon $start

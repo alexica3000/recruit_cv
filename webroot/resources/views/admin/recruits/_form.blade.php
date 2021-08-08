@@ -82,9 +82,9 @@
     </div>
 </div>
 
-@include('admin.recruits._experience', ['title' => 'Work Experience', 'resource' => $recruit->work(), 'field' => 'work'])
-@include('admin.recruits._experience', ['title' => 'Education', 'resource' => $recruit->education(), 'field' => 'education'])
-@include('admin.recruits._experience', ['title' => 'Course or Training', 'resource' => $recruit->course(), 'field' => 'course'])
+{{--@include('admin.recruits._experience', ['title' => 'Work Experience', 'resource' => $recruit->work(), 'field' => 'work'])--}}
+{{--@include('admin.recruits._experience', ['title' => 'Education', 'resource' => $recruit->education(), 'field' => 'education'])--}}
+{{--@include('admin.recruits._experience', ['title' => 'Course or Training', 'resource' => $recruit->course(), 'field' => 'course'])--}}
 
 <hr class="border border-gray-300 my-4">
 

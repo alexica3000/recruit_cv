@@ -1,3 +1,7 @@
+@php
+ /** @var \App\Models\Recruit $recruit */
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,6 +19,28 @@
                 </form>
             </div>
         </div>
+
+        @include('admin.recruits._experience_list', [
+            'title' => 'Work Experience',
+            'experiences' => $recruit->works,
+            'field_name' => 'Employer',
+            'field_short' => 'Job',
+        ])
+
+        @include('admin.recruits._experience_list', [
+            'title' => 'Education',
+            'experiences' => $recruit->educations,
+            'field_name' => 'Institute',
+            'field_short' => 'Education',
+        ])
+
+        @include('admin.recruits._experience_list', [
+            'title' => 'Course or Training',
+            'experiences' => $recruit->courses,
+            'field_name' => 'Institute',
+            'field_short' => 'Course or Training',
+        ])
+
     </x-main-wrapper>
 
 </x-app-layout>
