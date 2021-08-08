@@ -20,27 +20,28 @@
             </div>
         </div>
 
-        @include('admin.recruits._experience_list', [
+        @livewire('experience.experiences-list', [
             'title' => 'Work Experience',
             'experiences' => $recruit->works,
             'field_name' => 'Employer',
             'field_short' => 'Job',
         ])
 
-        @include('admin.recruits._experience_list', [
+        @livewire('experience.experiences-list', [
             'title' => 'Education',
             'experiences' => $recruit->educations,
             'field_name' => 'Institute',
             'field_short' => 'Education',
         ])
 
-        @include('admin.recruits._experience_list', [
+        @livewire('experience.experiences-list', [
             'title' => 'Course or Training',
             'experiences' => $recruit->courses,
             'field_name' => 'Institute',
             'field_short' => 'Course or Training',
         ])
 
+        @livewire('experience.modal-experience-form')
     </x-main-wrapper>
 
 </x-app-layout>
