@@ -14,11 +14,11 @@ class ModalExperienceForm extends Component
     public string $field;
     public string $title;
 
-    public string $name = '';
-    public string $short = '';
-    public string $start = '';
-    public string $end = '';
-    public string $description = '';
+    public string $name;
+    public string $short;
+    public string $start;
+    public string $end;
+    public string $description;
 
     protected $listeners = [
         'createExperience'  => 'create',
@@ -43,6 +43,15 @@ class ModalExperienceForm extends Component
         return view('livewire.experience.modal-experience-form');
     }
 
+
+    public function create(int $recruitId, string $type): void
+    {
+        $this->resetData();
+        $this->recruitId = $recruitId;
+        $this->type = $type;
+        $this->showModal = true;
+    }
+
     public function edit(Experience $experience): void
     {
         $this->name        = $experience->name;
@@ -53,14 +62,6 @@ class ModalExperienceForm extends Component
         $this->showModal   = true;
         $this->experience  = $experience;
         $this->recruitId   = $experience->recruit->id;
-    }
-
-    public function create(int $recruitId, string $type): void
-    {
-        $this->resetData();
-        $this->recruitId = $recruitId;
-        $this->type = $type;
-        $this->showModal = true;
     }
 
     public function addExperience()
@@ -79,16 +80,6 @@ class ModalExperienceForm extends Component
 
         $this->hideModal();
         $this->emit($this->getTypeListener($this->type), $this->recruitId);
-    }
-
-    public function hideModal(): void
-    {
-        $this->showModal = false;
-    }
-
-    public function submit()
-    {
-        isset($this->experience->id) ? $this->updateExperience() : $this->addExperience();
     }
 
     public function updateExperience(): void
@@ -125,5 +116,15 @@ class ModalExperienceForm extends Component
         $this->end = '';
         $this->description = '';
         $this->experience = new Experience();
+    }
+
+    public function submit()
+    {
+        isset($this->experience->id) ? $this->updateExperience() : $this->addExperience();
+    }
+
+    public function hideModal(): void
+    {
+        $this->showModal = false;
     }
 }
