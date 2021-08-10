@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Experience;
 
+use App\Models\Experience;
 use App\Models\Recruit;
 
 class ExperiencesListWork extends ExperiencesList
@@ -13,5 +14,10 @@ class ExperiencesListWork extends ExperiencesList
     public function updateTypeWork(Recruit $recruit)
     {
         $this->experiences = $recruit->works;
+    }
+
+    public function create()
+    {
+        $this->emit('createExperience', $this->recruit->id, Experience::TYPE_WORK);
     }
 }

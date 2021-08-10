@@ -25,6 +25,7 @@
             'experiences' => $recruit->works,
             'field_name' => 'Employer',
             'field_short' => 'Job',
+            'recruit' => $recruit,
         ])
 
         @livewire('experience.experiences-list-education', [
@@ -32,6 +33,7 @@
             'experiences' => $recruit->educations,
             'field_name' => 'Institute',
             'field_short' => 'Education',
+            'recruit' => $recruit,
         ])
 
         @livewire('experience.experiences-list-course', [
@@ -39,6 +41,7 @@
             'experiences' => $recruit->courses,
             'field_name' => 'Institute',
             'field_short' => 'Course or Training',
+            'recruit' => $recruit,
         ])
 
         @livewire('experience.modal-experience-form')

@@ -5,6 +5,7 @@
 <div>
     <div class="mt-4">
         {{ $title ?? '' }}
+        <button wire:click="create"><i class="fas fa-plus-circle"></i></button>
     </div>
 
     @if(isset($experiences) && count($experiences))
