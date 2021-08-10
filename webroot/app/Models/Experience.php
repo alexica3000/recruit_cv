@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Experience
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $start
  * @property Carbon $end
  * @property string $description
+ * @property Recruit $recruit
+ * @property string $type
  */
 class Experience extends Model
 {
@@ -36,4 +39,9 @@ class Experience extends Model
         self::TYPE_EDUCATION => 'Education',
         self::TYPE_COURSE    => 'Course or Training',
     ];
+
+    public function recruit(): BelongsTo
+    {
+        return $this->belongsTo(Recruit::class);
+    }
 }

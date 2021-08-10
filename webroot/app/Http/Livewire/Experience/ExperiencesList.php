@@ -2,28 +2,34 @@
 
 namespace App\Http\Livewire\Experience;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Recruit;
 use Livewire\Component;
 
+/**
+ * @property $experiences
+ */
 class ExperiencesList extends Component
 {
+    public const TYPE_WORK      = 'updateTypeWork';
+    public const TYPE_EDUCATION = 'updateTypeEducation';
+    public const TYPE_COURSE    = 'updateTypeCourse';
+
     public string $title;
     public string $field_name;
     public string $field_short;
-    public Collection $experiences;
+    public $experiences;
 
-    public function mount()
-    {
-        $this->showModal = false;
-    }
+    protected $listeners = [
+//        'updateTypeCourse'    => 'updateTypeCourse',
+    ];
 
     public function render()
     {
         return view('livewire.experience.experiences-list');
     }
 
-    public function editExperience()
+    public function updateTypeCourse(Recruit $recruit)
     {
-//        $this->showModal = true;
+        $this->experiences = $recruit->educations;
     }
 }

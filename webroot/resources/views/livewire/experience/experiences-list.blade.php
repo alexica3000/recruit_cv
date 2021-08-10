@@ -68,7 +68,7 @@
                     <td class="py-2 px-6 text-center">
                         <div class="flex item-center justify-center">
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                <button wire:click="$emit('editExperience')"><i class="fas fa-edit"></i></button>
+                                <button wire:click="$emit('editExperience', {{ $experience }})"><i class="fas fa-edit"></i></button>
                             </div>
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
 {{--                                <button id="del_recruit_{{ $recruit->id }}" wire:click="destroy({{$recruit->id}})"></button>--}}
@@ -87,5 +87,4 @@
         </table>
     @endif
 
-{{--    @include('components.modal-experience-form')--}}
 </div>

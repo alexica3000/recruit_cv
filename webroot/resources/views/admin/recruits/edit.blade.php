@@ -20,21 +20,21 @@
             </div>
         </div>
 
-        @livewire('experience.experiences-list', [
+        @livewire('experience.experiences-list-work', [
             'title' => 'Work Experience',
             'experiences' => $recruit->works,
             'field_name' => 'Employer',
             'field_short' => 'Job',
         ])
 
-        @livewire('experience.experiences-list', [
+        @livewire('experience.experiences-list-education', [
             'title' => 'Education',
             'experiences' => $recruit->educations,
             'field_name' => 'Institute',
             'field_short' => 'Education',
         ])
 
-        @livewire('experience.experiences-list', [
+        @livewire('experience.experiences-list-course', [
             'title' => 'Course or Training',
             'experiences' => $recruit->courses,
             'field_name' => 'Institute',
