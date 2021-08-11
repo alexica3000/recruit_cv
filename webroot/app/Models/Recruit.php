@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -80,5 +81,15 @@ class Recruit extends Model implements HasImagesInterface
     public function courses(): HasMany
     {
         return $this->experiences()->where('type', Experience::TYPE_COURSE);
+    }
+
+    public function qualifications(): HasMany
+    {
+        return $this->hasMany(Qualification::class);
+    }
+
+    public function qualificationsByType(string $type): Collection
+    {
+        return $this->qualifications()->where('type', $type)->get();
     }
 }

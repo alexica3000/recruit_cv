@@ -44,7 +44,28 @@
             'recruit' => $recruit,
         ])
 
+        <div class="border border-1 border-gray-300 m-4"></div>
+
+        <div class="w-full flex">
+            <div class="w-1/2 inline-flex">
+                @livewire('qualification.qualifications-list-skill', ['recruit' => $recruit])
+            </div>
+            <div class="w-1/2 inline-flex">
+                @livewire('qualification.qualifications-list-characteristics', ['recruit' => $recruit])
+            </div>
+        </div>
+
+        <div class="w-full flex">
+            <div class="w-1/2 inline-flex">
+                @livewire('qualification.qualifications-list-social', ['recruit' => $recruit])
+            </div>
+            <div class="w-1/2 inline-flex">
+                @livewire('qualification.qualifications-list-interest', ['recruit' => $recruit])
+            </div>
+        </div>
+
         @livewire('experience.modal-experience-form')
+        @livewire('qualification.form')
     </x-main-wrapper>
 
 </x-app-layout>

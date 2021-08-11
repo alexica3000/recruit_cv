@@ -64,7 +64,7 @@ class ModalExperienceForm extends Component
         $this->recruitId   = $experience->recruit->id;
     }
 
-    public function addExperience()
+    public function addExperience(): void
     {
         $this->validate();
 
@@ -108,7 +108,7 @@ class ModalExperienceForm extends Component
         };
     }
 
-    public function resetData()
+    public function resetData(): void
     {
         $this->name = '';
         $this->short = '';
@@ -118,7 +118,7 @@ class ModalExperienceForm extends Component
         $this->experience = new Experience();
     }
 
-    public function submit()
+    public function submit(): void
     {
         isset($this->experience->id) ? $this->updateExperience() : $this->addExperience();
     }
