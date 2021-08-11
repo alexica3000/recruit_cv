@@ -81,19 +81,4 @@ class Recruit extends Model implements HasImagesInterface
     {
         return $this->experiences()->where('type', Experience::TYPE_COURSE);
     }
-
-    public function newWork()
-    {
-        return $this->works()->newModelInstance(['type' => Experience::TYPE_WORK, 'recruit_id' => $this->id]);
-    }
-
-    public function newEducation()
-    {
-        return $this->works()->newModelInstance(['type' => Experience::TYPE_EDUCATION, 'recruit_id' => $this->id]);
-    }
-
-    public function newCourse()
-    {
-        return $this->works()->newModelInstance(['type' => Experience::TYPE_COURSE, 'recruit_id' => $this->id]);
-    }
 }

@@ -4,8 +4,8 @@
 
 <div>
     <div class="mt-4">
-        {{ $title ?? '' }}
         <button wire:click="create"><i class="fas fa-plus-circle"></i></button>
+        {{ $title ?? '' }}
     </div>
 
     @if(isset($experiences) && count($experiences))
@@ -72,13 +72,7 @@
                                 <button wire:click="$emit('editExperience', {{ $experience }})"><i class="fas fa-edit"></i></button>
                             </div>
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110" x-data="{}">
-{{--                                <button id="del_recruit_{{ $recruit->id }}" wire:click="destroy({{$recruit->id}})"></button>--}}
-{{--                                <button--}}
-{{--                                    type="button"--}}
-{{--                                    @click="$dispatch('dispatchdeletemodal', {title: '{{ $recruit->slashedName }}', form_id: 'del_recruit_{{ $recruit->id }}'})"--}}
-{{--                                >--}}
-{{--                                    <i class="fas fa-trash-alt"></i>--}}
-{{--                                </button>--}}
+                                <button wire:click="delete({{$experience->id}})"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     </td>

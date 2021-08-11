@@ -20,4 +20,11 @@ class ExperiencesListEducation extends ExperiencesList
     {
         $this->emit('createExperience', $this->recruit->id, Experience::TYPE_EDUCATION);
     }
+
+    public function delete(Experience $experience)
+    {
+        $recruit = $experience->recruit;
+        $experience->delete();
+        $this->updateTypeEducation($recruit);
+    }
 }
