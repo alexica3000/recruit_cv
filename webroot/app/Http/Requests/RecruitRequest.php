@@ -20,21 +20,6 @@ class RecruitRequest extends FormRequest
             'description'           => 'required|string|max:191',
             'birth_date'            => 'required|date',
             'image'                 => 'nullable|image|max:5000',
-            'work.name'             => 'required|string|max:191',
-            'work.short'            => 'required|string|max:191',
-            'work.start'            => 'required|date',
-            'work.end'              => 'nullable|date',
-            'work.description'      => 'required|string',
-            'education.name'        => 'required|string|max:191',
-            'education.short'       => 'required|string|max:191',
-            'education.start'       => 'required|date',
-            'education.end'         => 'nullable|date',
-            'education.description' => 'required|string',
-            'course.name'           => 'required|string|max:191',
-            'course.short'          => 'required|string|max:191',
-            'course.start'          => 'required|date',
-            'course.end'            => 'nullable|date',
-            'course.description'    => 'required|string',
         ];
     }
 }

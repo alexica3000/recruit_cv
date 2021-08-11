@@ -82,12 +82,6 @@
     </div>
 </div>
 
-@include('admin.recruits._experience', ['title' => 'Work Experience', 'resource' => $recruit->work(), 'field' => 'work'])
-@include('admin.recruits._experience', ['title' => 'Education', 'resource' => $recruit->education(), 'field' => 'education'])
-@include('admin.recruits._experience', ['title' => 'Course or Training', 'resource' => $recruit->course(), 'field' => 'course'])
-
-<hr class="border border-gray-300 my-4">
-
 <div class="mb-6 text-center flex justify-center">
     <x-forms.submit-button text="{{ isset($recruit->id) ? 'Edit Recruit' : 'Add Recruit' }}" />
     <x-forms.cancel-button route="{{ route('recruits.index') }}" />

@@ -13,16 +13,16 @@ class RecruitsList extends Component
 {
     use WithPagination;
 
-    public string $search;
+    public string $search = '';
 
     public function render(): View
     {
         return view('livewire.recruits-list', ['recruits' => $this->getRecruits()]);
     }
 
-    public function mount()
+    public function updatingSearch()
     {
-        $this->search = '';
+        $this->resetPage();
     }
 
     private function getRecruits(): LengthAwarePaginator
