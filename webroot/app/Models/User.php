@@ -90,4 +90,13 @@ class User extends Authenticatable implements HasRoleInterface
     {
         return addslashes($this->name);
     }
+
+    public function hasRole(string $role): bool
+    {
+        return match ($role) {
+            'admin' => $this->role_id == self::ROLE_ADMIN,
+            'client' => $this->role_id == self::ROLE_CLIENT,
+            'user' => $this->role_id == self::ROLE_USER,
+        };
+    }
 }
