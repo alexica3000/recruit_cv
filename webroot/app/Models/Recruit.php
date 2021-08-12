@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Storage;
  * @property HasMany $works
  * @property HasMany $educations
  * @property HasMany $courses
+ * @property Collection $companies
  */
 class Recruit extends Model implements HasImagesInterface
 {
@@ -91,5 +93,10 @@ class Recruit extends Model implements HasImagesInterface
     public function qualificationsByType(string $type): Collection
     {
         return $this->qualifications()->where('type', $type)->get();
+    }
+
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'companies_recruits')->orderBy('name');
     }
 }

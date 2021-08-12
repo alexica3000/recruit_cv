@@ -20,6 +20,8 @@
             </div>
         </div>
 
+        @livewire('client-recruits', ['recruit' => $recruit])
+
         @livewire('experience.experiences-list-work', [
             'title' => 'Work Experience',
             'experiences' => $recruit->works,

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsRecruitsTable extends Migration
+class CreateCompaniesRecruitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateClientsRecruitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients_recruits', function (Blueprint $table) {
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+        Schema::create('companies_recruits', function (Blueprint $table) {
+            $table->foreignId('company_id')->references('id')->on('companies')->cascadeOnDelete();
             $table->foreignId('recruit_id')->references('id')->on('recruits')->cascadeOnDelete();
+
+            $table->primary(['company_id', 'recruit_id']);
         });
     }
 
@@ -26,6 +28,6 @@ class CreateClientsRecruitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients_recruits');
+        Schema::dropIfExists('companies_recruits');
     }
 }
