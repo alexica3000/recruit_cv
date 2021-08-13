@@ -1,3 +1,8 @@
+@php
+    /** @var \App\Models\Company $company */
+    /** @var \App\Models\User $user */
+@endphp
+
 <div class="mb-4 md:flex md:justify-between">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
@@ -54,16 +59,33 @@
     </div>
 </div>
 
-<div class="mb-4 w-full">
+<div class="mb-4 md:flex md:justify-between" x-data="handleRole">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
             Role
         </label>
-        <select class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none rounded" name="role_id">
-            <option>Choose a role</option>
+        <select
+            class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none rounded"
+            name="role_id"
+            @change="selectRole"
+        >
+            <option value="" hidden>Choose a role</option>
             @foreach(\App\Models\User::ROLES as $key => $role)
                 <option value="{{ $key }}" {{ $key == $user->role_id ? 'selected' : '' }}>{{ $role }}</option>
             @endforeach
+        </select>
+    </div>
+    <div class="md:ml-2 w-1/2 {{ $user->role_id == \App\Models\User::ROLE_CLIENT ? '' : 'hidden' }}" id="choose_company">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="c_company">
+            Choose Company
+        </label>
+        <select name="company" id="company" class="border border-gray-300 text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none rounded">
+            <option value="" hidden>Please Select</option>
+            @if(isset($companies) && count($companies))
+                @foreach($companies as $company)
+                    <option value="{{ $company->id }}" {{ $company->id == $user->company_id ? 'selected' : '' }}>{{ $company->name }}</option>
+                @endforeach
+            @endif
         </select>
     </div>
 </div>
@@ -72,3 +94,20 @@
     <x-forms.submit-button text="{{ isset($user->id) ? 'Edit User' : 'Add User' }}" />
     <x-forms.cancel-button route="{{ route('users.index') }}" />
 </div>
+
+<script>
+    function handleRole() {
+        return {
+            selectRole: function(e) {
+                const roleId = e.target.value;
+                const clientId = '{{ \App\Models\User::ROLE_CLIENT }}';
+
+                if (roleId === clientId) {
+                    document.getElementById('choose_company').classList.remove('hidden');
+                } else {
+                    document.getElementById('choose_company').classList.add('hidden');
+                }
+            }
+        }
+    }
+</script>

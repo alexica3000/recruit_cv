@@ -6,6 +6,7 @@ use App\Interfaces\HasRoleInterface;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -22,7 +23,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name
  * @property string $slashesName
  * @property string $role
- * @property integer $role_id
+ * @property int $role_id
+ * @property int $company_id
  */
 class User extends Authenticatable implements HasRoleInterface
 {
@@ -98,5 +100,10 @@ class User extends Authenticatable implements HasRoleInterface
             'client' => $this->role_id == self::ROLE_CLIENT,
             'user' => $this->role_id == self::ROLE_USER,
         };
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 }
