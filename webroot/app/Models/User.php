@@ -25,6 +25,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $role
  * @property int $role_id
  * @property int $company_id
+ * @property Company $company
  */
 class User extends Authenticatable implements HasRoleInterface
 {

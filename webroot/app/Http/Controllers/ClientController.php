@@ -8,6 +8,6 @@ class ClientController extends Controller
 {
     public function recruits()
     {
-        dd('t');
+        return view('client.recruits.index');
     }
 }
