@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Client;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,6 +28,12 @@ class ClientRecruits extends Component
     {
         /** @var User $user */
         $user = auth()->user();
-        return $user->company->recruits()->paginate();
+        return $user->company->recruits()
+            ->when($this->search, function (Builder $query) {
+                $query->where(function($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')->orWhere('job', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->paginate();
     }
 }
