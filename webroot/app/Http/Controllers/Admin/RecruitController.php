@@ -17,7 +17,7 @@ class RecruitController extends BaseRecruitController
 
     public function create(): View
     {
-        return view('admin.recruits.create');
+        return view('admin.recruits.create_edit');
     }
 
     public function store(RecruitRequest $request): RedirectResponse
@@ -34,7 +34,7 @@ class RecruitController extends BaseRecruitController
 
     public function edit(Recruit $recruit): View
     {
-        return view('admin.recruits.edit', compact('recruit'));
+        return view('admin.recruits.create_edit', compact('recruit'));
     }
 
     public function update(RecruitRequest $request, Recruit $recruit): RedirectResponse

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\Company;
 use App\Models\User;
-use App\Services\CompanyService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
