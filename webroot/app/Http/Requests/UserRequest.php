@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
+use App\Interfaces\HasRoleInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -18,7 +18,8 @@ class UserRequest extends FormRequest
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255',
             'password' => $this->passwordRules(),
-            'role_id'  => 'required|in:' . implode(',', array_keys(User::ROLES))
+            'role_id'  => 'required|in:' . implode(',', array_keys(HasRoleInterface::ROLES)),
+            'company'  => 'nullable|required_if:role_id,2|exists:users,id'
         ];
     }
 

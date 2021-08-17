@@ -6,7 +6,9 @@ use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $slashedName
  * @property Image $logo
  * @property string $logoUrl
+ * @property Collection $recruits
  */
 class Company extends Model implements HasImagesInterface
 {
@@ -55,5 +58,10 @@ class Company extends Model implements HasImagesInterface
         }
 
         return asset('/images/default.png');
+    }
+
+    public function recruits(): BelongsToMany
+    {
+        return $this->belongsToMany(Recruit::class, 'companies_recruits');
     }
 }
