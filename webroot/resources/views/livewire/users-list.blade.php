@@ -23,6 +23,7 @@
             class="text-sm text-gray-800 bg-gray-300 py-2 px-8 ml-2 rounded hover:bg-gray-600 hover:text-gray-100"
             wire:click="clear"
         >Clear</button>
+        <x-tooltip>Please, click to Clear button to reset the Search</x-tooltip>
     </div>
 
     <table class="min-w-max w-full table-auto mt-4">
