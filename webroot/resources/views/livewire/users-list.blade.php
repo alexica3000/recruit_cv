@@ -1,12 +1,6 @@
 <div>
     <div class="mb-4 md:mr-2 md:mb-0">
-        <input
-            class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            type="text"
-            placeholder="Search"
-            name="search"
-            wire:model.debounce.500ms="search"
-        />
+        <x-search />
 
         <select
             class="text-sm text-gray-600 pl-5 pr-10 ml-2 bg-white hover:border-gray-400 focus:outline-none appearance-none border rounded leading-tight"
