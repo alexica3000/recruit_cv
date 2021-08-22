@@ -2,17 +2,18 @@
 
 namespace App\View\Components;
 
+use App\Interfaces\HasImagesInterface;
 use Illuminate\View\Component;
 
 class Logo extends Component
 {
-    public $model;
+    public HasImagesInterface $model;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct(HasImagesInterface $model)
     {
         $this->model = $model;
     }

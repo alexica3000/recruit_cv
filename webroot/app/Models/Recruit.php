@@ -51,7 +51,7 @@ class Recruit extends Model implements HasImagesInterface
     /**
      * @return Image|null
      */
-    protected function getLogoAttribute(): Image|null
+    public function getLogoAttribute(): Image|null
     {
         return $this->images->first();
     }

@@ -18,7 +18,7 @@ class CompanyController extends Controller
 
     public function create(): View
     {
-        return view('admin.companies.create');
+        return view('admin.companies.create_edit');
     }
 
     public function store(CompanyRequest $request, ImageService $service): RedirectResponse
@@ -37,7 +37,7 @@ class CompanyController extends Controller
 
     public function edit(Company $company): View
     {
-        return view('admin.companies.edit', compact('company'));
+        return view('admin.companies.create_edit', compact('company'));
     }
 
     public function update(CompanyRequest $request, Company $company, ImageService $service): RedirectResponse

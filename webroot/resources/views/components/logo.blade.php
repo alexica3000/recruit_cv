@@ -1,5 +1,4 @@
 <div x-data="handlerImage">
-
         <div class="mt-5 pt-1 w-full">
             <div class="pt-2 {{ $model->logo ? 'hidden' : '' }}" id="input_block">
                 <label class="px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-600 hover:text-white">
