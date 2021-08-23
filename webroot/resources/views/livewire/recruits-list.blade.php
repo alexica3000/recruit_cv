@@ -33,7 +33,9 @@
                         <div class="flex items-center">
                             <div class="mr-2">
                                 <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
-                                <span class="ml-2">{{ $recruit->name }}</span>
+                                <span class="ml-2">
+                                    <a href="{{ route('recruit', $recruit) }}">{{ $recruit->name }}</a>
+                                </span>
                             </div>
                         </div>
                     </td>

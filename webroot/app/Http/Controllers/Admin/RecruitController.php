@@ -27,9 +27,9 @@ class RecruitController extends BaseRecruitController
         return redirect()->route('recruits.index')->with('status', 'The recruit has been saved successfully.');
     }
 
-    public function show()
+    public function show(Recruit $recruit): View
     {
-        abort(404);
+        return view('recruit.show', compact('recruit'));
     }
 
     public function edit(Recruit $recruit): View

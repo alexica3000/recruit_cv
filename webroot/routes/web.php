@@ -21,4 +21,6 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', 'verified'])->group(func
     Route::name('client.')->prefix('client')->middleware(['role:client'])->group(function() {
         Route::get('recruits', [ClientController::class, 'recruits'])->name('recruits');
     });
+
+    Route::get('recruit/{recruit}', [RecruitController::class, 'show'])->name('recruit');
 });

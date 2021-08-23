@@ -4,13 +4,7 @@
 
 <div>
     <div class="mb-4 md:mr-2 md:mb-0">
-        <input
-            class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            type="text"
-            placeholder="Search"
-            name="search"
-            wire:model.debounce.500ms="search"
-        />
+        <x-search />
     </div>
 
     @if(count($recruits))
@@ -38,7 +32,9 @@
                         <div class="flex items-center">
                             <div class="mr-2">
                                 <img src="{{ $recruit->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
-                                <span class="ml-2">{{ $recruit->name }}</span>
+                                <span class="ml-2">
+                                    <a href="{{ route('recruit', $recruit) }}">{{ $recruit->name }}</a>
+                                </span>
                             </div>
                         </div>
                     </td>
