@@ -62,7 +62,7 @@
                     <td class="py-2 px-6 text-center">
                         <div class="flex items-center">
                             <div class="mr-2">
-                                <span class="ml-2">{{ $experience->description }}</span>
+                                <span class="ml-2">{{ \Illuminate\Support\Str::limit($experience->description, 30) }}</span>
                             </div>
                         </div>
                     </td>
