@@ -34,7 +34,9 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'role_id.in' => 'Role field is required.'
+            'role_id.in'          => 'The role field is invalid.',
+            'role_id.required'    => 'The role field is required.',
+            'company.required_if' => 'The company field is required when role is client.',
         ];
     }
 }

@@ -13,7 +13,7 @@
             type="text"
             placeholder="Name"
             name="name"
-            value="{{ $user->name }}"
+            value="{{ old('name', $user->name) }}"
         />
         @error('name')
             <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
@@ -29,10 +29,10 @@
             type="email"
             placeholder="Email"
             name="email"
-            value="{{ $user->email }}"
+            value="{{ old('email', $user->email) }}"
         />
-        @error('name')
-        <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
+        @error('email')
+            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
         @enderror
     </div>
 </div>
@@ -74,12 +74,15 @@
             name="role_id"
             @change="selectRole"
         >
-            <option value="" disabled>Choose a role</option>
+            <option value="">Choose a role</option>
             @foreach(\App\Models\User::ROLES as $key => $role)
-                <option value="{{ old('role_id', $key) }}" {{ old('role_id', $key) == $user->role_id ? 'selected' : '' }}>{{ $role }}</option>
+                <option value="{{ $key }}" {{ ($key == $user->role_id || $key == old('role_id')) ? 'selected' : '' }}>{{ $role }}</option>
             @endforeach
         </select>
         @error('role_id')
+            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
+        @enderror
+        @error('company')
             <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
         @enderror
     </div>
