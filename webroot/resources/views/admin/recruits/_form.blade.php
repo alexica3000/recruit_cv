@@ -9,25 +9,27 @@
             Name
         </label>
         <input
-            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
             type="text"
             placeholder="Name"
             name="name"
-            value="{{ $recruit->name }}"
+            value="{{ old('name', $recruit->name) }}"
         />
+        <x-error-input inputName="name" />
     </div>
     <div class="md:ml-2 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
             City
         </label>
         <input
-            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('city') border-red-500 @enderror"
             id="city"
             type="text"
             placeholder="City"
             name="city"
-            value="{{ $recruit->city }}"
+            value="{{ old('city', $recruit->city) }}"
         />
+        <x-error-input inputName="city" />
     </div>
 </div>
 
@@ -37,39 +39,42 @@
             Job
         </label>
         <input
-            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('job') border-red-500 @enderror"
             id="job"
             type="text"
             placeholder="Job"
             name="job"
-            value="{{ $recruit->job }}"
+            value="{{ old('job', $recruit->job) }}"
         />
-        <p class="text-xs italic text-red-500">Please choose a password.</p>
+        <x-error-input inputName="job" />
     </div>
     <div class="md:ml-2 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="c_password">
             Birth Date
         </label>
         <input
-            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('birth_date') border-red-500 @enderror"
             id="birth_date"
             type="date"
             placeholder="Birth Date"
             name="birth_date"
             value="{{ old('birth_date', $recruit->birth_date ? $recruit->birth_date->format('Y-m-d') : '') }}"
         />
+        <x-error-input inputName="birth_date" />
     </div>
 </div>
 
 <div class="mb-4 md:flex w-full">
-    <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
+    <div class="md:mr-2 md:mb-0 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
             Description
         </label>
-        <textarea name="description" id="description" cols="33" rows="5">{{ $recruit->description }}</textarea>
+        <textarea name="description" id="description" cols="33" rows="5" class="@error('description') border-red-500 @enderror">{{ old('description', $recruit->description) }}</textarea>
+        <x-error-input inputName="description" />
     </div>
-    <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
+    <div class="md:mr-2 md:mb-0 w-1/2">
         <x-logo :model="$recruit" />
+        <x-error-input inputName="image" />
     </div>
 </div>
 
