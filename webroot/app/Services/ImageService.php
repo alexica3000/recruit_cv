@@ -27,10 +27,6 @@ class ImageService
     public function updateImage(Request $request, HasImagesInterface $resource): void
     {
         if(!$request->hasFile('image')) {
-            if (isset($resource->logo)) {
-                $this->deleteImage($resource->logo);
-            }
-
             return;
         }
 
