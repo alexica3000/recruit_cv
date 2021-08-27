@@ -15,25 +15,21 @@
             name="name"
             value="{{ old('name', $user->name) }}"
         />
-        @error('name')
-            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
-        @enderror
+        <x-error-input inputName="name" />
     </div>
     <div class="md:ml-2 w-1/2">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
             Email
         </label>
         <input
-            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror"
             id="email"
             type="email"
             placeholder="Email"
             name="email"
             value="{{ old('email', $user->email) }}"
         />
-        @error('email')
-            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
-        @enderror
+        <x-error-input inputName="email" />
     </div>
 </div>
 
@@ -79,12 +75,8 @@
                 <option value="{{ $key }}" {{ ($key == $user->role_id || $key == old('role_id')) ? 'selected' : '' }}>{{ $role }}</option>
             @endforeach
         </select>
-        @error('role_id')
-            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
-        @enderror
-        @error('company')
-            <div class="text-xs italic text-red-500 mt-2">{{ $message }}</div>
-        @enderror
+        <x-error-input inputName="role_id" />
+        <x-error-input inputName="company" />
     </div>
     <div class="md:ml-2 w-1/2 {{ $user->role_id == \App\Models\User::ROLE_CLIENT ? '' : 'hidden' }}" id="choose_company">
         <label class="block mb-2 text-sm font-bold text-gray-700" for="c_company">

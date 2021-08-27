@@ -6,18 +6,20 @@
             Name
         </label>
         <input
-            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
             type="text"
             placeholder="Name"
             name="name"
-            value="{{ $company->name }}"
+            value="{{ old('name', $company->name) }}"
         />
+        <x-error-input inputName="name" />
     </div>
 </div>
 
 <div class="mb-4 w-full flex">
     <div class="mb-4 md:mr-2 md:mb-0 w-1/2">
         <x-logo :model="$company" />
+        <x-error-input inputName="image" />
     </div>
 </div>
 
