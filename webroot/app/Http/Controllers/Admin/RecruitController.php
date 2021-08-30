@@ -17,7 +17,7 @@ class RecruitController extends BaseRecruitController
 
     public function create(): View
     {
-        return view('admin.recruits.create');
+        return view('admin.recruits.create_edit');
     }
 
     public function store(RecruitRequest $request): RedirectResponse
@@ -27,14 +27,14 @@ class RecruitController extends BaseRecruitController
         return redirect()->route('recruits.index')->with('status', 'The recruit has been saved successfully.');
     }
 
-    public function show()
+    public function show(Recruit $recruit): View
     {
-        abort(404);
+        return view('recruit.show', compact('recruit'));
     }
 
     public function edit(Recruit $recruit): View
     {
-        return view('admin.recruits.edit', compact('recruit'));
+        return view('admin.recruits.create_edit', compact('recruit'));
     }
 
     public function update(RecruitRequest $request, Recruit $recruit): RedirectResponse

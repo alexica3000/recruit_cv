@@ -5,7 +5,7 @@
             <div class="flex">
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <x-jet-application-mark class="block h-9 w-auto rounded-full" />
                     </a>
                 </div>
 
@@ -16,17 +16,17 @@
                 </div>
                 @if(auth()->user()->hasRole('admin'))
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                        <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                             {{ __('Users') }}
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.index')">
+                        <x-jet-nav-link href="{{ route('companies.index') }}" :active="request()->routeIs('companies.*')">
                             {{ __('Companies') }}
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('recruits.index') }}" :active="request()->routeIs('recruits.index')">
+                        <x-jet-nav-link href="{{ route('recruits.index') }}" :active="request()->routeIs('recruits.*')">
                             {{ __('Recruits') }}
                         </x-jet-nav-link>
                     </div>

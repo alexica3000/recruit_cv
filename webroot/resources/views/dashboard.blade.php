@@ -5,11 +5,25 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
+    <x-main-wrapper>
+        <div class="flex justify-center">
+            <div class="mb-5 w-full lg:w-8/12 bg-white rounded-lg lg:rounded-l-none ">
+                <div class="mt-8 text-2xl">
+                    Welcome, {{ auth()->user()->name }}
+                </div>
+
+                <div class="mt-6 text-gray-500">
+                    <div>
+                        <strong>Total users:</strong> {{ $totalUsers }}
+                    </div>
+                    <div>
+                        <strong>Total companies:</strong> {{ $totalCompanies }}
+                    </div>
+                    <div>
+                        <strong>Total recruits:</strong> {{ $totalRecruits }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </x-main-wrapper>
 </x-app-layout>
