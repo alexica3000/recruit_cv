@@ -9,8 +9,8 @@ class DevDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            DevUsersSeeder::class,
             DevCompaniesSeeder::class,
+            DevUsersSeeder::class,
             DevRecruitsSeeder::class,
         ]);
     }
