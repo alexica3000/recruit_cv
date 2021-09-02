@@ -46,7 +46,8 @@ class User extends Authenticatable implements HasRoleInterface
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'company_id',
     ];
 
     /**
