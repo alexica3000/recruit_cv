@@ -28,6 +28,7 @@ class RecruitsList extends Component
     private function getRecruits(): LengthAwarePaginator
     {
         return Recruit::query()
+            ->with('images')
             ->when($this->search, fn(Builder $query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->orderByDesc('id')
             ->paginate();

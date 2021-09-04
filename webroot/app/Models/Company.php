@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
  * @property Image $logo
  * @property string $logoUrl
  * @property Collection $recruits
+ * @property Collection|Image[] $images
  */
 class Company extends Model implements HasImagesInterface
 {
@@ -36,7 +37,7 @@ class Company extends Model implements HasImagesInterface
     }
 
     /**
-     * @return MorphMany|Image[]
+     * @return MorphMany
      */
     public function images(): MorphMany
     {
@@ -48,7 +49,7 @@ class Company extends Model implements HasImagesInterface
      */
     public function getLogoAttribute(): Image|null
     {
-        return $this->images()->first();
+        return $this->images->first();
     }
 
     protected function getLogoUrlAttribute(): string

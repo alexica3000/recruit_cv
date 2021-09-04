@@ -34,6 +34,7 @@ class CompaniesList extends Component
     private function getCompanies(): LengthAwarePaginator
     {
         return Company::query()
+            ->with('images')
             ->when($this->search, function(Builder $query) {
                 $query->where('name', 'like', "%$this->search%");
             })
