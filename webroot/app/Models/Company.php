@@ -6,6 +6,7 @@ use App\Interfaces\HasImagesInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
@@ -64,5 +65,10 @@ class Company extends Model implements HasImagesInterface
     public function recruits(): BelongsToMany
     {
         return $this->belongsToMany(Recruit::class, 'companies_recruits');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'company_id');
     }
 }

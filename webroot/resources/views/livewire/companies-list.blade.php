@@ -9,6 +9,7 @@
         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
             <th class="py-2 px-6 text-left">Id</th>
             <th class="py-2 px-6 text-left">Name</th>
+            <th class="py-2 px-6 text-left">Users</th>
             <th class="py-2 px-6 text-center">Created At</th>
             <th class="py-2 px-6 text-center">Actions</th>
         </tr>
@@ -31,6 +32,9 @@
                             <span class="ml-2">{{ $company->name }}</span>
                         </div>
                     </div>
+                </td>
+                <td class="py-2 px-6 text-center">
+                    {{ $company->users_count > 0 ? $company->users_count : '' }}
                 </td>
                 <td class="py-2 px-6 text-center">
                     {{ $company->created_at->format('d.m.Y') }}
