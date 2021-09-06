@@ -12,6 +12,16 @@
             @endforeach
         </select>
 
+        <select
+            class="text-sm text-gray-600 pl-5 pr-10 ml-2 bg-white hover:border-gray-400 focus:outline-none appearance-none border rounded leading-tight"
+            wire:model="companyId"
+        >
+            <option value="">Choose a companies</option>
+            @foreach($companies as $company)
+                <option value="{{ $company->id }}">{{ $company->name }}</option>
+            @endforeach
+        </select>
+
         <button
             type="button"
             class="text-sm text-gray-800 bg-gray-300 py-2 px-8 ml-2 rounded hover:bg-gray-600 hover:text-gray-100"

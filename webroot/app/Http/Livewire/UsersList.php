@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -22,6 +24,7 @@ class UsersList extends Component
     protected LengthAwarePaginator $users;
     public string $search;
     public string $roleId;
+    public string $companyId;
 
     protected $listeners = ['deleteUser' => 'destroy'];
 
@@ -32,7 +35,7 @@ class UsersList extends Component
 
     public function render(): View
     {
-        return view('livewire.users-list', ['users' => $this->getUsers()]);
+        return view('livewire.users-list', ['users' => $this->getUsers(), 'companies' => $this->getCompanies()]);
     }
 
     public function updatingSearch()
@@ -56,13 +59,25 @@ class UsersList extends Component
             ->when($this->roleId, function(Builder $query) {
                 $query->where('role_id', $this->roleId);
             })
+            ->when($this->companyId, function(Builder $query) {
+                $query->where('company_id', $this->companyId);
+            })
             ->orderBy('id', 'desc')
             ->paginate();
+    }
+
+    private function getCompanies(): Collection
+    {
+        return Company::query()
+            ->whereHas('users')
+            ->orderBy('name')
+            ->get();
     }
 
     public function clear(): void
     {
         $this->search = '';
         $this->roleId = '';
+        $this->companyId = '';
     }
 }
