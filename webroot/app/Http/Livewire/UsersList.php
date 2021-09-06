@@ -24,13 +24,14 @@ class UsersList extends Component
     protected LengthAwarePaginator $users;
     public string $search;
     public string $roleId;
-    public string $companyId;
+    public ?string $companyId;
 
     protected $listeners = ['deleteUser' => 'destroy'];
 
-    public function mount()
+    public function mount(string $companyId = null)
     {
         $this->clear();
+        $this->companyId = $companyId ?? '';
     }
 
     public function render(): View
