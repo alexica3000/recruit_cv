@@ -7,7 +7,7 @@
 
     <x-main-wrapper>
         <x-forms.add-button route="{{ route('users.create') }}" />
-        <livewire:users-list/>
+        <livewire:users-list :companyId="request()->get('companyId')" />
         <x-modal />
     </x-main-wrapper>
 
