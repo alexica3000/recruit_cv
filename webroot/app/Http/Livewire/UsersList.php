@@ -80,5 +80,6 @@ class UsersList extends Component
         $this->search = '';
         $this->roleId = '';
         $this->companyId = '';
+        request()->query->remove('companyId');
     }
 }
