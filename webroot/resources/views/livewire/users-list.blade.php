@@ -36,6 +36,7 @@
                 <th class="py-2 px-6 text-left">Id</th>
                 <th class="py-2 px-6 text-left">Name</th>
                 <th class="py-2 px-6 text-center">Email</th>
+                <th class="py-2 px-6 text-center">Company</th>
                 <th class="py-2 px-6 text-center">Role</th>
                 <th class="py-2 px-6 text-center">Created At</th>
                 <th class="py-2 px-6 text-center">Actions</th>
@@ -61,6 +62,9 @@
                 </td>
                 <td class="py-2 px-6">
                     <div>{{ $user->email }}</div>
+                </td>
+                <td class="py-2 px-6">
+                    <div>{{ $user->company?->name }}</div>
                 </td>
                 <td class="py-2 px-6 text-center">
                     <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs">{{ $user->role }}</span>
