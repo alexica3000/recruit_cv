@@ -54,6 +54,7 @@ class UsersList extends Component
     private function getUsers(): LengthAwarePaginator
     {
         return User::query()
+            ->with('company')
             ->when($this->search, function(Builder $query) {
                 $query->where('name', 'like', "%$this->search%");
             })

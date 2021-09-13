@@ -34,7 +34,7 @@ class Recruit extends Model implements HasImagesInterface
     use HasFactory;
 
     protected $fillable = ['name', 'city', 'job', 'description', 'birth_date'];
-    protected $perPage = 10;
+    protected $perPage = 50;
 
     protected $casts = [
         'birth_date' => 'datetime'

@@ -30,7 +30,7 @@
                         <div class="mr-2">
                             <img src="{{ $company->logoUrl }}" alt="" class="h-7 w-7 rounded-full inline-block">
                             <span class="ml-2">
-                                @if(count($company->users))
+                                @if($company->users_count)
                                     <a href="{{ route('users.index', ['companyId' => $company->id]) }}">{{ $company->name }}</a>
                                 @else
                                     {{ $company->name }}

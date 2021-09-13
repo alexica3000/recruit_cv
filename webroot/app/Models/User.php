@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasRoleInterface
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    protected $perPage = 10;
+    protected $perPage = 50;
 
     /**
      * The attributes that are mass assignable.
