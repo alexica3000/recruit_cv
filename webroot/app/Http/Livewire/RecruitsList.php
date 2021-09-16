@@ -33,4 +33,9 @@ class RecruitsList extends Component
             ->orderByDesc('id')
             ->paginate();
     }
+
+    public function destroy(Recruit $recruit): void
+    {
+        $recruit->delete();
+    }
 }

@@ -30,7 +30,7 @@ class Company extends Model implements HasImagesInterface
 
     protected $table = 'companies';
     protected $fillable = ['name'];
-    protected $perPage = 10;
+    protected $perPage = 50;
 
     public function getSlashedNameAttribute(): string
     {
